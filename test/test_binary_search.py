@@ -1,5 +1,6 @@
 from ..binary_search.binary_search_02 import find_ceiling
 from ..binary_search.binary_search_01 import index_equals_value_search
+from ..binary_search.binary_search_03 import find_mind_diff
 from pytest import mark
 
 
@@ -32,3 +33,11 @@ def test_binary_search_02_case_03():
     key = -3
     result = find_ceiling(arr, key)
     assert result == 3
+
+
+@mark.bst3
+def test_binary_search_03_case_01():
+    arr = [-10, -8, -3, 0, 4, 8, 14, 20]
+    key = 10
+    result = find_mind_diff(arr, key)
+    assert result == 8

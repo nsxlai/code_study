@@ -30,6 +30,8 @@ class Student(Person):
     def calculate(self):
         # Score is a list; need to add all the elements up and average
         avg_score = int(sum(self.scores) / len(self.scores))
+        print(f'There are {len(self.scores)} scores for this students')
+        print(f'The average score for this student is {avg_score}')
         if 90 <= avg_score <= 100:
             grade = 'O'
         elif 80 <= avg_score < 90:

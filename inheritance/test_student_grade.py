@@ -1,4 +1,4 @@
-import unittest
+from pytest import mark
 from . import student_grade
 
 """
@@ -14,7 +14,22 @@ Aakansha Doshi 7825621
 """
 
 
-class student_grade_Tests(unittest.TestCase):
-    def setup(self):
-        self.s = student_grade.Student(firstName, lastName, idNum, scores)
-        self.s.printPerson()
+# @mark.student_test
+def test_student1(self):
+    s1 = Student('Heraldo', 'Memelli', '8135627', [100, 80])
+    s1.printPerson()
+    print("Grade:", s1.calculate())
+
+
+# @mark.student_test
+def test_student2(self):
+    s2 = Student('Aakansha', 'Doshi', '7825621', [31, 32, 34, 35])
+    s2.printPerson()
+    print("Grade:", s2.calculate())
+
+
+# @mark.student_test
+def test_student3(self):
+    s3 = Student('John', 'Smith', '8342756', [67, 75, 83, 73])
+    s3.printPerson()
+    print("Grade:", s3.calculate())
