@@ -2,8 +2,8 @@ import sys
 import os.path
 
 sys.path.append(os.path.join(os.path.abspath(os.pardir), "linked_list"))
-
-from linked_list.linked_list import LinkedList
+# from linked_list.linked_list_singly_sample2 import Node
+from ..linked_list.linked_list_singly_sample2 import LinkedList
 import unittest
 
 

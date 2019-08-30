@@ -23,4 +23,4 @@ def index_equals_value_search(arr):
             end = mid - 1
         elif arr[mid] < mid:
             start = mid + 1
-    return -1
+    raise ValueError('Value not in the list')
