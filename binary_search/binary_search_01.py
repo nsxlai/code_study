@@ -18,7 +18,10 @@ def index_equals_value_search(arr):
 
         # Searching for the half of the array for content
         if arr[mid] == mid:
-            return mid
+            if arr[mid-1] == mid-1:
+                return mid-1
+            else:
+                return mid
         elif arr[mid] > mid:
             end = mid - 1
         elif arr[mid] < mid:
