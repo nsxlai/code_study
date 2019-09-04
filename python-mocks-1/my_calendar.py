@@ -15,3 +15,7 @@ def get_holidays():
         return 'Page Not Found'
     return None
 
+
+def set_variable():
+    cert = 'dummy variable'
+    return cert
