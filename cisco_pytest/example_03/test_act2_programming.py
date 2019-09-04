@@ -54,8 +54,6 @@ prog_status_pass_case = [
     [True],
     [False, True],
     [False, False, True],
-    [False, False, False, True],
-    [False, False, False],
 ]
 
 prog_status_fail_case = [
@@ -78,7 +76,7 @@ def test_program_act2_pass(_, __, mock_menush_program_act2, act2_prog_status):
 @patch.object(menush, 'blade_program_act2')
 @patch.object(bs_seq_steps.lib, 'apdicts')
 @patch('apollo.libs.lib.getstepdata')
-def test_program_act2_pass(_, __, mock_menush_program_act2, act2_prog_status):
+def test_program_act2_fail(_, __, mock_menush_program_act2, act2_prog_status):
     mock_menush_program_act2.side_effect = act2_prog_status
     result = bs_seq_steps.blade_program_act2()
     assert result == bs_seq_steps.lib.FAIL
