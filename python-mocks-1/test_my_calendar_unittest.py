@@ -5,7 +5,7 @@ from requests.exceptions import Timeout
 from unittest.mock import Mock
 from unittest.mock import patch
 
-"""
+
 # Mock requests to control its behavior
 # requests = Mock()
 
@@ -63,10 +63,9 @@ class CalendarTest(unittest.TestCase):
 
         # Finally, assert .get() was called twice
         assert requests.get.call_count == 2
-"""
 
 
-class CalendarTests(unittest.TestCase):
+class CalendarTestsPart2(unittest.TestCase):
     @patch('my_calendar.requests')
     def test_get_holidays_timeout(self, mock_requests):
         mock_requests.get.side_effect = Timeout
@@ -75,7 +74,7 @@ class CalendarTests(unittest.TestCase):
             mock_requests.get_assert_called_once()
 
 
-class CalendarTests_p2(unittest.TestCase):
+class CalendarTestsPart3(unittest.TestCase):
     @patch.object(requests, 'get', side_effect=requests.exceptions.Timeout)
     def test_get_holidays_timeout(self, mock_requests):
         with self.assertRaises(requests.exceptions.Timeout):

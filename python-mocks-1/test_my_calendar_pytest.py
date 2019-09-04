@@ -43,6 +43,7 @@ def log_request_bad_status_code(url):
     return response_mock
 
 
+@pytest.mark.log_simple
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_holidays_with_success_status(mock_request_get):
     mock_request_get.side_effect = log_request_success
@@ -51,6 +52,7 @@ def test_get_holidays_with_success_status(mock_request_get):
     assert result['12/25'] == 'Christmas'
 
 
+@pytest.mark.log_simple
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_holidays_with_page_not_found(mock_request_get):
     mock_request_get.side_effect = log_request_page_not_found
@@ -58,6 +60,7 @@ def test_get_holidays_with_page_not_found(mock_request_get):
     assert result == 'Page Not Found'
 
 
+@pytest.mark.log_simple
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_holidays_with_bad_status_code(mock_request_get):
     mock_request_get.side_effect = log_request_bad_status_code
@@ -65,6 +68,7 @@ def test_get_holidays_with_bad_status_code(mock_request_get):
     assert result is None
 
 
+@pytest.mark.log_standard
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_calendar_retry(mock_request_get):
     response_mock = mock.MagicMock()
@@ -144,9 +148,8 @@ class CalendarTest(unittest.TestCase):
 
         # Finally, assert .get() was called twice
         assert requests.get.call_count == 2
-"""
 
-"""
+
 class CalendarTests(unittest.TestCase):
     @patch('my_calendar.requests')
     def test_get_holidays_timeout(self, mock_requests):
