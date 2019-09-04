@@ -1,3 +1,7 @@
+import mock
+from . import seq_steps as bakerstreet_steps
+
+
 @mock.patch('apollo.libs.lib.apdicts')
 @mock.patch.object(bakerstreet_steps, 'debug_message_display')
 @mock.patch('apollo.libs.lib.get_apollo_mode')
