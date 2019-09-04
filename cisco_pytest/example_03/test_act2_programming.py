@@ -1,54 +1,53 @@
 from mock import patch
 import mock
-from ... import seq_steps
-from .. import seq_steps as bs_seq_steps
-from ....env import menush
+from . import seq_steps as bs_seq_steps
+from . import menush
 from pytest import mark
 
 
-@patch.object(seq_steps.lib, 'apdicts')
-@patch.object(seq_steps.cesiumlib, 'verify_area')
+@patch.object(bs_seq_steps.lib, 'apdicts')
+@patch.object(bs_seq_steps.cesiumlib, 'verify_area')
 def test_areacheck_return_pass(_, __):
-    result = seq_steps.debug_areacheck()
-    assert result == seq_steps.lib.PASS
+    result = bs_seq_steps.debug_areacheck()
+    assert result == bs_seq_steps.lib.PASS
 
 
-@patch.object(seq_steps.lib, 'apdicts')
-@patch.object(seq_steps.cesiumlib, 'verify_area')
+@patch.object(bs_seq_steps.lib, 'apdicts')
+@patch.object(bs_seq_steps.cesiumlib, 'verify_area')
 def test_areacheck_calls_verify_area(mock_verify_area, _):
-    seq_steps.debug_areacheck()
+    bs_seq_steps.debug_areacheck()
     assert mock_verify_area.called_once
 
 
-@patch.object(seq_steps.lib, 'apdicts')
-@patch.object(seq_steps.cesiumlib, 'verify_area')
+@patch.object(bs_seq_steps.lib, 'apdicts')
+@patch.object(bs_seq_steps.cesiumlib, 'verify_area')
 def test_areacheck_calls_with_params(mock_verify_area, _):
-    seq_steps.debug_areacheck()
+    bs_seq_steps.debug_areacheck()
     mock_verify_area.assert_called_with(serial_number=mock.ANY,
                                         uut_type=mock.ANY,
                                         area=mock.ANY)
 
 
-@patch.object(seq_steps.lib, 'apdicts')
-@patch.object(seq_steps.cesiumlib, 'verify_area')
+@patch.object(bs_seq_steps.lib, 'apdicts')
+@patch.object(bs_seq_steps.cesiumlib, 'verify_area')
 def test_areacheck_uses_userdict(mock_verify_area, mock_apdicts):
     mock_apdicts.userdict = {SERIAL_NUMBER: 'some_sn',
                              UUT_TYPE: 'some_pid',
                              PREV_AREA: 'some_area'}
     udict = mock_apdicts.userdict
-    seq_steps.debug_areacheck()
-    mock_verify_area.assert_called_with(serial_number=udict[seq_steps.SERIAL_NUMBER],
-                                        uut_type=udict[seq_steps.UUT_TYPE],
-                                        area=udict[seq_steps.PREV_AREA])
+    bs_seq_steps.debug_areacheck()
+    mock_verify_area.assert_called_with(serial_number=udict[bs_seq_steps.SERIAL_NUMBER],
+                                        uut_type=udict[bs_seq_steps.UUT_TYPE],
+                                        area=udict[bs_seq_steps.PREV_AREA])
 
 
 
-@patch.object(seq_steps.lib, 'apdicts')
-@patch.object(seq_steps.cesiumlib, 'verify_area')
+@patch.object(bs_seq_steps.lib, 'apdicts')
+@patch.object(bs_seq_steps.cesiumlib, 'verify_area')
 def test_areacheck_returns_fail(mock_verify_area, _):
-    mock_verify_area.side_effect = seq_steps.lib.apexceptions.ServiceFailure
-    result = seq_steps.debug_areacheck()
-    assert result == seq_steps.lib.FAIL
+    mock_verify_area.side_effect = bs_seq_steps.lib.apexceptions.ServiceFailure
+    result = bs_seq_steps.debug_areacheck()
+    assert result == bs_seq_steps.lib.FAIL
 
 
 prog_status_pass_case = [
