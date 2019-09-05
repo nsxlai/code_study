@@ -84,7 +84,8 @@ if __name__ == '__main__':
     # arr = list(map(int, input().split()))
     # arr = [4, 2, 3, 1, 7, 6]
     # arr = [7, 9, 4, 2, 6, 3, 5, 1, 8]
-    arr = [15, 13, 9, 5, 20, 19, 2, 10, 14, 16, 18, 7, 3, 1]
+    # arr = [15, 13, 9, 5, 20, 19, 2, 10, 14, 16, 18, 7, 3, 1]
+    arr = [3, 5, 2, 1, 4, 6, 7]
 
     for i in range(len(arr)):
         tree.insert(arr[i])
