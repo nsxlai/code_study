@@ -17,13 +17,15 @@ class Singleton(Borg): #Inherits from the Borg class
     def __str__(self):
         return str(self._shared_data) # Returns the attribute dictionary for printing
 
-#Let's create a singleton object and add our first acronym
-x = Singleton(HTTP="Hyper Text Transfer Protocol")
-# Print the object
-print(x) 
 
-#Let's create another singleton object and if it refers to the same attribute dictionary by adding another acronym.
-y = Singleton(SNMP="Simple Network Management Protocol")
-# Print the object
-print(y)
+if __name__ == '__main__':
+    #Let's create a singleton object and add our first acronym
+    x = Singleton(HTTP="Hyper Text Transfer Protocol")
+    # Print the object
+    print(x)
+
+    #Let's create another singleton object and if it refers to the same attribute dictionary by adding another acronym.
+    y = Singleton(SNMP="Simple Network Management Protocol")
+    # Print the object
+    print(y)
 

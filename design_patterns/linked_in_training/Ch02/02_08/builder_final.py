@@ -1,4 +1,4 @@
-class Director():
+class Director:
     """Director"""
     def __init__(self, builder):
         self._builder = builder 
@@ -11,17 +11,15 @@ class Director():
         
     def get_car(self):
         return self._builder.car
-        
-        
- 
-class Builder():
+
+
+class Builder:
     """Abstract Builder"""
     def __init__(self):
         self.car = None 
         
     def create_new_car(self):
         self.car = Car()
-        
 
 
 class SkyLarkBuilder(Builder):
@@ -46,8 +44,10 @@ class Car():
     def __str__(self):
         return '{} | {} | {}'.format(self.model, self.tires, self.engine)
 
-builder = SkyLarkBuilder()
-director = Director(builder)
-director.construct_car()
-car = director.get_car()
-print(car)
+
+if __name__ == '__main__':
+    builder = SkyLarkBuilder()
+    director = Director(builder)
+    director.construct_car()
+    car = director.get_car()
+    print(car)

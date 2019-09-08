@@ -20,18 +20,31 @@ class Prototype:
         return obj
         
 class Car:
-    def __init__(self):
+    def __init__(self, color):
         self.name = "Skylark"
-        self.color = "Red"
+        self.color = color
         self.options = "Ex"
         
     def __str__(self):
         return '{} | {} | {}'.format(self.name, self.color, self.options)
-        
-c = Car()
-prototype = Prototype()
-prototype.register_object('skylark',c)
 
-c1 = prototype.clone('skylark')
 
-print(c1)
+if __name__ == '__main__':
+    c = Car('Red')
+    prototype = Prototype()
+    prototype.register_object('skylark', c)
+
+    c1 = prototype.clone('skylark')
+    print(c1)
+
+    c2 = prototype.clone('skylark')
+    print(c2)
+
+    c = Car('Blue')
+    # prototype.unregister_object('skylark')
+    # prototype = Prototype()
+    prototype.register_object('skylark', c)
+    c1 = prototype.clone('skylark')
+    print(c1)
+    c2 = prototype.clone('skylark')
+    print(c2)
