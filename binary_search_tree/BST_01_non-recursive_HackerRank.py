@@ -78,7 +78,7 @@ class BinarySearchTree:
 
 
 if __name__ == '__main__':
-    tree = BinarySearchTree()
+
     # t = int(input())
     t = 6
     # arr = list(map(int, input().split()))
@@ -87,7 +87,15 @@ if __name__ == '__main__':
     # arr = [15, 13, 9, 5, 20, 19, 2, 10, 14, 16, 18, 7, 3, 1]
     arr = [3, 5, 2, 1, 4, 6, 7]
 
+    tree = BinarySearchTree()
     for i in range(len(arr)):
         tree.insert(arr[i])
+    print('Use the BST insert method interatively')
+    preOrder(tree.root)
 
+    print()
+    tree = BinarySearchTreeRecursive()
+    for i in range(len(arr)):
+        tree.insert(arr[i])
+    print('Use the BST insert method recursively')
     preOrder(tree.root)

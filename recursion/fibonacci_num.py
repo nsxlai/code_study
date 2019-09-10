@@ -8,7 +8,7 @@ from functools import lru_cache
 from time import time
 
 
-# @lru_cache(maxsize=1000)  # LRU = Least Recently Used
+@lru_cache(maxsize=1000)  # LRU = Least Recently Used
 def fib_recursive(n):
     if n <= 0:
         return 0
@@ -76,3 +76,14 @@ if __name__ == '__main__':
         # print(f'{i}: {result}')
     t1 = time()
     print(f'Dynamic programming function runtime: {t1 - t0}\n')
+
+'''
+Using recursive method; try it without the lru_cache decorator
+Recursive function runtime: 5.805878400802612
+
+Using recursive with memorization method
+Recursive with memorization function runtime: 0.00025916099548339844
+
+Using dynamic programming method
+Dynamic programming function runtime: 0.00011873245239257812
+'''
