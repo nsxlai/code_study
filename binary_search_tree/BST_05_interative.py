@@ -18,7 +18,7 @@ class BST:
         print(root.data, end=' ')
         self.inOrder(root.right)
 
-    def insert(self, root, key):
+    def insert(self, root, data):
         """ Iterative function to insert an key into BST """
         # Root is passed by reference to the function
         curr = root
@@ -26,25 +26,25 @@ class BST:
 
         # if tree is empty, create a new node and set root
         if root is None:
-            return Node(key)
+            return Node(data)
 
         # traverse the tree and find parent node of key
-        while curr is not None:
+        while curr:
             # update parent node as current node
             parent = curr
 
             # if given key is less than the current node,
             # go to left subtree else go to right subtree
-            if key < curr.data:
+            if data < curr.data:
                 curr = curr.left
             else:
                 curr = curr.right
 
         # construct a new node and assign to appropriate parent pointer
-        if key <= parent.data:
-            parent.left = Node(key)
+        if data <= parent.data:
+            parent.left = Node(data)
         else:
-            parent.right = Node(key)
+            parent.right = Node(data)
         return root
 
 
