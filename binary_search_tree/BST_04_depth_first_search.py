@@ -7,7 +7,7 @@ class Node:
         self.data = data
 
 
-def DFS(node):
+def DFS(root):
     # DFS is a pre-order BST traversal
     if root:
         print(root.data)
