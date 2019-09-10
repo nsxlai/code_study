@@ -18,21 +18,21 @@ class BST:
         print(root.data, end=' ')
         self.inOrder(root.right)
 
-    def insert(self, root, key):
+    def insert(self, root, data):
         """Recursive function to insert an key into BST"""
         # if the root is null, create a new node an return it
         if root is None:
             # print(f'Adding root node; key = {key}')
-            return Node(key)
+            return Node(data)
 
         # if given key is less than the root node,
         # recur for left subtree
-        if key <= root.data:
+        if data <= root.data:
             # print(f'Insert left node; key = {key}')
-            root.left = self.insert(root.left, key)
+            root.left = self.insert(root.left, data)
         else:    # key > root.data
             # print(f'Insert right node; key = {key}')
-            root.right = self.insert(root.right, key)
+            root.right = self.insert(root.right, data)
         return root
 
 
