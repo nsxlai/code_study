@@ -35,6 +35,7 @@ class Solution:
             return height_left + 1
         else:
             return height_right + 1
+        # return max(height_left, height_right) + 1
 
     def getHeight_efficient(self, root):
         # Write your code here
