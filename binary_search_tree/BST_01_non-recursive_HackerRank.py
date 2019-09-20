@@ -93,9 +93,3 @@ if __name__ == '__main__':
     print('Use the BST insert method interatively')
     preOrder(tree.root)
 
-    print()
-    tree = BinarySearchTreeRecursive()
-    for i in range(len(arr)):
-        tree.insert(arr[i])
-    print('Use the BST insert method recursively')
-    preOrder(tree.root)
