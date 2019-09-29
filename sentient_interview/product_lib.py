@@ -38,7 +38,7 @@ ie, if it fails once then passes, the test should continue
 
 import socket
 import sys
-from time import time, localtime
+from time import time, localtime, sleep
 import re
 import functools
 from random import randint
@@ -144,8 +144,18 @@ class BaseProduct:
 
 
 class ProductA(BaseProduct):
-    @time_logging
+    '''ProductA class; inherited from BaseProduct class'''
+    @time_logging  # The decorator adds the function run time output on the
     def get_data_1(self, server_ip_addr, server_port, command, regex_str):
+        """
+        ProductA get_data_1 will access the server via TCP, fetch data and perform regex findall base
+        on the custom user regex_str input
+        :param server_ip_addr: Server IP address (str)
+        :param server_port: Server port (int)
+        :param command: Custom user input (e.g., diag commands)
+        :param regex_str: Custom user regex matching string for additional server output string matching.
+        :return: the output based on the regex findall (list)
+        """
         data = super().tcp_connect_cm(server_ip_addr, server_port, command)
         regex_output = re.findall(regex_str, data)
         if not regex_output:  # No output
@@ -154,17 +164,29 @@ class ProductA(BaseProduct):
 
 
 class ProductB(BaseProduct):
+    '''ProductB class; inherited from BaseProduct class'''
     def get_data_2(self, server_ip_addr, server_port, command):
+        """
+        ProductB get_data_2 will do the following tasks:
+            1. Access the server via TCP and fetch data. If the data return is None (no data), will retry
+               maximum 2 more times before raise GetData2Error
+            2. Process the server output data and break them into dictionary keys and values (see high level
+               requirement in line 17
+        :param server_ip_addr: Server IP address (str)
+        :param server_port: Server port (int)
+        :param command: Custom user input (e.g., diag commands)
+        :return: test_dict (dict): Data in the form of dictionary
+        """
         counter = 0
-        while counter <= 3:  # will return the tcp_connect_cm twice before return GetData2Error
+        while counter <= 2:  # will return the tcp_connect_cm twice before return GetData2Error
             data = super().tcp_connect_cm(server_ip_addr, server_port, command)
-            print(f'data = {data}')
-            if not data and counter > 2:  # For the case if there is no output from the server
+            if not data and counter > 1:  # For the case if there is no output from the server
                 raise GetData2Error('No output from ProductB.get_data_2')
             elif data:
+                print('breaking')
                 break  # If data has value, break out of the while loop
             counter += 1
-            print(f'counter = {counter}')
+
         data = data.split()
         i = 0
         test_dict = {}
@@ -183,6 +205,10 @@ class ProductB(BaseProduct):
 
 
 if __name__ == '__main__':
+    """
+    The following were test codes only and it is not necessary for production use. All the test cases are captured
+    in the pytest file (test_product.py) at the same directory level
+    """
     try:
         # uut_01_sn = 'ROC11111111'
         # uut_01_pn = 'POWER-001A'
