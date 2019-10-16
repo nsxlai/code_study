@@ -2,6 +2,7 @@
 Without using Python standard library, create the function that does cube root of a number
 """
 from time import time
+from timeit import timeit
 
 
 def ctimer(func):
@@ -20,15 +21,19 @@ def cube_root(n):
     while True:
         cube_i = i * i * i
         if cube_i < n:
-            i = i + 0.1
-        else:
-            i = i - 0.1
+            i += 0.0001
+        elif cube_i == n:
             break
-    return '{0:.4f}'.format(i)
+        else:
+            i -= 0.0001
+            break
+    # print(f'cube root of {n} is {i:.4f}')
+    return round(i, 4)
 
 
 if __name__ == '__main__':
-    print(f'n = 30; cube_rooot = {cube_root(30)}')
-    print(f'n = 100; cube_rooot = {cube_root(100)}')
-    print(f'n = 1000; cube_rooot = {cube_root(1000)}')
-    print(f'n = 10000; cube_rooot = {cube_root(10000)}')
+    print(f'n = 30; cube_root = {cube_root(30)}')
+    print(f'n = 100; cube_root = {cube_root(100)}')
+    print(f'n = 1000; cube_root = {cube_root(1000)}')
+    print(f'n = 10000; cube_root = {cube_root(10000)}')
+    print(f'n = 100000; cube_root = {cube_root(100000)}')

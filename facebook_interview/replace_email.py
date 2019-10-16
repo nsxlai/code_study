@@ -44,7 +44,7 @@ def email_replace_1(infile):
 
 @function_timer
 def email_replace_2(infile):
-    """This is the brute force method and not particular efficient on space complexity"""
+    """This is the to save space, limiting the string copy to the unmatched part of the string. This takes more time"""
     with open(infile, 'r') as f:
         f_out = f.read()   # read all the text at once as a string
         f.seek(0)  # Return the file counter to the beginning of the file
@@ -67,7 +67,20 @@ def email_replace_2(infile):
     return
 
 
+def email_replace_3(infile):
+    '''Use the regex substitute (re.sub) method to simplfy the code'''
+    with open(infile, 'r') as f:
+        f_out = f.read()   # read all the text at once as a string
+    email_regex = '[\w\.\-]+@[\w\.\-]+'
+    temp_str = re.sub(email_regex, 'name@abc.cocm', f_out)
+
+    with open('test_email_output.txt', 'w') as nf:
+        nf.write(temp_str)
+    return
+
+
 if __name__ == '__main__':
-    email_replace_1('test_file.txt')
-    sleep(1)
-    email_replace_2('test_file.txt')
+    # email_replace_1('test_file.txt')
+    # sleep(1)
+    # email_replace_2('test_file.txt')
+    email_replace_3('test_file.txt')
