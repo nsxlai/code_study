@@ -1,6 +1,9 @@
 def cube_root(n):
     """n is the input that is already cubed
        for example, if n = 27, cube_root(27) should return 3
+
+       this is a horrible example and I have created during the Google interview. The finished part of this
+       function is now at 'google_interview' folder
     """
     # determine the whole number for the cube root of n
     def cube(i):

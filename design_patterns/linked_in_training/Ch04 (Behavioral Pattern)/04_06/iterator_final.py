@@ -16,10 +16,12 @@ def count_to(count):
 		#Returns a 'generator' containing numbers in German
 		yield number 
 
-#Let's test the generator returned by our iterator
-for num in count_to(3):
-	print("{}".format(num))
 
-for num in count_to(4):
-	print("{}".format(num))
+if __name__ == '__main__':
+	#Let's test the generator returned by our iterator
+	for num in count_to(3):
+		print("{}".format(num))
+
+	for num in count_to(4):
+		print("{}".format(num))
 	
