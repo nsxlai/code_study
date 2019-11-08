@@ -50,12 +50,36 @@ height = containers[:, 1]
 volume = np.pi*(radius**2)*height
 total_volume = volume.sum()
 print(f'Containers volume:       {volume}')
-print(f'Containers total volume: {total_volume}')
+print(f'Containers total volume (method 1): {total_volume}')
 
 
 # Method 2:
+# The dot product works here because both radius_squared and height are one dimensional
+# For 2D array, one of the array must use np.transpose() method
 radius_squared = np.square(radius)
 dot_product = np.dot(radius_squared, height)
 total_volume_by_dot_product = np.pi*dot_product
-print(f'Containers total volume: {total_volume_by_dot_product}')
+print(f'Containers total volume (method 2): {total_volume_by_dot_product}')
+print()
+
+
+max_volume = volume.max()
+index_of_max_volume = volume.argmax()
+min_volume = volume.min()
+index_of_min_volume = volume.argmin()
+print(f'Max volume is {max_volume:.3f} with index {index_of_max_volume}')
+print(f'Min volume is {min_volume:.3f} with index {index_of_min_volume}')
+print()
+
+
+volume_mean = np.mean(volume)
+volume_median = np.median(volume)
+volume_std_dev = np.std(volume)
+print(f'Volume mean value: {volume_mean}')
+print(f'Volume median value: {volume_median}')
+print(f'Volume standard deviation: {volume_std_dev}')
+
+
+
+
 
