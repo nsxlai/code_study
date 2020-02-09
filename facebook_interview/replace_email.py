@@ -72,7 +72,7 @@ def email_replace_3(infile):
     with open(infile, 'r') as f:
         f_out = f.read()   # read all the text at once as a string
     email_regex = '[\w\.\-]+@[\w\.\-]+'
-    temp_str = re.sub(email_regex, 'name@abc.cocm', f_out)
+    temp_str = re.sub(email_regex, 'name@abc.com', f_out)
 
     with open('test_email_output.txt', 'w') as nf:
         nf.write(temp_str)
