@@ -8,7 +8,7 @@
 """
 
 import mock
-from .. import demo_sequence
+from . import demo_sequence
 
 
 @mock.patch.object(demo_sequence.lib, 'apdicts')

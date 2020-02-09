@@ -1,6 +1,7 @@
 from pytest import fixture
 from config import Config
 
+
 def pytest_addoption(parser):
     parser.addoption('--env', action='store', help="Variable that determines the environment")
 
