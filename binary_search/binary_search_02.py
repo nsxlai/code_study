@@ -13,7 +13,7 @@ def find_ceiling(arr, key):
     while low <= high:
         mid = int((low + high) / 2)  # Python3 will output float after division
         diff = arr[mid] - key
-        print('diff #1 = {}'.format(diff))
+        print('diff = {}'.format(diff))
         # pdb.set_trace()
         if diff == 0:
             return arr[mid]  # Returning the ceiling element; may need to check this condition for edge cases
@@ -22,11 +22,12 @@ def find_ceiling(arr, key):
             print('low = {}; diff = {}'.format(low, diff))
         elif diff > 0:
             high = mid - 1
+            print('high = {}; diff = {}'.format(high, diff))
     return arr[mid]
 
 
 if __name__ == '__main__':
     arr = [-5, -2, 0, 1, 4, 7, 9, 12, 15, 20]
-    key = 13
+    key = 2
     result = find_ceiling(arr, key)
     print(result)
