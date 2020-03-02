@@ -1,6 +1,6 @@
 import unittest
-from my_calendar import get_holidays
-from my calendar import requests
+from .my_calendar import get_holidays
+from .my_calendar import requests
 from requests.exceptions import Timeout
 from unittest.mock import Mock
 from unittest.mock import patch

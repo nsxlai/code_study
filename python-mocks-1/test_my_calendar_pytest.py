@@ -1,7 +1,7 @@
 # import unittest
 from requests.exceptions import Timeout
 import mock
-import my_calendar
+from . import my_calendar
 import pytest
 
 
