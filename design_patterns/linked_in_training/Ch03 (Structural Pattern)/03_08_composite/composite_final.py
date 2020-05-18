@@ -42,38 +42,40 @@ class Composite(Component): #Inherits from the abstract class, Component
 
 	def component_function(self):
 
-		#Print the name of the composite object
+		# Print the name of the composite object
 		print("{}".format(self.name))
 
-		#Iterate through the child objects and invoke their component function printing their names
+		# Iterate through the child objects and invoke their component function printing their names
 		for i in self.children:
 			i.component_function()
 
-#Build a composite submenu 1
-sub1 = Composite("submenu1")
 
-#Create a new child sub_submenu 11
-sub11 = Child("sub_submenu 11")
-#Create a new Child sub_submenu 12
-sub12 = Child("sub_submenu 12")
+if __name__ == '__main__':
+	#Build a composite submenu 1
+	sub1 = Composite("submenu1")
 
-#Add the sub_submenu 11 to submenu 1
-sub1.append_child(sub11)
-#Add the sub_submenu 12 to submenu 1
-sub1.append_child(sub12)
+	#Create a new child sub_submenu 11
+	sub11 = Child("sub_submenu 11")
+	#Create a new Child sub_submenu 12
+	sub12 = Child("sub_submenu 12")
 
-#Build a top-level composite menu
-top = Composite("top_menu")
+	#Add the sub_submenu 11 to submenu 1
+	sub1.append_child(sub11)
+	#Add the sub_submenu 12 to submenu 1
+	sub1.append_child(sub12)
 
-#Build a submenu 2 that is not a composite
-sub2 = Child("submenu2")
+	#Build a top-level composite menu
+	top = Composite("top_menu")
 
-#Add the composite submenu 1 to the top-level composite menu
-top.append_child(sub1)
+	#Build a submenu 2 that is not a composite
+	sub2 = Child("submenu2")
 
-#Add the plain submenu 2 to the top-level composite menu
-top.append_child(sub2)
+	#Add the composite submenu 1 to the top-level composite menu
+	top.append_child(sub1)
 
-#Let's test if our Composite pattern works!
-top.component_function()
+	#Add the plain submenu 2 to the top-level composite menu
+	top.append_child(sub2)
+
+	#Let's test if our Composite pattern works!
+	top.component_function()
 
