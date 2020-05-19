@@ -4386,7 +4386,7 @@ def save_logs(conn, expectphrase, timeout=300, **kwargs):
                     conn=conn,
                     username=username,
                     password=password,
-                    source_path='.',
+                    source_path='',
                     destination_path=destination_path,
                     destination_server=destination_server,
                     file='{}.tar.gz'.format(folder_name),
@@ -5808,7 +5808,7 @@ def install_patches(expectphrase=prompt, timeout=200, skip_fail_pars_list=False,
                         password=password,
                         source_server=source_server,
                         source_path=patches_path,
-                        destination_path='.',
+                        destination_path='',
                         file=patch,
                         prompt=expectphrase
                 ):
