@@ -1,0 +1,8 @@
+this is a test file that contains the email address of made up people
+Amy's email address: name@abc.com
+Tom's email address: name@abc.com
+Some of the European address format is different:
+name@abc.com
+name@abc.com
+The are many formats of email addresses
+name@abc.com

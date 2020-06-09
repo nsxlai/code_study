@@ -1,8 +1,7 @@
-from mock import patch
 from . import product_lib
 from mock import patch, MagicMock
-from pytest import mark
-import pytest
+from PYTEST import mark
+import PYTEST
 
 
 @mark.product_test
@@ -94,7 +93,7 @@ def test_ProductB_get_data_2_tcp_connect_retry_twice_fail(mock_tcp_connect_cm, t
     uut_03_pn = 'POWER-001B'
     uut_03 = product_lib.ProductB(uut_03_sn, uut_03_pn)
     mock_tcp_connect_cm.side_effect = tcp_connect_status
-    with pytest.raises(product_lib.GetData2Error):
+    with PYTEST.raises(product_lib.GetData2Error):
         print('Raising GetData2Error due to retry fails after 2 times')
         uut_03.get_data_2(product_lib.HOST, product_lib.PORT, 'diag command2')
 
@@ -103,7 +102,7 @@ def test_ProductB_get_data_2_tcp_connect_retry_twice_fail(mock_tcp_connect_cm, t
 def test_serial_number_bad_format():
     uut_02_sn = 'ROC12345'
     uut_02_pn = 'POWER-002A'
-    with pytest.raises(ValueError):
+    with PYTEST.raises(ValueError):
         product_lib.ProductA(uut_02_sn, uut_02_pn)
 
 
@@ -115,7 +114,7 @@ def test_ProductA_get_data_1_with_exception(mock_tcp_connect_cm):
     uut_02 = product_lib.ProductA(uut_02_sn, uut_02_pn)
     sim_server_output = f'request data for UUT_01: \n Product_Num: {uut_02_pn} \n Serial_Num: {uut_02_sn} \n EOL'
     mock_tcp_connect_cm.return_value: str = sim_server_output
-    with pytest.raises(product_lib.GetData1Error):
+    with PYTEST.raises(product_lib.GetData1Error):
         uut_02.get_data_1(product_lib.HOST, product_lib.PORT, 'diag command2', 'TEST')
 
 
@@ -126,5 +125,5 @@ def test_ProductB_get_data_2_with_exception(mock_tcp_connect_cm):
     uut_03_pn = 'POWER-001B'
     uut_03 = product_lib.ProductB(uut_03_sn, uut_03_pn)
     mock_tcp_connect_cm.return_value: str = ''
-    with pytest.raises(product_lib.GetData2Error):
+    with PYTEST.raises(product_lib.GetData2Error):
         uut_03.get_data_2(product_lib.HOST, product_lib.PORT, 'diag command2')

@@ -29,7 +29,7 @@ Catch this exception in get_data_2 such that it retries twice before propagating
 ie, if it fails once then passes, the test should continue
 
 3. Make the class file executable so that you can run the file stand alone
-4. Create a pytest for get_data_1 that uses mock to simulate the tcp client function –
+4. Create a PYTEST for get_data_1 that uses mock to simulate the tcp client function –
    2 basic sample tests, one positive, one negative
 5. Create a separate script that creates 10 objects of the top level class.
 6. Create a new list using list comprehension that only contains objects with an odd numbered serial number.
@@ -207,7 +207,7 @@ class ProductB(BaseProduct):
 if __name__ == '__main__':
     """
     The following were test codes only and it is not necessary for production use. All the test cases are captured
-    in the pytest file (test_product.py) at the same directory level
+    in the PYTEST file (test_product.py) at the same directory level
     """
     try:
         # uut_01_sn = 'ROC11111111'
