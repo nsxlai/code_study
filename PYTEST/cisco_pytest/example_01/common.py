@@ -1,4 +1,4 @@
-import pytest
+import PYTEST
 import threading
 
 from apollo.engine import shared
@@ -10,7 +10,7 @@ class FakeTestInfo:
         self.uut_type = 'uut_type'
 
 
-@pytest.fixture()
+@PYTEST.fixture()
 def get_step_data(request):
     fresh_data = [dict(inputdict=dict(), outputdict=dict(), userdict=dict(), stepdict=dict())]
     shared.runningstepdata = dict()

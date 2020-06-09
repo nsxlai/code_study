@@ -1,4 +1,4 @@
-from pytest import mark
+from PYTEST import mark
 
 
 @mark.parametrize('tv_brand', [

@@ -1,6 +1,6 @@
 # From youtube video: https://www.youtube.com/watch?v=Nso25TkBsYI
 # Mergesort is recursive
-# Divide-and-conquer algorithm
+# Divide-and-conquer ALGORITHM
 # very efficient for large data sets
 # Mergesort does log(n) merge steps because each merge step doubles the list size
 # It does N work for each merge step because it must look at every item

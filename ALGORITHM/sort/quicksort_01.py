@@ -1,6 +1,6 @@
 # Youtube video: https://www.youtube.com/watch?v=CB_NCoxzQnk
 # Quick sort is recursive
-# It is divide-and-conquer algorithm
+# It is divide-and-conquer ALGORITHM
 # very efficient for large data sets
 # Worse case time complexity is O(n^2); average case is O(n log n)
 # Performance depends largely on Pivot selection

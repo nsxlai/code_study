@@ -1,4 +1,4 @@
-from pytest import mark
+from PYTEST import mark
 
 
 @mark.xfail(reason='testing in DEV only')

@@ -1,4 +1,4 @@
-from pytest import mark
+from PYTEST import mark
 from . import student_grade
 
 """

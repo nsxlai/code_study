@@ -1,7 +1,7 @@
 from unittest import TestCase
 from .hackerrank_exception import Calculator
-from pytest import mark
-from pytest import fixture
+from PYTEST import mark
+from PYTEST import fixture
 
 
 # Unittest way of testing the method
@@ -14,7 +14,7 @@ class TestCalculator(TestCase):
         self.assertEqual(self.calculator.power(10, 3), 1000)
         self.assertEqual(self.calculator.power(5, 3), 125)
 
-# Below is the pytest way using mark.parametrize
+# Below is the PYTEST way using mark.parametrize
 test_power_params = [
     (2, 3, 8),
     (0, 3, 0),
