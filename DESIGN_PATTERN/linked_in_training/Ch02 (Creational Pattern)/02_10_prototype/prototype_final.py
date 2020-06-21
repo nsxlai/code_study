@@ -1,7 +1,7 @@
 import copy
 
+
 class Prototype:
-    
     def __init__(self):
         self._objects = {}
         
@@ -18,7 +18,8 @@ class Prototype:
         obj = copy.deepcopy(self._objects.get(name))
         obj.__dict__.update(attr)
         return obj
-        
+
+
 class Car:
     def __init__(self, color):
         self.name = "Skylark"

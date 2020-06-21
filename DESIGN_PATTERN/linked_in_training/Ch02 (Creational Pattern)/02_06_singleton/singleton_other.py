@@ -1,5 +1,6 @@
 import mock
 
+
 class MySingleton(object):
     _instance = None
 
