@@ -19,7 +19,7 @@ class Blockchain:
     def new_block(self, proof, previous_hash=None):
         """
         Create a new Block in the Blockchain
-        :param proof: <int> The proof given by the Proof of Work algorithm
+        :param proof: <int> The proof given by the Proof of Work ALGORITHM
         :param previous_hash: (Optional) <str> Hash of previous Block
         :return: <dict> New Block
         """
