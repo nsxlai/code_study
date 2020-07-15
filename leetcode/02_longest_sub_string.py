@@ -1,6 +1,6 @@
 import pdb
 import time
-from PYTEST import mark
+from pytest import mark
 
 
 # def lengthOfLongestSubstring(s: str):
