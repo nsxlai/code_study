@@ -8,21 +8,30 @@ from functools import lru_cache
 from time import time
 
 
-@lru_cache(maxsize=1000)  # LRU = Least Recently Used
+def measure_elapsed_time(func):
+    def wrapper(n):
+        t0 = time()
+        result = func(n)
+        # print(f'Fibanacci {n}: {result}')
+        t1 = time()
+        print(f'Recursive function runtime: {t1-t0:.6f}\n')
+        return result
+    return wrapper
+
+
 def fib_recursive(n):
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
+    if n == 0 or n == 1:
+        return n
     else:
         return fib_recursive(n-1) + fib_recursive(n-2)
 
 
-def fib_recursive2(n):
+@lru_cache(maxsize=1000)  # LRU = Least Recently Used
+def fib_recursive1(n):
     if n == 0 or n == 1:
         return n
     else:
-        return fib_recursive2(n-1) + fib_recursive2(n-2)
+        return fib_recursive(n-1) + fib_recursive(n-2)
 
 
 def fib_mem(n):
@@ -46,44 +55,80 @@ def fib_dp(n):
     memo[0], memo[1] = 0, 1
     for i in range(2, n+1):
         memo[i] = memo[i-2] + memo[i-1]
+        # print(f'{i=}; {memo[i]=}')
     return memo[n]
 
 
 if __name__ == '__main__':
-    hi_value = 35
-    t0 = time()
-    print('Using recursive method; try it with and without the lru_cache decorator')
-    for i in range(hi_value):
-        result = fib_recursive(i)
-        # print(f'{i}: {result}')
-    t1 = time()
-    print(f'Recursive function runtime: {t1-t0}\n')
+    """
+    Using decorator to measure the time performance for each of the method does not work well with recursive algorithm.
+    Only the dynamic programming method can work with timer decorator since it does not have recursive loop.
+    
+    Summary:
+    Method 1: recursive method without the lru_cache decorator
+       => The function will run about 16.192276 seconds
+    Method 2: recursive method with the lru_cache decorator
+       => The function will run about 15.956877 seconds. There isn't a lot of performance gain
+    Method 3: Use lambda function. It is slightly faster than method 1 and 2
+    Method 4: recursive method with the lru_cache decorator (same test run as method 2)
+       => The lru cache is used to provide the previously calculated data and boosted the performance to only access
+          time to get the data directly without any calculation. The run time is around 0.000007 second
+    Method 5: Using recursive with memorization method
+       => The Memorization method significantly reduce the amount of repeated calculation via recursive loops. The run
+          time is around 0.000033 seconds
+    Method 6: Using dynamic programming method instead of recursive loops. 
+       => This method will calculate the value from the first element until the last, which is the opposite of the
+          recursive looping methodology (calculate backward from the last element. The run time very fast and takes
+          about 0.000014 seconds (second fastest after the second run of LRU cached method).       
+    """
+    hi_value = 36
 
+    print('-' * 45)
+    t0 = time()
+    print('Using recursive method without the lru_cache decorator')
+    result = fib_recursive(hi_value)
+    print(f'Fibonacci {hi_value}: {result}')
+    t1 = time()
+    print(f'Recursive function runtime: {t1-t0:.6f}\n')
+
+    print('-' * 45)
+    t0 = time()
+    print('Using recursive method with the lru_cache decorator (test run #1)')
+    result = fib_recursive1(hi_value)
+    print(f'Fibonacci {hi_value}: {result}')
+    t1 = time()
+    print(f'Recursive function runtime: {t1 - t0:.6f}\n')
+
+    print('-' * 45)
+    t0 = time()
+    print('Using recursive method with the lru_cache decorator (test run #2)')
+    result = fib_recursive1(hi_value)
+    print(f'Fibonacci {hi_value}: {result}')
+    t1 = time()
+    print(f'Recursive function runtime: {t1 - t0:.6f}\n')
+
+    print('-' * 45)
+    print('Using lambda function method')
+    t0 = time()
+    fib = lambda x: x if x <= 1 else fib(x - 1) + fib(x - 2)
+    print(f'Fibonacci {hi_value}: {fib(hi_value)}')
+    t1 = time()
+    print(f'Lambda function runtime: {t1 - t0:.6f}\n')
+
+    print('-' * 45)
     print('Using recursive with memorization method')
     t0 = time()
-    for i in range(hi_value):
-        fib_cache = {}
-        result = fib_mem(i)
-        # print(f'{i}: {result}')
+    fib_cache = {}  # Memorization method requires to initialize a blank dictionary before calling the function
+    result = fib_mem(hi_value)
+    print(f'Fibonacci {hi_value}: {result}')
     t1 = time()
-    print(f'Recursive with memorization function runtime: {t1-t0}\n')
+    print(f'Recursive with memorization function runtime: {t1-t0:.6f}\n')
 
+    print('-' * 45)
     print('Using dynamic programming method')
     t0 = time()
-    for i in range(hi_value):
-        memo = {}
-        result = fib_dp(i)
-        # print(f'{i}: {result}')
+    memo = {}  # Dynamic programming method requires to initialize a blank dictionary before calling the function
+    result = fib_dp(hi_value)
+    print(f'Fibonacci {hi_value}: {result}')
     t1 = time()
-    print(f'Dynamic programming function runtime: {t1 - t0}\n')
-
-'''
-Using recursive method; try it without the lru_cache decorator
-Recursive function runtime: 5.805878400802612
-
-Using recursive with memorization method
-Recursive with memorization function runtime: 0.00025916099548339844
-
-Using dynamic programming method
-Dynamic programming function runtime: 0.00011873245239257812
-'''
+    print(f'Dynamic programming function runtime: {t1-t0:.6f}\n')
