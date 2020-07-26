@@ -7,6 +7,7 @@ This python script will do the following:
 """
 import re
 import sys
+import os
 from time import time, sleep
 
 
@@ -80,6 +81,8 @@ def email_replace_3(infile):
 
 
 if __name__ == '__main__':
+    _, filename = os.path.split('/usr/home/test/test_file.txt')  # will split the directory from the filename
+    print(f'filename = {filename}')
     # email_replace_1('test_file.txt')
     # sleep(1)
     # email_replace_2('test_file.txt')

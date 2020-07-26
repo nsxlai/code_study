@@ -1,3 +1,6 @@
+"""
+Given a string, find the length of the longest substring without repeating characters.
+"""
 import pdb
 import time
 from pytest import mark
