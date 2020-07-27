@@ -53,21 +53,11 @@ def isSubSequence1(string1, string2):
 
 
 if __name__ == '__main__':
-    string1 = 'abc'
-    string2 = 'asbsc'
-    string3 = 'acedb'
-    string4 = 'edvasbdc'
-    string5 = 'babekdkiekdjlsascadbwwoieircwodkal'
-    string6 = 'effffghi'
-    string7 = 'babekdkiecdjl'
-    print(isSubSequence1(string1, string2))
-    print('-' * 30)
-    print(isSubSequence1(string1, string3))
-    print('-' * 30)
-    print(isSubSequence1(string1, string4))
-    print('-' * 30)
-    print(isSubSequence1(string1, string5))
-    print('-' * 30)
-    print(isSubSequence1(string1, string6))
-    print('-' * 30)
-    print(isSubSequence1(string1, string7))
+    test_str = 'abc'
+    test_list = ['asbsc', 'acedb', 'edvasbdc', 'babekdkiekdjlsascadbwwoieircwodkal',
+                 'effffghi', 'babekdkiecdjl']
+
+    print(isSubSequence1(test_str, 'acedb'))
+    for str in test_list:
+        print(f'{test_str} is subSequence of {str}? {isSubSequence1(test_str, str)}')
+        print('-' * 50)
