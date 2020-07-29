@@ -1,6 +1,6 @@
 # source: https://www.tutorialspoint.com/python_data_structure/python_graphs.htm
 # Create the dictionary with graph elements
-graph_elements = { "a": ["b","c"],
+graph_elements = { "a": ["b", "c"],
                    "b": ["a", "d"],
                    "c": ["a", "d"],
                    "d": ["e"],

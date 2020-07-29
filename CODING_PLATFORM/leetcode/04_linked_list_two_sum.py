@@ -11,4 +11,4 @@ class Solution:
                     if (complement in dict.values()) and (key_num != key_dict):                
                         return [key_num, key_dict]
         else:
-            raise Exception('There is no value matching')
+            raise ValueError('There is no value matching')

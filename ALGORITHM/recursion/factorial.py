@@ -40,6 +40,13 @@ def fact_dp(n):
     return memo[n]
 
 
+def iterative_factorial(n):  # iterative approach has the same structure as dynamic programming method
+    f = 1
+    for i in range(2, n+1):
+        f *= i
+    return f
+
+
 if __name__ == '__main__':
     hi_value = 150
 

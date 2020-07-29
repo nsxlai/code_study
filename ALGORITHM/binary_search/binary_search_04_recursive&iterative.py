@@ -1,8 +1,15 @@
-x# Youtube video: https://www.youtube.com/watch?v=P3YID7liBug&feature=youtu.be&t=352s
+# Youtube video: https://www.youtube.com/watch?v=P3YID7liBug&feature=youtu.be&t=352s
 # The Youtube video example is coding in Java. I have translated into Python code.
 
 
 def BinarySearchRecursive(arr, x, left, right):
+    """
+    :param arr: Target array for the element search. The search item is x
+    :param x: Search item x in arr
+    :param left: left array index
+    :param right: right array index
+    :return:
+    """
     if left > right:
         return False  # No search result found
 

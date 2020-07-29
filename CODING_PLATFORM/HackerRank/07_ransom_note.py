@@ -14,13 +14,15 @@ For example, the note is "Attack at dawn". The magazine contains only "attack
 at dawn". The magazine has all the right words, but there's a case mismatch.
 The answer is No.
 """
-# Complete the checkMagazine function below.
+from collections import Counter
+
+
 def checkMagazine(magazine, note):
     d = {}
     for word in magazine:
         d.setdefault(word, 0)
         d[word] += 1
-    # print('d1 = {}'.format(d))
+    print('d1 = {}'.format(d))
 
     result = 'Yes'
     for word in note:
@@ -34,7 +36,21 @@ def checkMagazine(magazine, note):
     print(result)
 
 
+def checkMagazine1(magazine, note):
+    d = Counter(magazine.split())
+
+    result = 'Yes'
+    for word in note.split():
+        if word in d:
+            d[word] -= 1
+            if d[word] == 0:
+                d.pop(word)
+        else:
+            result = 'No'
+    print(result)
+
+
 if __name__ == '__main__':
     magazine1 = 'give me one grand today night'
     note1 = 'give one grand today'
-    checkMagazine(magazine1, note1)
+    checkMagazine1(magazine1, note1)

@@ -1,4 +1,9 @@
 # Youtube video: https://www.youtube.com/watch?v=iR1CXiC7OQc
+from random import randint
+
+
+def create_array(size=10, max=50):
+    return [randint(0, max) for _ in range(size)]
 
 
 def merge(left, right):
@@ -28,5 +33,7 @@ def mergesort(lst):
 
 
 if __name__ == '__main__':
-    arr = [40, 33, 17, 44, 25, 6, 30, 39, 7, 25]
-    print(mergesort(arr))
+    # arr = [40, 33, 17, 44, 25, 6, 30, 39, 7, 25]
+    test_arr = create_array(25)
+    print(f'Original    : {test_arr}')
+    print(f'Merge sorted: {mergesort(test_arr)}')

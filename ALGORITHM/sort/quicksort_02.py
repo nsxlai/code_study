@@ -21,12 +21,11 @@ def quicksort(a):
             equal.append(x)
         else:
             larger.append(x)
-    print('recursion start')
+    # print('recursion start')
     return quicksort(smaller) + equal + quicksort(larger)
 
 
 if __name__ == '__main__':
-    arr = create_array()
-    print(arr)
-    s_arr = quicksort(arr)
-    print(s_arr)
+    test_arr = create_array(25)
+    print(f'Original    : {test_arr}')
+    print(f'Quick sorted: {quicksort(test_arr)}')

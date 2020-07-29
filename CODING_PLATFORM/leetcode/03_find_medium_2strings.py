@@ -23,10 +23,13 @@ def findMedianSortedArrays(nums1, nums2):
         else:
             c_nums.append(nums2[j])
             j += 1
-    if i == len(nums1):
-        c_nums.extend(nums2[j:])
-    if j == len(nums2):
-        c_nums.extend(nums1[i:])
+    # if i == len(nums1):
+    #     c_nums.extend(nums2[j:])
+    # if j == len(nums2):
+    #     c_nums.extend(nums1[i:])
+    # The code below is equivalent to the 2 lines below
+    c_nums += nums2[j:]
+    c_nums += nums1[i:]
 
     # Now find the medium
     c_nums_len = len(c_nums)

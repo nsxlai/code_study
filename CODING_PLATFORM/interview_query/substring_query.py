@@ -54,7 +54,7 @@ def isSubSequence1(string1, string2):
 
 if __name__ == '__main__':
     test_str = 'abc'
-    test_list = ['asbsc', 'acedb', 'edvasbdc', 'babekdkiekdjlsascadbwwoieircwodkal',
+    test_list = ['asbsc', 'acedb', 'acedbc', 'edvasbdc', 'babekdkiekdjlsascadbwwoieircwodkal',
                  'effffghi', 'babekdkiecdjl']
 
     print(isSubSequence1(test_str, 'acedb'))
