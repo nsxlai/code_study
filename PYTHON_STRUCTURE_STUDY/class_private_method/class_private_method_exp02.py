@@ -1,3 +1,6 @@
+"""
+source: https://www.geeksforgeeks.org/private-methods-in-python/
+"""
 class Employee:
     def __init__(self, password, pay, balance):
         self.password = password
@@ -27,8 +30,21 @@ class Employee:
             print("Incorrect password!")
 
 
+# Creating a class
+class A:
+
+    # Declaring public method
+    def fun(self):
+        print("Public method")
+
+    # Declaring private method
+    def __fun(self):
+        print("Private method")
+
+
+
 if __name__ == '__main__':
-    e = Employee('test', 25, 0)
+    e: Employee = Employee('test', 25, 0)
     e.display_balance()
     print('Add to balance from confirm_pass')
     e.confirm_pass('test')
@@ -39,10 +55,16 @@ if __name__ == '__main__':
     e.pay_money()
     e.display_balance()
     try:
-        e.__pay_money1()
+        e.__pay_money()
     except AttributeError:
         print('AttributeError from accessing private method')
     e.display_balance()
     e.confirm_pass1('test')
     e.display_balance()
+    print('However, it is still possible to access the private method')
+    e._Employee__pay_money()  # name mangling
+    e.display_balance()
 
+    # Driver's code
+    obj: A = A()
+    obj._A__fun()
