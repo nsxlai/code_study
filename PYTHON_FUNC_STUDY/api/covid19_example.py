@@ -12,5 +12,7 @@ if __name__ == '__main__':
     # pprint(country_list)
     # pprint(response['Countries'])
     covid19_world = pd.DataFrame(response['Countries'])
-    print(covid19_world.iloc[177])  # USA
+    # print(covid19_world.iloc[177])  # USA
+    covid19_usa = covid19_world[covid19_world['Country']=='United States of America'].T
+    print(covid19_usa)
 
