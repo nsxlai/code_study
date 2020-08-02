@@ -1,12 +1,14 @@
 # source: https://hackernoon.com/learn-blockchains-by-building-one-117428612f46
-
 import hashlib
 import json
 from textwrap import dedent
 from time import time
 from uuid import uuid4
+from flask import Flask, jsonify
+import flask
+import requests
+import sys
 
-from flask import Flask
 
 class Blockchain:
     def __init__(self):
@@ -129,4 +131,11 @@ def full_chain():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000)
+    flask_ver = '1.1.2'
+    requests_ver = '2.24.0'
+
+    if flask.__version__ == flask_ver and requests.__version__ == requests_ver:
+        app.run(host='0.0.0.0', port=5000)
+    else:
+        print('Required package is not installed. Exiting')
+        sys.exit(0)
