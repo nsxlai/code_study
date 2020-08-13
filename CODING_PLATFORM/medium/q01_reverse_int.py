@@ -1,7 +1,8 @@
 # source: https://towardsdatascience.com/10-algorithms-to-solve-before-your-python-coding-interview-feb74fb9bc27
+from typing import Union
 
 
-def solution(x: int) -> int:
+def solution(x: int) -> Union[int, None]:
     string = str(x)
 
     try:
@@ -11,6 +12,7 @@ def solution(x: int) -> int:
             return int(string[::-1])
     except ValueError:
         print('Incorrect input format. Need to use integer value')
+        return None
 
 
 if __name__ == '__main__':
