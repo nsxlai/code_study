@@ -1,0 +1,294 @@
+$ sqlite3
+SQLite version 3.30.0 2019-10-04 15:03:17
+Enter ".help" for usage hints.
+sqlite>
+sqlite> .table
+sqlite>
+sqlite> .open sql_course.db
+sqlite>
+sqlite> .database
+main: /home/raylai/PycharmProjects/code_study/SQL/04_Stanford_sql_course/sql_course.db
+sqlite>
+sqlite> create table student (sID integer, sName text, GPA real, sizeHS integer);
+sqlite> .table
+student
+sqlite> .schema student
+CREATE TABLE student (sID integer, sName text, GPA real, sizeHS integer);
+sqlite>
+sqlite> create table college (cName text, state text, enrollment integer);
+sqlite> .schema college
+CREATE TABLE college (cName text, state text, enrollment integer);
+sqlite>
+sqlite> create table apply (sID integer, cName text, major text, decision text);
+sqlite> .table
+apply    college  student
+sqlite>
+sqlite> insert into college (cName, state, enrollment) values('Stanford', 'CA', 15000);
+sqlite> insert into college (cName, state, enrollment) values('Berkeley', 'CA', 36000);
+sqlite> insert into college (cName, state, enrollment) values('MIT', 'CA', 10000);
+sqlite> insert into college (cName, state, enrollment) values('Cornell', 'CA', 21000);
+sqlite>
+sqlite> select * from college;
+cName       state       enrollment
+----------  ----------  ----------
+Stanford    CA          15000
+Berkeley    CA          36000
+MIT         CA          10000
+Cornell     CA          21000
+sqlite>
+sqlite> update college
+   ...> set state = 'MA'
+   ...> where cName = 'MIT';
+sqlite> select * from college;
+cName       state       enrollment
+----------  ----------  ----------
+Stanford    CA          15000
+Berkeley    CA          36000
+MIT         MA          10000
+Cornell     CA          21000
+sqlite>
+sqlite>
+sqlite> update college
+   ...> set state = 'NY'
+   ...> where cName = 'Cornell';
+sqlite>
+sqlite> select * from college;
+cName       state       enrollment
+----------  ----------  ----------
+Stanford    CA          15000
+Berkeley    CA          36000
+MIT         MA          10000
+Cornell     NY          21000
+sqlite>
+sqlite>
+sqlite>
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(123, 'Amy', 3.9, 1000);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(234, 'Bob', 3.6, 1500);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(345, 'Craig', 3.5, 500);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(456, 'Doris', 3.9, 1000);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(567, 'Edward', 2.9, 2000);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(678, 'Fay', 3.8, 200);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(789, 'Gary', 3.4, 800);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(987, 'Helen', 3.7, 800);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(876, 'Irene', 3.9, 400);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(765, 'Jay', 2.9, 1500);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(654, 'Amy', 3.9, 1000);
+sqlite> insert into student (sID, sName, GPA, sizeHS) values(543, 'Craig', 3.4, 2000);
+sqlite>
+sqlite> select * from student;
+sID         sName       GPA         sizeHS
+----------  ----------  ----------  ----------
+123         Amy         3.9         1000
+234         Bob         3.6         1500
+345         Craig       3.5         500
+456         Doris       3.9         1000
+567         Edward      2.9         2000
+678         Fay         3.8         200
+789         Gary        3.4         800
+987         Helen       3.7         800
+876         Irene       3.9         400
+765         Jay         2.9         1500
+654         Amy         3.9         1000
+543         Craig       3.4         2000
+sqlite> .schema student
+CREATE TABLE student (sID integer, sName text, GPA real, sizeHS integer);
+sqlite>
+sqlite> .dump
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE student (sID integer, sName text, GPA real, sizeHS integer);
+INSERT INTO student VALUES(123,'Amy',3.8999999999999999111,1000);
+INSERT INTO student VALUES(234,'Bob',3.6000000000000000888,1500);
+INSERT INTO student VALUES(345,'Craig',3.5,500);
+INSERT INTO student VALUES(456,'Doris',3.8999999999999999111,1000);
+INSERT INTO student VALUES(567,'Edward',2.8999999999999999111,2000);
+INSERT INTO student VALUES(678,'Fay',3.7999999999999998223,200);
+INSERT INTO student VALUES(789,'Gary',3.3999999999999999111,800);
+INSERT INTO student VALUES(987,'Helen',3.7000000000000001776,800);
+INSERT INTO student VALUES(876,'Irene',3.8999999999999999111,400);
+INSERT INTO student VALUES(765,'Jay',2.8999999999999999111,1500);
+INSERT INTO student VALUES(654,'Amy',3.8999999999999999111,1000);
+INSERT INTO student VALUES(543,'Craig',3.3999999999999999111,2000);
+CREATE TABLE apply (sID integer, cName text, major text, decision text);
+CREATE TABLE college (cName text, state text, enrollment integer);
+INSERT INTO college VALUES('Stanford','CA',15000);
+INSERT INTO college VALUES('Berkeley','CA',36000);
+INSERT INTO college VALUES('MIT','MA',10000);
+INSERT INTO college VALUES('Cornell','NY',21000);
+COMMIT;
+sqlite> .show
+        echo: off
+         eqp: off
+     explain: auto
+     headers: on
+        mode: column
+   nullvalue: ""
+      output: stdout
+colseparator: "|"
+rowseparator: "\n"
+       stats: off
+       width:
+    filename: sql_course.sql
+sqlite>
+sqlite> insert into apply (sID, cName, major, decision) values(123, 'Stanford', 'CS', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(123, 'Stanford', 'EE', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(123, 'Berkeley', 'CS', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(123, 'Cornell', 'EE', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(234, 'Berkeley', 'biology', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(345, 'MIT', 'bioengineering', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(345, 'Cornell', 'bioengineering', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(345, 'Cornell', 'CS', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(345, 'Cornell', 'EE', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(678, 'Stanford', 'history', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(987, 'Stanford', 'CS', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(987, 'Berkeley', 'CS', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(876, 'Stanford', 'CS', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(876, 'MIT', 'biology', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(876, 'MIT', 'marine biology', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(765, 'Stanford', 'history', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(765, 'Cornell', 'history', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(765, 'Cornell', 'psychology', 'Y');
+sqlite> insert into apply (sID, cName, major, decision) values(543, 'MIT', 'CS', 'N');
+sqlite>
+sqlite>
+sqlite>
+sqlite> select * from apply;
+sID         cName       major       decision
+----------  ----------  ----------  ----------
+123         Stanford    CS          Y
+123         Stanford    EE          N
+123         Berkeley    CS          Y
+123         Cornell     EE          Y
+234         Berkeley    biology     N
+345         MIT         bioenginee  Y
+345         Cornell     bioenginee  N
+345         Cornell     CS          Y
+345         Cornell     EE          N
+678         Stanford    history     Y
+987         Stanford    CS          Y
+987         Berkeley    CS          Y
+876         Stanford    CS          N
+876         MIT         biology     Y
+876         MIT         marine bio  N
+765         Stanford    history     Y
+765         Cornell     history     N
+765         Cornell     psychology  Y
+543         MIT         CS          N
+sqlite>
+sqlite> .dump
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE student (sID integer, sName text, GPA real, sizeHS integer);
+INSERT INTO student VALUES(123,'Amy',3.8999999999999999111,1000);
+INSERT INTO student VALUES(234,'Bob',3.6000000000000000888,1500);
+INSERT INTO student VALUES(345,'Craig',3.5,500);
+INSERT INTO student VALUES(456,'Doris',3.8999999999999999111,1000);
+INSERT INTO student VALUES(567,'Edward',2.8999999999999999111,2000);
+INSERT INTO student VALUES(678,'Fay',3.7999999999999998223,200);
+INSERT INTO student VALUES(789,'Gary',3.3999999999999999111,800);
+INSERT INTO student VALUES(987,'Helen',3.7000000000000001776,800);
+INSERT INTO student VALUES(876,'Irene',3.8999999999999999111,400);
+INSERT INTO student VALUES(765,'Jay',2.8999999999999999111,1500);
+INSERT INTO student VALUES(654,'Amy',3.8999999999999999111,1000);
+INSERT INTO student VALUES(543,'Craig',3.3999999999999999111,2000);
+CREATE TABLE apply (sID integer, cName text, major text, decision text);
+INSERT INTO apply VALUES(123,'Stanford','CS','Y');
+INSERT INTO apply VALUES(123,'Stanford','EE','N');
+INSERT INTO apply VALUES(123,'Berkeley','CS','Y');
+INSERT INTO apply VALUES(123,'Cornell','EE','Y');
+INSERT INTO apply VALUES(234,'Berkeley','biology','N');
+INSERT INTO apply VALUES(345,'MIT','bioengineering','Y');
+INSERT INTO apply VALUES(345,'Cornell','bioengineering','N');
+INSERT INTO apply VALUES(345,'Cornell','CS','Y');
+INSERT INTO apply VALUES(345,'Cornell','EE','N');
+INSERT INTO apply VALUES(678,'Stanford','history','Y');
+INSERT INTO apply VALUES(987,'Stanford','CS','Y');
+INSERT INTO apply VALUES(987,'Berkeley','CS','Y');
+INSERT INTO apply VALUES(876,'Stanford','CS','N');
+INSERT INTO apply VALUES(876,'MIT','biology','Y');
+INSERT INTO apply VALUES(876,'MIT','marine biology','N');
+INSERT INTO apply VALUES(765,'Stanford','history','Y');
+INSERT INTO apply VALUES(765,'Cornell','history','N');
+INSERT INTO apply VALUES(765,'Cornell','psychology','Y');
+INSERT INTO apply VALUES(543,'MIT','CS','N');
+CREATE TABLE college (cName text, state text, enrollment integer);
+INSERT INTO college VALUES('Stanford','CA',15000);
+INSERT INTO college VALUES('Berkeley','CA',36000);
+INSERT INTO college VALUES('MIT','MA',10000);
+INSERT INTO college VALUES('Cornell','NY',21000);
+COMMIT;
+sqlite>
+sqlite> .exit
+$ sqlite3 sql_course.sql
+SQLite version 3.30.0 2019-10-04 15:03:17
+Enter ".help" for usage hints.
+sqlite>
+sqlite> .table
+apply    college  student
+sqlite>
+sqlite>
+sqlite> .headers on
+sqlite> .mode column
+sqlite>
+sqlite> select * from apply;
+sID         cName       major       decision
+----------  ----------  ----------  ----------
+123         Stanford    CS          Y
+123         Stanford    EE          N
+123         Berkeley    CS          Y
+123         Cornell     EE          Y
+234         Berkeley    biology     N
+345         MIT         bioenginee  Y
+345         Cornell     bioenginee  N
+345         Cornell     CS          Y
+345         Cornell     EE          N
+678         Stanford    history     Y
+987         Stanford    CS          Y
+987         Berkeley    CS          Y
+876         Stanford    CS          N
+876         MIT         biology     Y
+876         MIT         marine bio  N
+765         Stanford    history     Y
+765         Cornell     history     N
+765         Cornell     psychology  Y
+543         MIT         CS          N
+sqlite> select * from student;
+sID         sName       GPA         sizeHS
+----------  ----------  ----------  ----------
+123         Amy         3.9         1000
+234         Bob         3.6         1500
+345         Craig       3.5         500
+456         Doris       3.9         1000
+567         Edward      2.9         2000
+678         Fay         3.8         200
+789         Gary        3.4         800
+987         Helen       3.7         800
+876         Irene       3.9         400
+765         Jay         2.9         1500
+654         Amy         3.9         1000
+543         Craig       3.4         2000
+sqlite> select * from college;
+cName       state       enrollment
+----------  ----------  ----------
+Stanford    CA          15000
+Berkeley    CA          36000
+MIT         MA          10000
+Cornell     NY          21000
+sqlite>
+sqlite> .schema apply
+CREATE TABLE apply (sID integer, cName text, major text, decision text);
+sqlite> .schema student
+CREATE TABLE student (sID integer, sName text, GPA real, sizeHS integer);
+sqlite> .schema college
+CREATE TABLE college (cName text, state text, enrollment integer);
+sqlite>
+sqlite>
+sqlite> .database
+main: /home/raylai/PycharmProjects/code_study/SQL/04_Stanford_sql_course/test.db
+sqlite> .exit
+
+
+## The problem of loading from CSV file is all the fields will end up
+## to be TEXT. This will cause issue for the SQL queries
+
+

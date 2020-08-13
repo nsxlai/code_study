@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import math
 
+
 class calc01(ABC):
     @abstractmethod
     def add(self):

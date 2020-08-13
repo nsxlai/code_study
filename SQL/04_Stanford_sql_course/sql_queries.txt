@@ -1,0 +1,1334 @@
+1. Find students with GPA higher than 3.6
+select sID, sName, GPA
+from student
+where GPA > 3.6;
+
+2. Find the name of the student and the major they applied
+select sName, major
+from student, apply
+where student.sID = apply.sID;
+
+sName       major     
+----------  ----------
+Amy         CS        
+Amy         CS        
+Amy         EE        
+Amy         EE        
+Bob         biology   
+Craig       CS        
+Craig       EE        
+Craig       bioenginee
+Craig       bioenginee
+Fay         history   
+Helen       CS        
+Helen       CS        
+Irene       CS        
+Irene       biology   
+Irene       marine bio
+Jay         history   
+Jay         history   
+Jay         psychology
+Craig       CS   
+
+After adding the keyword "distinct", the duplicate entries will be gone
+select distinct sName, major
+from student, apply
+where student.sID = apply.sID;
+
+sName       major
+----------  ----------
+Amy         CS
+Amy         EE
+Bob         biology
+Craig       CS
+Craig       EE
+Craig       bioenginee
+Fay         history
+Helen       CS
+Irene       CS
+Irene       biology
+Irene       marine bio
+Jay         history
+Jay         psychology
+
+3. Find the name of the student whose
+HS size is < 1000, and
+apply for CS major, and
+apply for Stanford
+
+select sName, GPA, decision
+from student, apply
+where student.sID = apply.sID
+and sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+
+sName       GPA         decision
+----------  ----------  ----------
+Helen       3.7         Y
+Irene       3.9         N
+
+4. Find students apply to large campus (>20000) with CS major
+select distinct college.cName
+from college, apply
+where college.cName = apply.cName
+and enrollment > 20000 and major = 'CS';
+cName
+----------
+Berkeley
+Cornell
+
+5. Combining all the databases together
+select student.sID, sName, GPA, apply.cName, enrollment
+from student, college, apply
+where apply.sID = student.sID and apply.cName = college.cName
+order by GPA desc, enrollment;
+sID         sName       GPA         cName       enrollment
+----------  ----------  ----------  ----------  ----------
+876         Irene       3.9         MIT         10000
+876         Irene       3.9         MIT         10000
+123         Amy         3.9         Stanford    15000
+123         Amy         3.9         Stanford    15000
+876         Irene       3.9         Stanford    15000
+123         Amy         3.9         Cornell     21000
+123         Amy         3.9         Berkeley    36000
+678         Fay         3.8         Stanford    15000
+987         Helen       3.7         Stanford    15000
+987         Helen       3.7         Berkeley    36000
+234         Bob         3.6         Berkeley    36000
+345         Craig       3.5         MIT         10000
+345         Craig       3.5         Cornell     21000
+345         Craig       3.5         Cornell     21000
+345         Craig       3.5         Cornell     21000
+543         Craig       3.4         MIT         10000
+765         Jay         2.9         Stanford    15000
+765         Jay         2.9         Cornell     21000
+765         Jay         2.9         Cornell     21000
+
+
+6. Find out student who apply "bio" like major
+select sID, major, cName
+from apply
+where major like '%bio%';
+sID         major       cName
+----------  ----------  ----------
+234         biology     Berkeley
+345         bioenginee  MIT
+345         bioenginee  Cornell
+876         biology     MIT
+876         marine bio  MIT
+
+
+7. Find the student information include scaled GPA
+select sID, sName, GPA, sizeHS, GPA*(sizeHS/1000.0) as scaledGPA
+from student;
+sID         sName       GPA         sizeHS      scaledGPA
+----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         1000        3.9
+234         Bob         3.6         1500        5.4
+345         Craig       3.5         500         1.75
+456         Doris       3.9         1000        3.9
+567         Edward      2.9         2000        5.8
+678         Fay         3.8         200         0.76
+789         Gary        3.4         800         2.72
+987         Helen       3.7         800         2.96
+876         Irene       3.9         400         1.56
+765         Jay         2.9         1500        4.35
+654         Amy         3.9         1000        3.9
+543         Craig       3.4         2000        6.8
+
+
+8. All pairs of students who have the same GPA
+select s1.sID, s1.sName, s1.GPA, s2.sID, s2.sName, s2.GPA
+from student s1, student s2
+where s1.GPA = s2.GPA and s1.sID <> s2.sID;
+// the above query uses <> (not equal) to filter out the same
+// student comparing GPA with him/herself, but we still have
+// the same entry at different students:
+sID         sName       GPA         sID         sName       GPA
+----------  ----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         456         Doris       3.9
+123         Amy         3.9         654         Amy         3.9
+123         Amy         3.9         876         Irene       3.9
+456         Doris       3.9         123         Amy         3.9
+456         Doris       3.9         654         Amy         3.9
+456         Doris       3.9         876         Irene       3.9
+567         Edward      2.9         765         Jay         2.9
+789         Gary        3.4         543         Craig       3.4
+876         Irene       3.9         123         Amy         3.9
+876         Irene       3.9         456         Doris       3.9
+876         Irene       3.9         654         Amy         3.9
+765         Jay         2.9         567         Edward      2.9
+654         Amy         3.9         123         Amy         3.9
+654         Amy         3.9         456         Doris       3.9
+654         Amy         3.9         876         Irene       3.9
+543         Craig       3.4         789         Gary        3.4
+
+// First entry Amy has the same GPA as Doris. Lower at the
+// table Doris will have the same GPA as Amy. Will refine
+// the query with < sign instead of <>
+select s1.sID, s1.sName, s1.GPA, s2.sID, s2.sName, s2.GPA
+from student s1, student s2
+where s1.GPA = s2.GPA and s1.sID < s2.sID;
+sID         sName       GPA         sID         sName       GPA
+----------  ----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         456         Doris       3.9
+123         Amy         3.9         654         Amy         3.9
+123         Amy         3.9         876         Irene       3.9
+456         Doris       3.9         654         Amy         3.9
+456         Doris       3.9         876         Irene       3.9
+567         Edward      2.9         765         Jay         2.9
+654         Amy         3.9         876         Irene       3.9
+543         Craig       3.4         789         Gary        3.4
+
+9. Use UNION operator to generate a list that includes names
+of colleges together with names of students
+select cName as name from college
+union
+select sName as name from student;
+name
+----------
+Amy
+Berkeley
+Bob
+Cornell
+Craig
+Doris
+Edward
+Fay
+Gary
+Helen
+Irene
+Jay
+MIT
+Stanford
+
+// UNION operator by default eliminates duplicates in its results and sorted
+// If we want to include duplicates, use UNION ALL instead (not sorted anymore)
+
+10. Find students who apply with major either CS or EE
+select sID from apply where major = 'CS'
+intersect
+select sID from apply where major = 'EE';
+sID
+----------
+123
+345
+
+// for some database does not support intersect operator,
+// can write the query this way:
+select distinct a1.sID
+from apply a1, apply a2
+where a1.sID = a2.sID and a1.major = 'CS' and a2.major = 'EE';
+sID
+----------
+123
+345
+
+11. Find students who applied to CS but did not apply to EE.
+This query will use the difference operator, or "except"
+select sID from apply where major = 'CS'
+except
+select sID from apply where major = 'EE';
+sID
+----------
+543
+876
+987
+
+// to write the query without the "except" operator
+select distinct a1.sID
+from apply a1, apply a2
+where a1.sID = a2.sID and a1.major = 'CS' and a2.major <> 'EE';
+sID
+----------
+123
+345
+987
+876
+543
+
+// a2.major <> 'EE' could just mean 'CS' again. The "except"
+// operator actually remove the 'CS' from the scope. Subquery
+// can solve this problem
+select sID, sName
+from student
+where sID in (select sID from apply where major = 'CS')
+and sID not in (select sID from apply where major = 'EE');
+sID         sName
+----------  ----------
+987         Helen
+876         Irene
+543         Craig
+
+
+12. Sub-query examples. Find the IDs and names of all students
+who have applied to major in CS to some college
+select sID, sName
+from student
+where sID in (select sID from apply where major = 'CS');
+sID         sName
+----------  ----------
+123         Amy
+345         Craig
+987         Helen
+876         Irene
+543         Craig
+
+// Another way to write this query without subquery
+select distinct student.sID, sName
+from student, apply
+where student.sID = apply.sID and major = 'CS';
+sID         sName
+----------  ----------
+123         Amy
+345         Craig
+987         Helen
+876         Irene
+543         Craig
+
+13. Find students who are applying major in CS but only getting
+their names
+select sID, sName
+from student
+where sID in (select sID from apply where major = 'CS');
+sID         sName
+----------  ----------
+123         Amy
+345         Craig
+987         Helen
+876         Irene
+543         Craig
+
+// Writing the query without subquery
+select distinct student.sID, sName
+from student, apply
+where student.sID = apply.sID and major = 'CS';
+sID         sName
+----------  ----------
+123         Amy
+345         Craig
+987         Helen
+876         Irene
+543         Craig
+
+
+14. Check wheather a subquery is empty or not
+select cName, state
+from college c1
+where exists (select * from college c2
+              where c2.state = c1.state and c1.cName <> c2.cName);
+cName       state
+----------  ----------
+Stanford    CA
+Berkeley    CA
+
+// "exists" check for if subquery is empty
+
+
+15. Find the college has the largest enrollment (without using
+the MAX operator)
+select cName
+from college c1
+where not exists (select * from college c2
+                  where c1.enrollment < c2.enrollment);
+cName
+----------
+Berkeley
+
+// Another way to write it
+select cName
+from college c1
+where enrollment > all (select enrollment from college c2
+                        where c2.cName <> c1.cName);
+
+// Keyword ALL does not work like this in sqlite3. Use the
+// keyword MAX instead:
+select cName
+from college c1
+where enrollment > (select max(enrollment) from college c2
+                    where c2.cName <> c1.cName);
+
+
+16. Find the students has the largest GPS
+select sName, GPA
+from student s1
+where not exists (select * from student s2
+                  where s2.GPA > s1.GPA);
+sName       GPA
+----------  ----------
+Amy         3.9
+Doris       3.9
+Irene       3.9
+Amy         3.9
+
+// Another way to write it without using subquery
+select sName, GPA
+from student s1
+where GPA > all(select GPA from student s2
+                 where s2.sID <> s1.sID);
+
+
+17. Find all students who are not from the smallest high
+school:
+select sID, sName, sizeHS
+from student
+where sizeHS > (select min(sizeHS) from student);
+sID         sName       sizeHS
+----------  ----------  ----------
+123         Amy         1000
+234         Bob         1500
+345         Craig       500
+456         Doris       1000
+567         Edward      2000
+789         Gary        800
+987         Helen       800
+876         Irene       400
+765         Jay         1500
+654         Amy         1000
+543         Craig       2000
+
+// ALL (select num...) == (select max(num)...);
+// ANY (select num...) == (select min(min)...);
+
+// Same query without using ANY
+select sID, sName, sizeHS
+from student s1
+where exists (select * from student s2
+              where s2.sizeHS < s1.sizeHS);
+sID         sName       sizeHS
+----------  ----------  ----------
+123         Amy         1000
+234         Bob         1500
+345         Craig       500
+456         Doris       1000
+567         Edward      2000
+789         Gary        800
+987         Helen       800
+876         Irene       400
+765         Jay         1500
+654         Amy         1000
+543         Craig       2000
+
+
+18. Find students who have applied to major in CS and have
+not applied to major in EE:
+select sID, sName
+from student
+where sID = any (select sID from apply where major = 'CS')
+ and sID <> any (select sID from apply where major = 'EE');
+sID         sName
+----------  ----------
+123         Amy
+345         Craig
+987         Helen
+876         Irene
+543         Craig
+
+// This query is actually not correct. Need to use the
+// following query to get the correct answer:
+select sID, sName
+from student
+where sID = any (select sID from apply where major = 'CS')
+and not sID = any (select sID from apply where major = 'EE');
+sID         sName
+----------  ----------
+987         Helen
+876         Irene
+543         Craig
+
+
+Subqueries in FROM and SELECT
+19. Return all students where scaling their GPA changes
+its value by more than one, specifically either the scaled
+GPA minus the GPA is greater than one or the GPA minus the
+scaled GPA is great than one.
+select sID, sName, GPA, GPA*(sizeHS/1000.0) as scaledGPA
+from student
+where scaledGPA - GPA > 1.0
+or GPA - scaledGPA > 1.0;
+sID         sName       GPA         scaledGPA
+----------  ----------  ----------  ----------
+234         Bob         3.6         5.4
+345         Craig       3.5         1.75
+567         Edward      2.9         5.8
+678         Fay         3.8         0.76
+876         Irene       3.9         1.56
+765         Jay         2.9         4.35
+543         Craig       3.4         6.8
+
+// Use the absolute value function instead:
+select sID, sName, GPA, GPA*(sizeHS/1000.0) as scaledGPA
+from student
+where abs(scaledGPA - GPA) > 1.0;
+
+// Use subquery in the from clause:
+select *
+from (select sID, sName, GPA, GPA*(sizeHS/1000.0) as scaledGPA
+      from student) as G
+where abs(scaledGPA - GPA) > 1.0;
+
+
+20. Find colleges and to pair them with the highest GPA
+among their applicants
+select distinct college.cName, state, GPA
+from college, apply, student
+where college.cName = apply.cName
+and apply.sID = student.sID
+and GPA >= all (select GPA
+                from student, apply
+                where student.sID = apply.sID
+                and apply.cName = college.cName);
+
+// or write the following without using ALL keyword
+select distinct college.cName, state, GPA
+from college, apply, student
+where college.cName = apply.cName
+and apply.sID = student.sID
+and GPA >= (select max(GPA)
+            from student, apply
+            where student.sID = apply.sID
+            and apply.cName = college.cName);
+cName       state       GPA
+----------  ----------  ----------
+Stanford    CA          3.9
+Berkeley    CA          3.9
+MIT         MA          3.9
+Cornell     NY          3.9
+
+// or
+select cName, state,
+(select GPA
+from apply, student
+where college.cName = apply.cName
+and apply.sID = student.sID
+and GPA >= (select max(GPA)
+            from student, apply
+            where student.sID = apply.sID
+            and apply.cName = college.cName)) as GPA
+from college;
+cName       state       GPA
+----------  ----------  ----------
+Stanford    CA          3.9
+Berkeley    CA          3.9
+MIT         MA          3.9
+Cornell     NY          3.9
+
+
+21. Instead of wanting to pair every college with the
+highest GPA of the applicants, we wanted to pair the
+colleges with the names of the applicants
+select cName, state,
+(select distinct sName
+from apply, student
+where college.cName = apply.cName
+and apply.sID = student.sID) as sName
+from college;
+cName       state       sName
+----------  ----------  ----------
+Stanford    CA          Amy
+Berkeley    CA          Amy
+MIT         MA          Craig
+Cornell     NY          Amy
+
+// This query may not work in other SQL implementation.
+sName subquery returns more than one row will cause
+the issue; however, this is not a problem in sqlite
+
+
+Join family operators
+Types of Joins:
+    1. Inner Join on condition
+    2. Natural Join
+    3. Inner Join using/listing (attributes)
+    4. Left/Right/Full Outer Join
+22. Find matching student names with majors to which
+they've applied
+select distinct sName, major
+from student, apply
+where student.sID = apply.sID;
+sName       major
+----------  ----------
+Amy         CS
+Amy         EE
+Bob         biology
+Craig       CS
+Craig       EE
+Craig       bioenginee
+Fay         history
+Helen       CS
+Irene       CS
+Irene       biology
+Irene       marine bio
+Jay         history
+Jay         psychology
+
+// Same query using JOIN
+select distinct sName, major
+from student
+inner join apply on student.sID = apply.sID;
+
+// INNER JOIN is the default operator for JOIN; the
+// following query is the same as above (without INNER):
+select distinct sName, major
+from student
+join apply on student.sID = apply.sID;
+
+
+23. Find the name and GPA of the students who came from
+a high school with less than 1000 students, who apply
+to CS at Stanford:
+// Query from earlier
+select sName, GPA
+from student, apply
+where student.sID = apply.sID
+and sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+sName       GPA
+----------  ----------
+Helen       3.7
+Irene       3.9
+
+// Rewrite the query with INNER JOIN"
+select sName, GPA
+from student
+join apply on student.sID = apply.sID
+where sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+
+// Or
+select sName, GPA
+from student
+join apply on student.sID = apply.sID
+and sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+
+
+24. Combining all the tables together
+select apply.sID, sName, GPA, apply.cName, enrollment
+from apply, student, college
+where apply.sID = student.sID and apply.cName = college.cName;
+sID         sName       GPA         cName       enrollment
+----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         Stanford    15000
+123         Amy         3.9         Stanford    15000
+123         Amy         3.9         Berkeley    36000
+123         Amy         3.9         Cornell     21000
+234         Bob         3.6         Berkeley    36000
+345         Craig       3.5         MIT         10000
+345         Craig       3.5         Cornell     21000
+345         Craig       3.5         Cornell     21000
+345         Craig       3.5         Cornell     21000
+678         Fay         3.8         Stanford    15000
+987         Helen       3.7         Stanford    15000
+987         Helen       3.7         Berkeley    36000
+876         Irene       3.9         Stanford    15000
+876         Irene       3.9         MIT         10000
+876         Irene       3.9         MIT         10000
+765         Jay         2.9         Stanford    15000
+765         Jay         2.9         Cornell     21000
+765         Jay         2.9         Cornell     21000
+543         Craig       3.4         MIT         10000
+
+// Rewrite the query with INNER JOIN. Sqlite and MySQL
+supports the 3-way JOIN as below; however, PostGRES
+does not support 3-way JOIN
+select apply.sID, sName, GPA, apply.cName, enrollment
+from apply join student join college
+on apply.sID = student.sID and apply.cName = college.cName;
+
+// Write the query that will work with PostGRES:
+select apply.sID, sName, GPA, apply.cName, enrollment
+from (apply join student on apply.sID = student.sID)
+join college on apply.cName = college.cName;
+
+
+25. Combine the student and apply to find the majors
+that students applied to:
+select distinct sName, major
+from student join apply
+on student.sID = apply.sID;
+sName       major
+----------  ----------
+Amy         CS
+Amy         CS
+Amy         EE
+Amy         EE
+Bob         biology
+Craig       CS
+Craig       EE
+Craig       bioenginee
+Craig       bioenginee
+Fay         history
+Helen       CS
+Helen       CS
+Irene       CS
+Irene       biology
+Irene       marine bio
+Jay         history
+Jay         history
+Jay         psychology
+Craig       CS
+
+
+26. Relational algebra principle: the natural join takes
+two relations that have column names in common and
+then it performs a cross product that only keeps the
+tuples where the tuples have the same value in those
+common attribute names.
+select distinct sName, major
+from student natural join apply;
+
+// natural join merges student.sID and apply.sID together
+// into 1 records (different from inner join).
+select distinct sID
+from student natural join apply;
+sID
+----------
+123
+234
+345
+678
+987
+876
+765
+543
+
+// Without natural join, the following query will have
+// error:
+select distinct sID
+from student, apply;
+Error: ambiguous column name: sID
+
+
+Natural Join with additional conditions
+27. Query from 23. Find the name and GPA of the students
+who came from a high school with less than 1000 students,
+who apply to CS at Stanford:
+select sName, GPA
+from student, apply
+where student.sID = apply.sID
+and sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+sName       GPA
+----------  ----------
+Helen       3.7
+Irene       3.9
+
+// Use natural join instead of inner join:
+select sName, GPA
+from student natural join apply
+where sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+sName       GPA
+----------  ----------
+Helen       3.7
+Irene       3.9
+
+// Rewrite the query with USING clause
+select sName, GPA
+from student join apply using(sID)
+where sizeHS < 1000 and major = 'CS' and cName = 'Stanford';
+
+// This is consider a better practice than natural join
+// The USING clause can only take attribute that are
+// common in both tables
+
+
+// From the SQL training video:
+The reason this is considered better practice, to make this explicit, is
+that because the natural join implicitly combines columns that have the same name.
+It's possible, say, to add a column to a relation that has the same name
+as the other relation, or not realize that two relations have the same column name.
+And the system will, will sort
+of underneath the covers, equate those values.
+Where as, when we put the attribute name in the query we're saying
+explicitly that this attribute does mean the same thing across the two relations.
+And one thing I might add by the way, in realistic applications there
+can also be often 40, 50, even a hundred attributes in a relationship.
+So, it's, it's, there's a higher chance that you really could have
+attributes that have the same name but aren't meant to be equated.
+And again, by putting explicitly the equated attributes in the column,
+it's just sort of, in the query, it's just better software engineering practice.
+
+
+28. Using the JOIN operator when we have more than one
+instance of the same relation.
+select s1.sID, s1.sName, s1.GPA, s2.sID, s2.sName, s2.GPA
+from student s1, student s2
+where s1.GPA = s2.GPA and s1.sID < s2.sID;
+sID         sName       GPA         sID         sName       GPA
+----------  ----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         456         Doris       3.9
+123         Amy         3.9         654         Amy         3.9
+123         Amy         3.9         876         Irene       3.9
+456         Doris       3.9         654         Amy         3.9
+456         Doris       3.9         876         Irene       3.9
+567         Edward      2.9         765         Jay         2.9
+654         Amy         3.9         876         Irene       3.9
+543         Craig       3.4         789         Gary        3.4
+
+// Rewrite the same query:
+select s1.sID, s1.sName, s1.GPA, s2.sID, s2.sName, s2.GPA
+from student s1 join student s2 using(GPA)
+on s1.sID < s2.sID;
+Error: near "on": syntax error
+
+// Most SQL systems do not allow both a USING clause and
+// an ON clause in combination with JOIN.
+select s1.sID, s1.sName, s1.GPA, s2.sID, s2.sName, s2.GPA
+from student s1 join student s2 using(GPA)
+where s1.sID < s2.sID;
+sID         sName       GPA         sID         sName       GPA
+----------  ----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         456         Doris       3.9
+123         Amy         3.9         654         Amy         3.9
+123         Amy         3.9         876         Irene       3.9
+456         Doris       3.9         654         Amy         3.9
+456         Doris       3.9         876         Irene       3.9
+567         Edward      2.9         765         Jay         2.9
+654         Amy         3.9         876         Irene       3.9
+543         Craig       3.4         789         Gary        3.4
+
+
+29. Self JOIN
+select *
+from student s1 natural join student s2;
+sID         sName       GPA         sizeHS
+----------  ----------  ----------  ----------
+123         Amy         3.9         1000
+234         Bob         3.6         1500
+345         Craig       3.5         500
+456         Doris       3.9         1000
+567         Edward      2.9         2000
+678         Fay         3.8         200
+789         Gary        3.4         800
+987         Helen       3.7         800
+876         Irene       3.9         400
+765         Jay         2.9         1500
+654         Amy         3.9         1000
+543         Craig       3.4         2000
+
+// This is the exact table of student
+
+
+OUTER JOIN
+30. Find students who haven't apply anywhere:
+// below is students who apply to come college:
+select sName, sID, cName, major
+from student inner join apply using(sID);
+sName       sID         cName       major
+----------  ----------  ----------  ----------
+Amy         123         Berkeley    CS
+Amy         123         Cornell     EE
+Amy         123         Stanford    CS
+Amy         123         Stanford    EE
+Bob         234         Berkeley    biology
+Craig       345         Cornell     CS
+Craig       345         Cornell     EE
+Craig       345         Cornell     bioenginee
+Craig       345         MIT         bioenginee
+Fay         678         Stanford    history
+Helen       987         Berkeley    CS
+Helen       987         Stanford    CS
+Irene       876         MIT         biology
+Irene       876         MIT         marine bio
+Irene       876         Stanford    CS
+Jay         765         Cornell     history
+Jay         765         Cornell     psychology
+Jay         765         Stanford    history
+Craig       543         MIT         CS
+
+// For student who haven't apply to anywhere, use
+// LEFT OUTER JOIN
+select sName, sID, cName, major
+from student left outer join apply using(sID);
+sName       sID         cName       major
+----------  ----------  ----------  ----------
+Amy         123         Berkeley    CS
+Amy         123         Cornell     EE
+Amy         123         Stanford    CS
+Amy         123         Stanford    EE
+Bob         234         Berkeley    biology
+Craig       345         Cornell     CS
+Craig       345         Cornell     EE
+Craig       345         Cornell     bioenginee
+Craig       345         MIT         bioenginee
+Doris       456
+Edward      567
+Fay         678         Stanford    history
+Gary        789
+Helen       987         Berkeley    CS
+Helen       987         Stanford    CS
+Irene       876         MIT         biology
+Irene       876         MIT         marine bio
+Irene       876         Stanford    CS
+Jay         765         Cornell     history
+Jay         765         Cornell     psychology
+Jay         765         Stanford    history
+Amy         654
+Craig       543         MIT         CS
+
+// the blank space shown here is NULL value. The students
+// with NULL values have not apply to any college.
+
+// LEFT OUTER JOIN, simplified (remove OUTER)
+select sName, sID, cName, major
+from student left join apply using(sID);
+
+// Now I should mention that everything we've seen so far with
+// the join operators can be rewritten using regular SQL without join operators.
+// Rewrite the outer join without using outer join
+select sName, student.sID, cName, major
+from student, apply
+where student.sID = apply.sID
+union
+select sName, sID, NULL, NULL
+from student
+where sID not in (select sID from apply);
+sName       sID         cName       major
+----------  ----------  ----------  ----------
+Amy         123         Berkeley    CS
+Amy         123         Cornell     EE
+Amy         123         Stanford    CS
+Amy         123         Stanford    EE
+Amy         654
+Bob         234         Berkeley    biology
+Craig       345         Cornell     CS
+Craig       345         Cornell     EE
+Craig       345         Cornell     bioenginee
+Craig       345         MIT         bioenginee
+Craig       543         MIT         CS
+Doris       456
+Edward      567
+Fay         678         Stanford    history
+Gary        789
+Helen       987         Berkeley    CS
+Helen       987         Stanford    CS
+Irene       876         MIT         biology
+Irene       876         MIT         marine bio
+Irene       876         Stanford    CS
+Jay         765         Cornell     history
+Jay         765         Cornell     psychology
+Jay         765         Stanford    history
+
+
+31.Retain apply table (tuples), and match whether or not they
+match a student table. Flip the order of student and
+apply in the from clause from 30. To do this we can
+alter the apply table a bit by adding 2 additional entries:
+INSERT INTO apply values (321, 'MIT', 'history', 'N');
+INSERT INTO apply values (321, 'MIT', 'psychology', 'Y');
+
+// Since 321 is not in the student table, the following
+// query will have NULL value:
+select sName, sID, cName, major
+from apply natural left outer join student;
+sName       sID         cName       major
+----------  ----------  ----------  ----------
+Amy         123         Stanford    CS
+Amy         123         Stanford    EE
+Amy         123         Berkeley    CS
+Amy         123         Cornell     EE
+Bob         234         Berkeley    biology
+Craig       345         MIT         bioenginee
+Craig       345         Cornell     bioenginee
+Craig       345         Cornell     CS
+Craig       345         Cornell     EE
+Fay         678         Stanford    history
+Helen       987         Stanford    CS
+Helen       987         Berkeley    CS
+Irene       876         Stanford    CS
+Irene       876         MIT         biology
+Irene       876         MIT         marine bio
+Jay         765         Stanford    history
+Jay         765         Cornell     history
+Jay         765         Cornell     psychology
+Craig       543         MIT         CS
+            321         MIT         history
+            321         MIT         psychology
+
+// Or use the right outer join:
+select sName, sID, cName, major
+from student natural right outer join apply;
+Error: RIGHT and FULL OUTER JOINs are not currently supported
+
+// Sqlite does not support RIGHT and FULL OUTER JOIN;
+// PostGres does support it.
+// Use the UNION clause instead:
+select sName, sID, cName, major
+from student left outer join apply using(sID)
+union
+select sName, sID, cName, major
+from apply left outer join student using (sID);
+sName       sID         cName       major
+----------  ----------  ----------  ----------
+            321         MIT         history
+            321         MIT         psychology
+Amy         123         Berkeley    CS
+Amy         123         Cornell     EE
+Amy         123         Stanford    CS
+Amy         123         Stanford    EE
+Amy         654
+Bob         234         Berkeley    biology
+Craig       345         Cornell     CS
+Craig       345         Cornell     EE
+Craig       345         Cornell     bioenginee
+Craig       345         MIT         bioenginee
+Craig       543         MIT         CS
+Doris       456
+Edward      567
+Fay         678         Stanford    history
+Gary        789
+Helen       987         Berkeley    CS
+Helen       987         Stanford    CS
+Irene       876         MIT         biology
+Irene       876         MIT         marine bio
+Irene       876         Stanford    CS
+Jay         765         Cornell     history
+Jay         765         Cornell     psychology
+Jay         765         Stanford    history
+
+// UNION automatically eliminates the duplicates
+
+
+32. Write the query without using FULL JOIN
+select sName, student.sID, cName, major
+from student, apply
+where student.sID = apply.sID
+union
+select sName, sID, NULL, NULL
+from student
+where sID not in (select sID from apply)
+union
+select NULL, sID, cName, major
+from apply
+where sID not in (select sID from student);
+sName       sID         cName       major
+----------  ----------  ----------  ----------
+            321         MIT         history
+            321         MIT         psychology
+Amy         123         Berkeley    CS
+Amy         123         Cornell     EE
+Amy         123         Stanford    CS
+Amy         123         Stanford    EE
+Amy         654
+Bob         234         Berkeley    biology
+Craig       345         Cornell     CS
+Craig       345         Cornell     EE
+Craig       345         Cornell     bioenginee
+Craig       345         MIT         bioenginee
+Craig       543         MIT         CS
+Doris       456
+Edward      567
+Fay         678         Stanford    history
+Gary        789
+Helen       987         Berkeley    CS
+Helen       987         Stanford    CS
+Irene       876         MIT         biology
+Irene       876         MIT         marine bio
+Irene       876         Stanford    CS
+Jay         765         Cornell     history
+Jay         765         Cornell     psychology
+Jay         765         Stanford    history
+
+
+commutativity: (A op B) = (B op A)
+Associativity: (A op B) op C = A op (B op C)
+// natural join is associative
+// outer join (including left and right) is not associative
+// full outer join is communicative
+
+Use the following tables for examples:
+T1 = {'A': 1, 'B': 2}
+T2 = {'B': 2, 'C': 3}
+T3 = {'A': 4, 'C': 5}
+
+Natural full outer join for the 3 tables:
+select A, B, C
+from (T1 natural full outer join T2) natural full outer join T3;
+a     b     c
+----- ----- -----
+1     2     3
+4           5
+
+select A, B, C
+from T1 natural full outer join (T2 natural full outer join T3);
+a     b     c
+----- ----- -----
+4           5
+      2     3
+1     2
+
+
+AGGREGATION: MAX, MIN, SUM, AVG, COUNT
+Will use the GROUP BY and HAVING clause
+33. Computes the average GPA of the students in the
+student table
+select avg(GPA)
+from student;
+avg(GPA)
+----------------
+3.56666666666667
+
+
+34. Find minimum GPA of students who have applied
+for a CS major
+select min(GPA)
+from student, apply
+where student.sID = apply.sID and major = 'CS';
+min(GPA)
+----------
+3.4
+
+
+35. The query for 33 and 34 is actually not correct
+because there are students who apply to multiple colleges
+and their GPA gets counted multiple times:
+select *
+from student, apply
+where student.sID = apply.sID and major = 'CS';
+sID         sName       GPA         sizeHS      sID         cName       major       decision
+----------  ----------  ----------  ----------  ----------  ----------  ----------  ----------
+123         Amy         3.9         1000        123         Stanford    CS          Y
+123         Amy         3.9         1000        123         Berkeley    CS          Y
+345         Craig       3.5         500         345         Cornell     CS          Y
+987         Helen       3.7         800         987         Stanford    CS          Y
+987         Helen       3.7         800         987         Berkeley    CS          Y
+876         Irene       3.9         400         876         Stanford    CS          N
+543         Craig       3.4         2000        543         MIT         CS          N
+
+// Amy with sID 123 apply to both Berkeley and Stanford
+// and her GPA gets counted twice.
+select *
+from student
+where sID in (select sID from apply where major = 'CS');
+sID         sName       GPA         sizeHS
+----------  ----------  ----------  ----------
+123         Amy         3.9         1000
+345         Craig       3.5         500
+987         Helen       3.7         800
+876         Irene       3.9         400
+543         Craig       3.4         2000
+
+// Now if we calculate the averge GPA from the query,
+// the GPA will be correct
+select avg(GPA)
+from student
+where sID in (select sID from apply where major = 'CS');
+avg(GPA)
+----------
+3.68
+
+// The previous avg(GPA) was 3.56666666666667
+
+36. Count the college with enrollment larger than 15000
+Full query:
+select *
+from college
+where enrollment > 15000;
+cName       state       enrollment
+----------  ----------  ----------
+Berkeley    CA          36000
+Cornell     NY          21000
+
+
+select count(*)
+from college
+where enrollment > 15000;
+count(*)
+----------
+2
+
+// There are 2 colleges with enrollment larger than 15000
+
+
+37. Find how many students apply to Cornell
+select *
+from apply
+where cName = 'Cornell';
+sID         cName       major       decision
+----------  ----------  ----------  ----------
+123         Cornell     EE          Y
+345         Cornell     bioenginee  N
+345         Cornell     CS          Y
+345         Cornell     EE          N
+765         Cornell     history     N
+765         Cornell     psychology  Y
+
+// Now find the count
+select count(*)
+from apply
+where cName = 'Cornell';
+count(*)
+----------
+6
+
+// However, we are still over-counting (ID 345 applied
+// to Cornell CS and EE major; double counting)
+select count(distinct sID)
+from apply
+where cName = 'Cornell';
+count(distinct sID)
+-------------------
+3
+
+
+38. Find all the students where the number of the
+students who have the same GPA as the student is equal
+to the number of the other student that have the same
+high school size at the student table.
+select *
+from student s1
+where (select count(*) from student s2
+       where s2.sID <> s1.sID and s2.GPA = s1.GPA) =
+      (select count(*) from student s2
+       where s2.sID <> s1.SID and s2.sizeHS = s1.sizeHS);
+sID         sName       GPA         sizeHS
+----------  ----------  ----------  ----------
+345         Craig       3.5         500
+567         Edward      2.9         2000
+678         Fay         3.8         200
+789         Gary        3.4         800
+765         Jay         2.9         1500
+543         Craig       3.4         2000
+
+
+39. Find the number of average GPA of students who
+apply to CS exceeds the average GPA of students who
+don't apply to CS.
+select CS.avgGPA - nonCS.avgGPA
+from (select avg(GPA) as avgGPA from student
+      where sID in (select sID from apply
+                    where major = 'CS')) as CS,
+     (select avg(GPA) as avgGPA from student
+      where sID not in (select sID from apply
+                        where major = 'CS')) as nonCS;
+CS.avgGPA - nonCS.avgGPA
+------------------------
+0.194285714285716
+
+
+// Result of the first subquery
+select avg(GPA) as avgGPA
+from student
+where sID in (select sID from apply where major = 'CS');
+avgGPA
+----------
+3.68
+
+select *
+from student
+where sID in (select sID from apply where major = 'CS');
+sID         sName       GPA         sizeHS
+----------  ----------  ----------  ----------
+123         Amy         3.9         1000
+345         Craig       3.5         500
+987         Helen       3.7         800
+876         Irene       3.9         400
+543         Craig       3.4         2000
+
+// Result of the second subquery
+select avg(GPA) as avgGPA
+from student
+where sID not in (select sID from apply where major = 'CS');
+avgGPA
+----------------
+3.48571428571428
+
+// Rewrite the query by moving the subquery to SELECT
+select distinct (select avg(GPA) as avgGPA from student
+                 where sID in (
+                     select sID from apply
+                     where major = 'CS')) -
+                (select avg(GPA) as avgGPA from student
+                 where sID not in (
+                     select sID from apply
+                     where major = 'CS')) as d
+from student;
+d
+-----------------
+0.194285714285716
+
+
+40. Find the number of applicants to each college
+select cName, count(*)
+from apply
+group by cName;
+cName       count(*)
+----------  ----------
+Berkeley    3
+Cornell     6
+MIT         6
+Stanford    6
+
+
+41. Find the total enrollment of college students for
+each state
+select state, sum(enrollment)
+from college
+group by state;
+state       sum(enrollment)
+----------  ---------------
+CA          51000
+MA          10000
+NY          21000
+
+
+42. Computer two aggregate functions in our result.
+Computer each college and major combination the
+minimum and maximum GPAs for the students who've
+applied to that college.
+select cName, major, min(GPA), max(GPA)
+from student, apply
+where student.sID = apply.sID
+group by cName, major;
+cName       major       min(GPA)    max(GPA)
+----------  ----------  ----------  ----------
+Berkeley    CS          3.7         3.9
+Berkeley    biology     3.6         3.6
+Cornell     CS          3.5         3.5
+Cornell     EE          3.5         3.9
+Cornell     bioenginee  3.5         3.5
+Cornell     history     2.9         2.9
+Cornell     psychology  2.9         2.9
+MIT         CS          3.4         3.4
+MIT         bioenginee  3.5         3.5
+MIT         biology     3.9         3.9
+MIT         marine bio  3.9         3.9
+Stanford    CS          3.7         3.9
+Stanford    EE          3.9         3.9
+Stanford    history     2.9         3.8
+
+// source tables (no aggregates)
+select cName, major, GPA
+from student, apply
+where student.sID = apply.sID
+order by cName, major;
+cName       major       GPA
+----------  ----------  ----------
+Berkeley    CS          3.9
+Berkeley    CS          3.7
+Berkeley    biology     3.6
+Cornell     CS          3.5
+Cornell     EE          3.9
+Cornell     EE          3.5
+Cornell     bioenginee  3.5
+Cornell     history     2.9
+Cornell     psychology  2.9
+MIT         CS          3.4
+MIT         bioenginee  3.5
+MIT         biology     3.9
+MIT         marine bio  3.9
+Stanford    CS          3.9
+Stanford    CS          3.7
+Stanford    CS          3.9
+Stanford    EE          3.9
+Stanford    history     3.8
+Stanford    history     2.9
+
+
+43. Find the spread of the GPAs for each college
+(difference between the minimum and maximum).
+select max(mx - mn)
+from (select cName, major, min(GPA) as mn, max(GPA) as mx
+from student, apply
+where student.sID = apply.sID
+group by cName, major) as M;
+max(mx - mn)
+------------
+0.9
+
