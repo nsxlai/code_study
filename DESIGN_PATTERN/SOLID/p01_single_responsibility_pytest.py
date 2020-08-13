@@ -10,8 +10,7 @@ def test_sensors():
 def test_supplies_add_items():
     iss = SpaceStation()
     iss.supply_hold.get_supplies("tricorder")
-    sh = iss.supply_hold
-    assert sh == 'Current supplies available: {}'
+    assert 'There is no supply hold on tricorder' in iss.supply_hold
 
 
     # iss.supply_hold.use_supplies("tricorder", 2)
