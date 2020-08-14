@@ -2,7 +2,7 @@
 from requests.exceptions import Timeout
 import mock
 from . import my_calendar
-import PYTEST
+from pytest import mark, raises
 
 
 mock_json = {'12/25': 'Christmas',
@@ -43,7 +43,7 @@ def log_request_bad_status_code(url):
     return response_mock
 
 
-@PYTEST.mark.log_simple
+@mark.log_simple
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_holidays_with_success_status(mock_request_get):
     mock_request_get.side_effect = log_request_success
@@ -52,7 +52,7 @@ def test_get_holidays_with_success_status(mock_request_get):
     assert result['12/25'] == 'Christmas'
 
 
-@PYTEST.mark.log_simple
+@mark.log_simple
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_holidays_with_page_not_found(mock_request_get):
     mock_request_get.side_effect = log_request_page_not_found
@@ -60,7 +60,7 @@ def test_get_holidays_with_page_not_found(mock_request_get):
     assert result == 'Page Not Found'
 
 
-@PYTEST.mark.log_simple
+@mark.log_simple
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_holidays_with_bad_status_code(mock_request_get):
     mock_request_get.side_effect = log_request_bad_status_code
@@ -68,7 +68,7 @@ def test_get_holidays_with_bad_status_code(mock_request_get):
     assert result is None
 
 
-@PYTEST.mark.log_standard
+@mark.log_standard
 @mock.patch.object(my_calendar.requests, 'get')
 def test_get_calendar_retry(mock_request_get):
     response_mock = mock.MagicMock()
@@ -79,7 +79,7 @@ def test_get_calendar_retry(mock_request_get):
     mock_request_get.side_effect = [Timeout, response_mock]
 
     # Test that the first request raises a Timeout
-    with PYTEST.raises(Timeout):
+    with raises(Timeout):  # pytest.raise
         my_calendar.get_holidays()
         print('Raise Timeout exception')
 
