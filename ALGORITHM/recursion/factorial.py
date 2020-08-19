@@ -99,3 +99,11 @@ if __name__ == '__main__':
     print(f'Factorial {hi_value}: {result:.4e}')
     t1 = time()
     print(f'Dynamic programming function runtime: {t1 - t0:.6f}\n')
+
+    print('-' * 45)
+    print('Using iterative method')
+    t0 = time()
+    result = iterative_factorial(hi_value)
+    print(f'Factorial {hi_value}: {result:.4e}')
+    t1 = time()
+    print(f'Iterative programming function runtime: {t1 - t0:.6f}\n')

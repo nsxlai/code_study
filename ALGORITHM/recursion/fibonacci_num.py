@@ -59,6 +59,20 @@ def fib_dp(n):
     return memo[n]
 
 
+def fib_iter(n):
+    if not isinstance(n, int):
+        raise TypeError('Fibonacci number is integer only')
+    if n < 0:
+        raise ValueError('Fibonacci number is positive')
+    if n == 1:
+        return 1
+    a, b = 1, 2
+    for _ in range(n-3):  # range start with 0. Need to subtract the first 3 elements off (0, 1, and 2) for the loop
+        a, b = b, a+b
+    # print(f'{_=}, {b=}')
+    return b
+
+
 if __name__ == '__main__':
     """
     Using decorator to measure the time performance for each of the method does not work well with recursive algorithm.
@@ -132,3 +146,11 @@ if __name__ == '__main__':
     print(f'Fibonacci {hi_value}: {result}')
     t1 = time()
     print(f'Dynamic programming function runtime: {t1-t0:.6f}\n')
+
+    print('-' * 45)
+    print('Using iterative programming method. This method is extremely fast...')
+    t0 = time()
+    result = fib_iter(150)
+    print(f'Fibonacci {150}: {result}')
+    t1 = time()
+    print(f'Iterative programming function runtime: {t1 - t0:.6f}\n')
