@@ -4,6 +4,7 @@ from itertools import product
 
 Card = namedtuple('Card', ['rank', 'suit'])
 
+
 class FrenchDeck:
     ranks = [str(n) for n in range(2, 11)] + list('JQKA')
     suits = 'spades diamonds clubs hearts'.split()
@@ -40,4 +41,5 @@ if __name__ == '__main__':
     print(f'deck slicing: {deck[slice1]}')
     print(f'deck slicing: {deck[slice2]}')
 
-    print(f'deck shuffling: {shuffledeck[slice2]}')
+    shuffle(deck[slice2])
+    print(f'deck shuffling: {deck[slice2]}')
