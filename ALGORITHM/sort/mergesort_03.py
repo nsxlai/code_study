@@ -7,6 +7,11 @@ def create_array(size=10, max=50):
 
 
 def merge(left, right):
+    """
+    Example:
+        left = [1, 2, 6]
+        right = [4, 5, 7]
+    """
     result = []
     i, j = 0, 0
     while i < len(left) and j < len(right):
