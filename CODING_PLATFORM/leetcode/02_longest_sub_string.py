@@ -1,9 +1,8 @@
 """
 Given a string, find the length of the longest substring without repeating characters.
 """
-import pdb
-import time
 from pytest import mark
+from typing import Tuple
 
 
 # def lengthOfLongestSubstring(s: str):
@@ -24,7 +23,7 @@ from pytest import mark
 #     return sub_str
 
 
-def lengthOfLongestSubstring(s: str) -> int:
+def lengthOfLongestSubstring(s: str) -> Tuple[str, int]:
     window = ''
     longest_str = ''
     for i_key, i_value in enumerate(s):

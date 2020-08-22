@@ -8,7 +8,7 @@ Now, we send a signal from a certain node K. How long will it take for all nodes
 If it is impossible, return -1.
 
 For example:
-Input: times = [[2,1,1],[2,3,1],[3,4,1]], N = 4, K = 2
+Input: times = [[2,1,1],[2,3,1],[3,4,1]], N = 4 (total numbers of nodes), K = 2 (starting node)
 Output: 2
 
 Note:
@@ -43,7 +43,7 @@ def networkDelayTime(times: List[List[int]], N: int, K: int) -> int:
 
 
 if __name__ == '__main__':
-    times = [[2, 1, 1], [2, 3, 1], [3, 4, 1]]
+    times = [[2, 1, 1], [2, 3, 1], [3, 4, 2]]
     N = 4
     K = 2
     print(f'{networkDelayTime(times, N, K) = }')

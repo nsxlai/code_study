@@ -31,5 +31,5 @@ def solution2(n: int) -> List[int]:
 
 if __name__ == '__main__':
     # Solution1 code is not working as well.
-    print(solution2(100))
+    print(solution2(2000))
     # print(solution2(1))
