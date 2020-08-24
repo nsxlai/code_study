@@ -27,6 +27,7 @@ sqlite> insert into college (cName, state, enrollment) values('Stanford', 'CA', 
 sqlite> insert into college (cName, state, enrollment) values('Berkeley', 'CA', 36000);
 sqlite> insert into college (cName, state, enrollment) values('MIT', 'CA', 10000);
 sqlite> insert into college (cName, state, enrollment) values('Cornell', 'CA', 21000);
+sqlite> insert into college values ('Carnegie Mellon', 'PA', 11500);
 sqlite>
 sqlite> select * from college;
 cName       state       enrollment
@@ -74,6 +75,9 @@ sqlite> insert into student (sID, sName, GPA, sizeHS) values(876, 'Irene', 3.9, 
 sqlite> insert into student (sID, sName, GPA, sizeHS) values(765, 'Jay', 2.9, 1500);
 sqlite> insert into student (sID, sName, GPA, sizeHS) values(654, 'Amy', 3.9, 1000);
 sqlite> insert into student (sID, sName, GPA, sizeHS) values(543, 'Craig', 3.4, 2000);
+sqlite> insert into student values(432, 'Kevin', null, 1500);
+sqlite> insert into student values(321, 'Lori', null, 2500);
+
 sqlite>
 sqlite> select * from student;
 sID         sName       GPA         sizeHS
@@ -149,6 +153,8 @@ sqlite> insert into apply (sID, cName, major, decision) values(765, 'Stanford', 
 sqlite> insert into apply (sID, cName, major, decision) values(765, 'Cornell', 'history', 'N');
 sqlite> insert into apply (sID, cName, major, decision) values(765, 'Cornell', 'psychology', 'Y');
 sqlite> insert into apply (sID, cName, major, decision) values(543, 'MIT', 'CS', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(321, 'MIT', 'history', 'N');
+sqlite> insert into apply (sID, cName, major, decision) values(321, 'MIT', 'psychology', 'Y');
 sqlite>
 sqlite>
 sqlite>
