@@ -29,7 +29,8 @@ class employeeDB(baseDB):
         self.create_table()
 
     def create_table(self):
-        self.c.execute(f"CREATE TABLE {self.db_name} (id integer, Salary integer)")
+        with self.conn:
+            self.c.execute(f"CREATE TABLE {self.db_name} (id integer, Salary integer)")
 
     def insert_data(self, pid, salary):
         with self.conn:

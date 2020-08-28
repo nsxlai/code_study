@@ -1,11 +1,15 @@
 import sqlite3
+import pandas as pd
+import os
+from typing import List, Any, Tuple
 
 
 class Employee:
-    def __init__(self, first, last, pay):
+    def __init__(self, pid, first, last, salary):
+        self.pid = pid
         self.first = first
         self.last = last
-        self.pay = pay
+        self.salary = salary
 
     @property
     def email(self):
@@ -26,80 +30,45 @@ class Employee:
         return f"Employee('{self.first}, {self.last}, {self.pay}')"
 
 
-class Borg:
-    """Borg pattern making the class attributes global"""
-    _shared_data = {}  # Attribute dictionary
-
+class baseDB:
     def __init__(self):
-        self.__dict__ = self._shared_data  # Make it an attribute dictionary
+        self.db_name = 'base'
+
+    def all_data(self, table_name):
+        self.display_db(f"SELECT * FROM {table_name}")
+
+    def display_db(self, sql_str):
+        self.c.execute(sql_str)
+        data = self.c.fetchall()
+        col_desc = self.c.description
+        if not col_desc:
+            return "#### NO RESULTS ###"
+
+        columns = [col[0] for col in col_desc]
+        data = pd.DataFrame(data, columns=columns)
+        print(data)
 
 
-class Singleton(Borg):  # Inherits from the Borg class
-    """This class now shares all its attributes among its various instances"""
-
-    # This essenstially makes the singleton objects an object-oriented global variable
-
-    def __init__(self, **kwargs):
-        Borg.__init__(self)
-        self._shared_data.update(kwargs)  # Update the attribute dictionary by inserting a new key-value pair
-
-    def __str__(self):
-        return str(self._shared_data)  # Returns the attribute dictionary for printing
-
-
-class OneOnly:
-    _singleton = None
-    def __new__(cls, *args, **kwargs):
-        if not cls._singleton:
-            # THEN
-            cls._singleton = super(OneOnly, cls).__new__(cls, *args, **kwargs)
-            # ENDIF;
-        return cls._singleton
-
-
-class EmployeeDB:
-    """
-        Basic SQL operation: INSERT, SELECT, UPDATE, DELETE
-        use the :memory" option to finetune the script before moving to the actual database file *.db
-    """
-    # def __init__(self, first, last, pay):
-    #     self.first = first
-    #     self.last = last
-    #     self.pay = pay
-    #
-    # _singleton_db = None
-    #
-    # def __new__(cls, *args, **kwargs):
-    #     if not cls._singleton_db
-    #         cls._singleton_db = super(EmployeeDB, cls.__new__(cls, *args, **kwargs))
-    #     return cls._singleton_db
-    # conn = None
-    #
-    # def __new__(cls, *args, **kwargs):
-    #     if not cls.conn:
-    #         cls.conn = sqlite3.connect('employee.db')
-    #     cls.c = cls.conn.cursor()
-    #     cls.c.execute("""CREATE TABLE employees (
-    #                                   first text,
-    #                                   last text,
-    #                                   pay integer
-    #                                   )""")
-
+class EmployeeDB(baseDB):
     def __init__(self):
         """To initialize the database in memory only"""
-        self.conn = sqlite3.connect(':memory:')
+        if os.path.isfile('employee.db'):
+            self.conn = sqlite3.connect('employee.db')
+        else:
+            self.conn = sqlite3.connect(':memory:')
         self.c = self.conn.cursor()
-        self.c.execute("""CREATE TABLE employees (
-                                          first text,
-                                          last text,
-                                          pay integer
-                                          )""")
 
-    def insert_emp(self, emp):
+    def create_table(self):
+        self.c.execute("CREATE TABLE IF NOT EXISTS employees (id integer, first text, last text, salary integer)")
+
+    def insert_one(self, emp: Employee) -> None:
         with self.conn:
-            self.c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': emp.first,
-                                                                             'last': emp.last,
-                                                                             'pay': emp.pay})
+            self.c.execute("INSERT INTO employees VALUES (:id, :first, :last, :salary)",
+                           {'id': emp.pid, 'first': emp.first, 'last': emp.last, 'salary': emp.salary})
+
+    def insert_many(self, emp_list: List[Tuple[int, str, str, int]]) -> None:
+        with self.conn:
+            self.c.executemany("INSERT INTO employees VALUES (?, ?, ?, ?)", emp_list)
 
     def get_emps_by_name(self, emp):
         self.c.execute("SELECT * FROM employees WHERE first=:first AND last=:last", {'first': emp.first,
@@ -112,12 +81,12 @@ class EmployeeDB:
         print(self.c.fetchall())
         return self.c.fetchall()
 
-    def update_pay(self, emp, pay):
+    def update_pay(self, emp, salary):
         with self.conn:
-            self.c.execute("""UPDATE employees SET pay = :pay
-                             WHERE first = :first AND last = :last""",
-                           {'first': emp.first, 'last': emp.last, 'pay': pay})
-        print(f'{emp.first} {emp.last} pay is now {pay}')
+            self.c.execute("""UPDATE employees SET salary = :salary
+                                WHERE first = :first AND last = :last""",
+                           {'first': emp.first, 'last': emp.last, 'salary': salary})
+        print(f'{emp.first} {emp.last} pay is now {salary}')
 
     def remove_emp(self, emp):
         with self.conn:
@@ -129,11 +98,46 @@ class EmployeeDB:
 
 
 if __name__ == '__main__':
-    emp1 = Employee('John', 'Doe', 80000)
-    emp2 = Employee('Jane', 'Doe', 90000)
-    emp3 = Employee('John', 'Smith', 85000)
-    emp4 = Employee('Mike', 'Macey', 82000)
-    emp5 = Employee('Aileen', 'Chen', 100000)
+    """
+    sqlite> select * from employees;
+    id          first       last          salary
+    ----------  ----------  ----------    ----------
+    1           John        Doe            80000
+    2           Jane        Doe            90000
+    3           John        Smith          85000
+    4           Mike        Malloy         82000
+    5           Aileen      Chen           100000
+    6           Violet      Minh           90000
+    7           Lucy        Anderson       78000
+    8           Lisa        Dinstill       80000
+    9           Katie       Sanero         82000
+    10          Sam         Teller         79000
+    """
+    employee_list = [
+        (1, 'John', 'Doe', 80000),
+        (2, 'Jane', 'Doe', 90000),
+        (3, 'John', 'Smith', 85000),
+        (4, 'Mike', 'Malloy', 82000),
+        (5, 'Aileen', 'Chen', 100000),
+        (6, 'Violet', 'Minh', 90000),
+        (7, 'Lucy', 'Anderson', 78000),
+        (8, 'Lisa', 'Dinstill', 80000), 
+        (9, 'Katie', 'Sanero', 82000),
+        (10, 'Sam', 'Teller', 79000),
+    ]
+
+    e = EmployeeDB()
+    e.create_table()
+    e.insert_many(employee_list)
+    e.all_data('employees')
+
+    emp1 = Employee(1, 'John', 'Doe', 80000)
+    emp2 = Employee(2, 'Jane', 'Doe', 90000)
+    emp3 = Employee(3, 'John', 'Smith', 85000)
+    emp4 = Employee(4, 'Mike', 'Macey', 82000)
+    emp5 = Employee(5, 'Aileen', 'Chen', 100000)
+
+    '''
     emp_list = [emp1, emp2, emp3, emp4, emp5]
 
     for emp in emp_list:
@@ -144,19 +148,19 @@ if __name__ == '__main__':
     emp_record = EmployeeDB()
     for emp in emp_list:
         emp_record.insert_emp(emp)
-
-    print(emp_record.all_emps())
-    query_name = emp_record.get_emps_by_name(emp1)
-    print(query_name)
+    '''
+    print(e.display_db('select * from employees'))
+    # query_name = e.get_emps_by_name(emp1)
+    # print(query_name)
 
     print('Update emp2 pay')
-    emp_record.update_pay(emp2, 95000)
-    print(emp_record.get_emps_by_name(emp2))
+    e.update_pay(emp2, 95000)
+    print(e.get_emps_by_name(emp2))
 
     print('Remove emp1 from the database')
-    emp_record.remove_emp(emp1)
-    print(emp_record.get_emps_by_name(emp1))
+    e.remove_emp(emp1)
+    print(e.get_emps_by_name(emp1))
 
-    print(emp_record.get_emps_by_name(emp3))
-    print(emp_record.all_emps())
-    emp_record.close_conn()
+    print(e.get_emps_by_name(emp3))
+    print(e.all_emps())
+    e.close_conn()
