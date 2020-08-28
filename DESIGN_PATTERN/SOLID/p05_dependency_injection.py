@@ -9,7 +9,7 @@ The original code was written in C#
 from abc import ABC, abstractmethod
 
 
-class ICooker:
+class ICooker(ABC):
     on = None
 
     @abstractmethod
