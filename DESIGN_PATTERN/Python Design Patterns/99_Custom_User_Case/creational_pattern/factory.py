@@ -81,6 +81,8 @@ if __name__ == '__main__':
     #     uut_obj[index] = uutFactory.create_uut(uut_detail)
     #
     # print(uut_obj[0])
-    uut = uutFactory.create_uut(uut_list[0])
-    print(uut)
-    print(uut.get_info())
+    uuts = list(map(uutFactory.create_uut, uut_list))
+
+    # uut = uutFactory.create_uut(uut_list[0])
+    print(uuts)
+    print(uuts[0].get_info())
