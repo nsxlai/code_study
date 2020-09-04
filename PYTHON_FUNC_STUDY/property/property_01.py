@@ -24,4 +24,5 @@ if __name__ == '__main__':
     human = Celsius(37)
     print(human.temperature)
     print(human.to_fahrenheit())
+    print(dir(human)[-3:])  # showing both temperature at property attribute and _temperature as private attribute
     coldest_thing = Celsius(-300)

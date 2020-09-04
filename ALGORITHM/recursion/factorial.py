@@ -14,7 +14,7 @@ def fact1(n):
     if n == 1:
         return 1
     else:
-        return n * fact(n - 1)
+        return n * fact1(n - 1)
 
 
 def fact_mem(n):

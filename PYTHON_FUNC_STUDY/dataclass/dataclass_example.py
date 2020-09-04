@@ -84,7 +84,7 @@ if __name__ == '__main__':
     print(f'Area = {b.area}')
 
     c = CircleArea2(5)
-    # c.r = 5  # will get the error message: dataclasses.FrozenInstanceError: cannot assign to field 'r'
+    # c.r = 15  # will get the error message: dataclasses.FrozenInstanceError: cannot assign to field 'r'
 
     v1 = Vector(8, 15)
     v2 = Vector(7, 20)
@@ -103,5 +103,5 @@ if __name__ == '__main__':
     h = Developer('Hello', 'Python', 5000)
     print(f'{h=}')  # Output: Developer(name='Hello', lang='Python', salary=5000)
 
-    h2 = Employee('Hello2', 'Python')
+    h2 = Employee2('Hello2', 'Python')
     print(f'{h2=}')
