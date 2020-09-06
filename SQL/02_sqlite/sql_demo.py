@@ -93,6 +93,9 @@ class EmployeeDB(baseDB):
             self.c.execute("DELETE from employees WHERE first = :first AND last = :last",
                            {'first': emp.first, 'last': emp.last})
 
+    def save_to_db(self):
+        self.conn.commit()
+
     def close_conn(self):
         self.conn.close()
 

@@ -18,7 +18,7 @@
 def reverse_alpha(s: str) -> str:
     s_list = list(s)
     i, j = 0, 0
-    while i < len(s_list) // 2 and j < len(s_list) // 2:
+    while i < len(s_list) // 2 and j <= len(s_list) // 2:
         # all([s_list[i].isalpha(), s_list[len(s_list)-1-j].isalpha()])
         if s_list[i].isalpha() and s_list[len(s_list) - 1 - j].isalpha():
             s_list[i], s_list[len(s_list) - 1 - j] = s_list[len(s_list) - 1 - j], s_list[i]
@@ -38,7 +38,7 @@ def reverse_alpha_rf(s: str) -> str:
     """
     sl = list(s)
     i, j = 0, len(sl)-1
-    while i < (len(sl) // 2) and j > (0 // 2):
+    while i < (len(sl) // 2) <= j:
         if sl[i].isalpha() and sl[j].isalpha():
             sl[i], sl[j] = sl[j], sl[i]
             i += 1
@@ -54,6 +54,6 @@ if __name__ == '__main__':
     test_list = ['abc-', 'abd*i', 'abc*def-hijk*', '-abc']
     for test in test_list:
         print(f'Original = {test}')
-        print(f"{reverse_alpha(test)    = }")
-        print(f"{reverse_alpha_rf(test) = }")
+        print(f"reverse_alpha = {reverse_alpha(test)}")
+        print(f"reverse_alpha_rf = {reverse_alpha_rf(test)}")
         print('-' * 30)
