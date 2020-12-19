@@ -73,6 +73,31 @@ def fib_iter(n):
     return b
 
 
+def fib_closure1():
+    x1 = 0
+    x2 = 1
+
+    def get_next_number():
+        nonlocal x1, x2
+        x3 = x1 + x2
+        x1, x2 = x2, x3
+        return x3
+
+    return get_next_number
+
+
+def fib_closure2():
+    x0 = 0
+    x1 = 1
+
+    def get_next_number():
+        nonlocal x0, x1
+        x0, x1 = x1, x0 + x1
+        return x1
+
+    return get_next_number
+
+
 if __name__ == '__main__':
     """
     Using decorator to measure the time performance for each of the method does not work well with recursive algorithm.
@@ -93,7 +118,8 @@ if __name__ == '__main__':
     Method 6: Using dynamic programming method instead of recursive loops. 
        => This method will calculate the value from the first element until the last, which is the opposite of the
           recursive looping methodology (calculate backward from the last element. The run time very fast and takes
-          about 0.000014 seconds (second fastest after the second run of LRU cached method).       
+          about 0.000014 seconds (second fastest after the second run of LRU cached method).   
+    Method 7: Using closure technique. This method is very fast.    
     """
     hi_value = 36
 
@@ -152,5 +178,25 @@ if __name__ == '__main__':
     t0 = time()
     result = fib_iter(150)
     print(f'Fibonacci {150}: {result}')
+    t1 = time()
+    print(f'Iterative programming function runtime: {t1 - t0:.6f}\n')
+
+    print('-' * 45)
+    print('Using closure method 1.')
+    t0 = time()
+    fib = fib_closure1()
+    for i in range(2, hi_value+1):
+        result = fib()
+    print(f'Fibonacci {hi_value}: {result}')
+    t1 = time()
+    print(f'Iterative programming function runtime: {t1 - t0:.6f}\n')
+
+    print('-' * 45)
+    print('Using closure method 2 (more efficient coding).')
+    t0 = time()
+    fib = fib_closure2()
+    for i in range(2, hi_value + 1):
+        result = fib()
+    print(f'Fibonacci {hi_value}: {result}')
     t1 = time()
     print(f'Iterative programming function runtime: {t1 - t0:.6f}\n')
