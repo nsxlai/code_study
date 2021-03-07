@@ -1,3 +1,8 @@
+'''
+This file use Storage as interface class
+'''
+
+
 class Storage:
     def info(self):
         print(type(self).__name__)

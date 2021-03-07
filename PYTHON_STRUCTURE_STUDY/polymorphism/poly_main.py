@@ -24,7 +24,7 @@ def use_storage(storage):
 
 
 if __name__ == "__main__":
-    for storage in (
+    s_list = [
         # Abstract Class Case
         abstract.storages.Memory(),
         abstract.storages.Persistent(),
@@ -36,6 +36,8 @@ if __name__ == "__main__":
         # Modules Case
         modules.storages.memory,
         modules.storages.persistent,
-    ):
+    ]
+
+    for storage in s_list:
         use_storage(storage)
         print()
