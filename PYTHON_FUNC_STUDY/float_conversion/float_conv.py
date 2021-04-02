@@ -46,7 +46,9 @@ def bin_str_to_float_conv(bin_str: str) -> float:
 
 if __name__ == '__main__':
     # float_num_hex = 0x000001DA
-    float_num_hex = 0xfffffcfe
+    # float_num_hex = 0xfffffcfe
+    float_num_hex = 0xfffffff0
+    float_num_hex = 0x00001fae
     float_num_binary_str = bin(float_num_hex)[2:].zfill(32)  # [2:] will remove the '0b' header and zfill will add 0s
     print(f'{float_num_binary_str =}')
 
