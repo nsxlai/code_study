@@ -1,5 +1,5 @@
 import mock
-from PYTEST import fixture
+from pytest import fixture
 
 
 @fixture(scope='function')
