@@ -37,7 +37,7 @@ class Snowflake(Warehouse):
         return self
 
 
-warehouses : Dict[str, Type[Warehouse]] = {
+warehouses: Dict[str, Type[Warehouse]] = {
     "bigquery": BigQuery,
     "redshift": RedShift,
     "snowflake": Snowflake
