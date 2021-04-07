@@ -5,7 +5,7 @@ from textwrap import dedent
 from time import time
 from uuid import uuid4
 from flask import Flask, jsonify
-import flask
+# import flask
 import requests
 import sys
 
@@ -130,12 +130,15 @@ def full_chain():
     return jsonify(response), 200
 
 
-if __name__ == '__main__':
-    flask_ver = '1.1.2'
-    requests_ver = '2.24.0'
+# if __name__ == '__main__':
+    # flask_ver = '1.1.2'
+    # requests_ver = '2.24.0'
+    #
+    # if flask.__version__ == flask_ver and requests.__version__ == requests_ver:
+    #     app.run(host='0.0.0.0', port=5000)
+    # else:
+    #     print('Required package is not installed. Exiting')
+    #     sys.exit(0)
 
-    if flask.__version__ == flask_ver and requests.__version__ == requests_ver:
-        app.run(host='0.0.0.0', port=5000)
-    else:
-        print('Required package is not installed. Exiting')
-        sys.exit(0)
+    # Instantiate the Blockchain
+    # blockchain = Blockchain()
