@@ -82,8 +82,8 @@ class User(Resource):
         return user, 201
 
     def delete(self, name: str) -> (str, int):
-        global user
-        users = [user for users in users if user["name"] != name]
+        global users
+        users = [user for user in users if user["name"] != name]
         return f"{name} is deleted.", 200
 
 
