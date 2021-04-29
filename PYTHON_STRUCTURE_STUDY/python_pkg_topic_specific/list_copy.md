@@ -1,4 +1,6 @@
->>>
+Detail: https://www.geeksforgeeks.org/copy-python-deep-copy-shallow-copy/
+
+> >>>
 >>> a = [2, 4, 6, 8, 10]
 >>>
 >>> a
