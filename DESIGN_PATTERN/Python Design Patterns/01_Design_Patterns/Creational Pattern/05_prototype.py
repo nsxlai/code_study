@@ -1,3 +1,7 @@
+"""
+In this example, the Point is acting as a static class object and the values stays the same for all of its
+assigned objects. Besides the benefit of prototype pattern, this has the persistence of singleton pattern as well
+"""
 from copy import deepcopy, copy
 
 copyfunc = deepcopy
@@ -45,11 +49,15 @@ if __name__ == '__main__':
     print(f'a.x = {a.x}, a.y = {a.y}')          # prints 100 100
 
     Point.move(50, 50)
-    print(f'Point.x = {Point.x}, Point.y = {Point.y}')  # prints 50 50
+    print(f'Point.x = {Point.x}, Point.y = {Point.y}')  # prints 150 150
 
     p = Point()
-    print(f'p.x = {p.x}, p.y = {p.y}')          # prints 50 50
+    print(f'p.x = {p.x}, p.y = {p.y}')          # prints 150 150
 
     Point.move(200, 200)
     q = Point()
-    print(f'q.x = {q.x}, q.y = {q.y}')          # prints 50 50
+    print(f'q.x = {q.x}, q.y = {q.y}')          # prints 350 350
+
+    p = Point()
+    print(f'p.x = {p.x}, p.y = {p.y}')          # prints 350 350
+
