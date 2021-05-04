@@ -1,7 +1,6 @@
 """
 Source: Youtube video "Gary Explains": Understanding Finite State Machines (or Finite-State Automation)
 https://www.youtube.com/watch?v=2OiWs-h_M3A&t=252s
-
 """
 from typing import Tuple
 
