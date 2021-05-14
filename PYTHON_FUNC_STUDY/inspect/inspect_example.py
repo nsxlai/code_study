@@ -1,9 +1,7 @@
 """
-Source: Youtube video "Gary Explains": Understanding Finite State Machines (or Finite-State Automation)
-https://www.youtube.com/watch?v=2OiWs-h_M3A&t=252s
-
-Github source: https://github.com/garyexplains/examples/blob/master/FSM/floating_point_verification.py
+code is sourced from PYTHON_STRUCTUR_STUDY/example_03_float_num_check/float_num_FSM.py
 """
+import inspect
 from collections import namedtuple
 
 
@@ -62,22 +60,4 @@ class myFSM:
 
 
 if __name__ == '__main__':
-    fsm = myFSM()
-    fsm.add_state('START', '1234567890', 'SECOND_DIGIT_ONWARDS*')
-    fsm.add_state('START', '-', 'AFTER_MINUS')
-    fsm.add_state('AFTER_MINUS', '1234567890', 'SECOND_DIGIT_ONWARDS*')
-    fsm.add_state('SECOND_DIGIT_ONWARDS*', '1234567890', 'SECOND_DIGIT_ONWARDS*')
-    fsm.add_state('SECOND_DIGIT_ONWARDS*', '.', 'AFTER_DOT')
-    fsm.add_state('AFTER_DOT', '1234567890', 'MANTISSA*')
-    fsm.add_state('MANTISSA*', '1234567890', 'MANTISSA*')
-
-    fsm.run('3.14')
-    fsm.run('-7')
-    fsm.run('-22.0')
-    fsm.run('--22.0')
-    fsm.run('-22.a0')
-    fsm.run('-1.')
-    fsm.run('-')
-    fsm.run('0')
-    fsm.run('+13.0')
-
+    print(inspect.getsource(myFSM))
