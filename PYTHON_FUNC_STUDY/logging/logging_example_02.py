@@ -1,6 +1,15 @@
 """
 source: https://majianglin2003.medium.com/python-logging-6a688fa63587
 github: https://gist.github.com/nguyenkims/e92df0f8bd49973f0c94bddf36ed7fd0
+
+Examples for logging setup
+logger = logging.getLogger()
+handler = logging.StreamHandler()
+formatter = logging.Formatter(
+        '%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
 """
 import logging
 import sys
