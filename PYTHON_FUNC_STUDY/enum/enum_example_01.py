@@ -134,14 +134,17 @@ def enum_iteration_and_list():
     print()
     print(' Iteration and List '.center(50, '='))
 
-    print('Example 1')
+    print('Example 1: For Loop')
     for direction in Direction:
         print(direction)
 
-    print('\nExample 2')
+    print('\nExample 2: List Function')
     pprint(f'List of Direction: {list(DirectionRandomValue)}')
 
-    print('\nExample 3')
+    print('\nExample 3: List Comprehension')
+    pprint([dir.name for dir in DirectionRandomValue])
+
+    print('\nExample 4: For Loop with Dict Items')
     for name, direction in DirectionString.__members__.items():
         print(f"* Name: {name:<5}; * Direction: {direction}")
 
