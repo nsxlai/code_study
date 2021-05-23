@@ -24,31 +24,6 @@ from datetime import datetime
 from abc import ABC, abstractmethod
 
 
-class Booking:
-    def __init__(self, pid: str, attendeeName: str, state: BookingStateBase):
-        self.pid = pid
-        self.stateBase = state
-        self.AttendeeName = attendeeName
-        self.BookingDate = datetime.now()
-
-    @classmethod
-    def createNew(cls, pid: str, attendeeName: str, state: BookingStateBase):
-        cls.state = ProcessedState()
-        return cls(pid, attendeeName, state)
-
-    def TransitionToState(self, newState: BookingStateBase):
-        self.state = newState
-        self.state.EnterState(self)
-
-    def Accept(self):
-        # this.state.Accept(this)
-        pass
-
-    def Cancel(self, cancellationReason: str):
-        # this.state.Cancel(this, cancellationReason)
-        pass
-
-
 class BookingStateBase(ABC):
     @abstractmethod
     def EnterState(self, booking: Booking):
@@ -60,6 +35,31 @@ class BookingStateBase(ABC):
 
     @abstractmethod
     def Accept(self, booking: Booking):
+        pass
+
+
+class Booking:
+    def __init__(self, pid: str, attendeeName: str, state: BookingStateBase):
+        self.pid = pid
+        self.stateBase = state
+        self.AttendeeName = attendeeName
+        self.BookingDate = datetime.now()
+
+    @classmethod
+    def createNew(cls, pid: str, attendeeName: str):
+        cls.state = ProcessedState()
+        return cls(pid, attendeeName, cls.state)
+
+    def TransitionToState(self, newState: BookingStateBase):
+        self.state = newState
+        self.state.EnterState(self)
+
+    def Accept(self):
+        # this.state.Accept(this)
+        pass
+
+    def Cancel(self, cancellationReason: str):
+        # this.state.Cancel(this, cancellationReason)
         pass
 
 
@@ -103,4 +103,4 @@ class CancelledState(BookingStateBase):
 
 
 if __name__ == '__main__':
-    nb = Booking.createNew('John')
+    nb = Booking.createNew(pid='001', attendeeName='John')
