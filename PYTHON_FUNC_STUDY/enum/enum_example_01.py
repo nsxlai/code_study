@@ -1,5 +1,6 @@
 """
 source: https://betterprogramming.pub/take-advantage-of-the-enum-class-to-implement-enumerations-in-python-1b65b530e1d
+source: https://towardsdatascience.com/how-to-make-fewer-mistakes-in-python-6925619ce87e
 """
 from enum import Enum
 from pprint import pprint
@@ -200,6 +201,23 @@ def enum_functional_api():
     in the class. """
 
 
+def use_enum_items_as_dict_keys():
+    """
+    This will be extremely helpful because it can also prevent us from making typos
+    for the dictionary keys! When we want to get the value from its key in a dictionary,
+    we will also be using the enumeration member.
+    """
+    print()
+    print(' Use Enum Items as Dict Keys '.center(50, '='))
+
+    direction_dict = {}
+    direction_dict.setdefault(Direction.NORTH, 'Black Tortoise; Winter')
+    direction_dict.setdefault(Direction.EAST, 'Azure Dragon; Spring')
+    direction_dict.setdefault(Direction.SOUTH, 'Vermilion Bird; Summer')
+    direction_dict.setdefault(Direction.WEST, 'White Tiger; Autumn')
+    pprint(f'{direction_dict = }')
+
+
 if __name__ == '__main__':
     use_regular_class_structure()
     use_enum_direction()
@@ -208,3 +226,4 @@ if __name__ == '__main__':
     enum_iteration_and_list()
     expand_enum_class_with_methods()
     enum_functional_api()
+    use_enum_items_as_dict_keys()
