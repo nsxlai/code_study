@@ -1,12 +1,12 @@
 import hashlib
-import time
 
 
 class Block:
-    """ In this exercise - create a class called Block and a constructor
-        with the following variables: index,timestamp,data,priorHash.
-        Set local variables - i.e.: this.index=index; for all inputs.
-        Add a local empty string variable named hash
+    """
+    In this exercise - create a class called Block and a constructor
+    with the following variables: index, timestamp, data, priorHash.
+    Set local variables - i.e.: this.index=index; for all inputs.
+    Add a local empty string variable named hash
     """
     def __init__(self, index: int, timestamp: str, data: str, priorHash: str = ''):
         self.index = index  # where does the block sit on the chain
@@ -21,14 +21,12 @@ class Block:
         hash_str = hash_str.encode()
         return hashlib.sha256(hash_str).hexdigest()
 
-    def mineBlock(self, difficulty):
+    def mineBlock(self, difficulty: int):
         # while self.hash[:difficulty] != '0'*difficulty:
         while not self.hash.startswith('0' * difficulty):
             self.nonce += 1
             self.hash = self.createHash()
-            # time.sleep(0.2)
             # print(f'Block Hash: {self.hash}')
-            # print(f'{self.nonce = }')
 
 
 class ErnestoBlockChain:
@@ -42,7 +40,7 @@ class ErnestoBlockChain:
     def getLastBlock(self):
         return self.chain[-1]
 
-    def addBlock(self, newBlock):
+    def addBlock(self, newBlock: Block):
         """
         When add a new block to the chain, need to add last block Hash to current block's priorHash
         """
@@ -57,7 +55,7 @@ class ErnestoBlockChain:
         for i in block_chain_index[:0:-1]:  # reverse the chain verification until hitting the first block
             existingBlock = self.chain[i]
             priorBlock = self.chain[i - 1]
-            print(f'{priorBlock.data = }, {existingBlock.data = }')
+            # print(f'{priorBlock.data = }, {existingBlock.data = }')
             isExistHashNotEqual = existingBlock.hash != existingBlock.createHash()
             isPriorHashNotEqual = existingBlock.priorHash != priorBlock.createHash()
             if any([isExistHashNotEqual, isPriorHashNotEqual]):
