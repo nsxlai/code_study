@@ -55,7 +55,6 @@ class ErnestoBlockChain:
         for i in block_chain_index[:0:-1]:  # reverse the chain verification until hitting the first block
             existingBlock = self.chain[i]
             priorBlock = self.chain[i - 1]
-            # print(f'{priorBlock.data = }, {existingBlock.data = }')
             isExistHashNotEqual = existingBlock.hash != existingBlock.createHash()
             isPriorHashNotEqual = existingBlock.priorHash != priorBlock.createHash()
             if any([isExistHashNotEqual, isPriorHashNotEqual]):
@@ -64,6 +63,12 @@ class ErnestoBlockChain:
 
 
 if __name__ == '__main__':
+    """
+    In this example, 
+    1. Define the blockchain object
+    2. Add the block. During the add operation, the blocks are also chain together in sequence.
+    3. The chain has built-in isValid method to validation the chain
+    """
     ErnestoCoin = ErnestoBlockChain()
     ErnestoCoin.addBlock(Block(1, '04/03/1977', 'amount = 7'))
     ErnestoCoin.addBlock(Block(2, '04/05/1977', 'amount = 17'))
