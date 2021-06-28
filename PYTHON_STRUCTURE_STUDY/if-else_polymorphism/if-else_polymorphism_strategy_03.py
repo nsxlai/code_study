@@ -124,5 +124,4 @@ if __name__ == '__main__':
     user_account(Account_original_code)
     print(' Account_code_with_strategy_pattern '.center(60, '-'))
     user_account(Account_code_with_strategy_patttern)
-    print(f'{type(AccountState.open) = }')
-    print(f'{type(AccountEnum.open) = }')
+
