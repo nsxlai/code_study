@@ -1,5 +1,7 @@
-from PYTEST import mark
+from pytest import mark
 from . import student_grade
+from student_grade import Student
+
 
 """
 Sample Input

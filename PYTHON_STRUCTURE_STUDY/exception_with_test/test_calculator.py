@@ -1,7 +1,7 @@
 from unittest import TestCase
 from .hackerrank_exception import Calculator
-from PYTEST import mark
-from PYTEST import fixture
+from pytest import mark
+from pytest import fixture
 
 
 # Unittest way of testing the method

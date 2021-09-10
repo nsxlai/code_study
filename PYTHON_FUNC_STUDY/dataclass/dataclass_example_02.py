@@ -15,7 +15,7 @@ class Employee:
 
 @dataclass
 class EmployeeWithBenefits(Employee):
-    # If any of the Employee attributes have default value, the inheritance will have TypeError
+    # If any of the Employee attributes have default value, the inheritance_with_test will have TypeError
     # TypeError: non-default argument 'healthBenefit' follows default argument
     healthBenefit: bool
     stocksBenefit: bool
@@ -28,9 +28,15 @@ if __name__ == '__main__':
     salary = 180000
 
     # Inheritance
-    employeeWithBenefits = EmployeeWithBenefits(healthBenefit=True, stocksBenefit=False,
-                                                name="Sam", id=1, salary=15000, designation="Developer")
-    print(employeeWithBenefits)
+    e = EmployeeWithBenefits(healthBenefit=True, stocksBenefit=False,
+                             name="Sam", id=1, salary=15000, designation="Developer")
+    print(e)
 
     # OutPut
     EmployeeWithBenefits(name='Sam', id=1, salary=15000, designation='Developer', healthBenefit=True, stocksBenefit=False)
+    print(f'{e.name = }')
+    print(f'{e.id = }')
+    print(f'{e.salary = }')
+    print(f'{e.designation = }')
+    print(f'{e.healthBenefit = }')
+    print(f'{e.stocksBenefit = }')
