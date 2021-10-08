@@ -17,6 +17,7 @@ isSubSequence(string1, string2) -> True
 isSubSequence(string1, string3) -> False
 isSubSequence(string1, string4) -> True
 """
+from pytest import mark
 
 
 def isSubSequence(str1, str2):
@@ -52,12 +53,16 @@ def isSubSequence1(string1, string2):
     return True
 
 
-if __name__ == '__main__':
-    test_str = 'abc'
-    test_list = ['asbsc', 'acedb', 'acedbc', 'edvasbdc', 'babekdkiekdjlsascadbwwoieircwodkal',
-                 'effffghi', 'babekdkiecdjl']
+target_list = [('abc', 'asbsc', True),
+               ('abc', 'acedb', False),
+               ('abc', 'acedbc', True),
+               ('abc', 'edvasbdc', True),
+               ('abc', 'babekdkiekdjlsascadbwwoieircwodkal', True),
+               ('abc', 'effffghi', False),
+               ('abc', 'babekdkiecdjl', True)]
 
-    print(isSubSequence1(test_str, 'acedb'))
-    for str in test_list:
-        print(f'{test_str} is subSequence of {str}? {isSubSequence1(test_str, str)}')
-        print('-' * 50)
+
+@mark.parametrize('test_str, test_list, test_result', target_list)
+def test_isSubSequence(test_str, test_list, test_result):
+    f_out = isSubSequence1(test_str, test_list)
+    assert f_out == test_result
