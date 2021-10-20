@@ -34,7 +34,8 @@ def ssh_connect():
     global ssh_client
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(hostname=HOST, username=USERNAME, password=PASSWORD)
+    ssh_client.connect(hostname=HOST, username=USERNAME, password=PASSWORD, look_for_keys=False, allow_agent=False)
+    # with username/password set, no need to "look_for_keys" file
 
 
 def check_cpu(verbose=False):
