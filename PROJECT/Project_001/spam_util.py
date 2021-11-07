@@ -74,7 +74,8 @@ def feature(feature_type: dict, port: Optional[int], verbose: bool = args.verbos
         print(f"{feature_type.get('desc')} {port}")
         r = requests.post(f"{feature_type.get('api')}/{port}")
 
-    if r.json().get('status') != 'success':
+    # if r.json().get('status') != 'success':
+    if r.status_code != 200:
         fail_flag = True
     if verbose:
         pprint(r.json())

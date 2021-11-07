@@ -88,17 +88,17 @@ class sim_interface(Resource):
                 return user, 200
         return "User not found", 404
 
-    def post(self, name: str) -> (dict, int):
+    def post(self, name: str, port: int) -> (dict, int):
         # parser = reqparse.RequestParser()
         # parser.add_argument("age")
         # parser.add_argument("occupation")
         # args = parser.parse_args()
-        port = int(re.search(r'\d+', name).group(0))
-        feature_type = name.split('/')[0]  # solenoid, fan, CPU, etc
-        print(f'{port = }, {feature_type = }')
+        # port = int(re.search(r'\d+', name).group(0))
+        # feature_type = name.split('/')[0]  # solenoid, fan, CPU, etc
+        # print(f'{port = }, {feature_type = }')
         if 0 <= port <= 7:
             for api_dict in sim_api:
-                if feature_type == api_dict['type']:
+                if name == api_dict['type']:
                     return api_dict.get('output'), 200
         else:
             return failed_msg, 404
@@ -129,7 +129,7 @@ class sim_interface(Resource):
         return f"{name} is deleted.", 200
 
 
-api.add_resource(sim_interface, "/api/v1.0/spam/<string:name>")
+api.add_resource(sim_interface, "/api/v1.0/spam/<string:name>/<int:port>")
 
 app.run(debug=True)
 
