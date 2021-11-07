@@ -229,17 +229,17 @@ def iperf_traffic_analysis(traffic_direction: str) -> None:
     return
 
 
-def sensor_data_conversion(raw_data: list) -> int:
+def _sensor_data_conversion(raw_data: list) -> int:
     combine_str = raw_data[0] + raw_data[1][2:]  # e.g., merge '0x6d' and '0x42' into '0x6d42'
     return int(combine_str, 16)  # translate base 16 string into base 10 integer
 
 
-def display_temp(temp: int) -> None:
+def _display_temp(temp: int) -> None:
     temp_val = (temp / 65535) * 175 - 45
     print(f'Temperature = {temp_val:7.3f}C')
 
 
-def display_hum(hum: int) -> None:
+def _display_hum(hum: int) -> None:
     hum_val = (hum / 65535) * 100
     print(f'Humidity = {hum_val:7.3f}%')
 
@@ -255,10 +255,10 @@ def read_sensor() -> None:
     Humidity = ['0x45', '0x6a']
     """
     raw_data = os.popen(f"ssh {spam_dut.get('username')}@{IP_ADDR} {spam_dut.get('temp').get('cmd')}").read().split()
-    temp_int = sensor_data_conversion(raw_data[:2])  # Temperature; 2 bytes
-    hum_int = sensor_data_conversion((raw_data[3:5]))  # Humidity; 2 bytes
-    display_temp(temp_int)
-    display_hum(hum_int)
+    temp_int = _sensor_data_conversion(raw_data[:2])  # Temperature; 2 bytes
+    hum_int = _sensor_data_conversion((raw_data[3:5]))  # Humidity; 2 bytes
+    _display_temp(temp_int)
+    _display_hum(hum_int)
 
 
 def _stress_test_run(runtime: int, verbose: bool = args.verbose) -> None:
