@@ -1,3 +1,8 @@
+"""
+https://docs.python.org/3/library/re.html
+https://regex101.com/
+https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference
+"""
 import re
 
 
