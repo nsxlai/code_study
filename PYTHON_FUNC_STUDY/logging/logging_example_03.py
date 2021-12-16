@@ -64,7 +64,7 @@ def logger_exp_03():
     logging.critical('Reactor core temperature is at critical...')
     logging.error('Reactor failure!! Unable to stabilize control!!')
 
-    # Logging the error without raise the exception and exit the program
+    # Logging the error without raise the exception_with_test and exit the program
     a = 10
     b = 0
     try:
