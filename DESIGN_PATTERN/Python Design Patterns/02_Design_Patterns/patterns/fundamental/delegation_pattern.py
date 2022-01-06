@@ -6,22 +6,22 @@ Reference: https://en.wikipedia.org/wiki/Delegation_pattern
 Author: https://github.com/IuryAlves
 
 *TL;DR
-Allows object composition to achieve the same code reuse as inheritance.
+Allows object composition to achieve the same code reuse as inheritance_with_test.
 """
 
 
 class Delegator(object):
     """
-    >>> delegator = Delegator(Delegate())
-    >>> delegator.p1
+    delegator = Delegator(Delegate())
+    delegator.p1
     123
-    >>> delegator.p2
+    delegator.p2
     Traceback (most recent call last):
     ...
     AttributeError: 'Delegate' object has no attribute 'p2'
-    >>> delegator.do_something("nothing")
+    delegator.do_something("nothing")
     'Doing nothing'
-    >>> delegator.do_anything()
+    delegator.do_anything()
     Traceback (most recent call last):
     ...
     AttributeError: 'Delegate' object has no attribute 'do_anything'

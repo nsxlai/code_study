@@ -5,7 +5,7 @@
 *What is this pattern about?
 The Decorator pattern is used to dynamically add a new feature to an
 object without changing its implementation. It differs from
-inheritance because the new feature is added only to that particular
+inheritance_with_test because the new feature is added only to that particular
 object, not to the entire subclass.
 
 *What does this example do?
@@ -30,7 +30,7 @@ Adds behaviour to object without affecting its class.
 from __future__ import print_function
 
 
-class TextTag(object):
+class TextTag:
     """Represents a base text tag"""
 
     def __init__(self, text):
@@ -66,6 +66,6 @@ if __name__ == '__main__':
     print("before:", simple_hello.render())
     print("after:", special_hello.render())
 
-### OUTPUT ###
-# before: hello, world!
-# after: <i><b>hello, world!</b></i>
+    ### OUTPUT ###
+    # before: hello, world!
+    # after: <i><b>hello, world!</b></i>

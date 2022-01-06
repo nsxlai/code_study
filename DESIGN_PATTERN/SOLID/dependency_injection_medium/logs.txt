@@ -1,0 +1,16 @@
+Human: test
+Bot: I'm sorry, I didn't understand that :(
+Human: it's okay
+Bot: I'm sorry, I didn't understand that :(
+Human: hello
+Bot: Hello there!
+Human: what are you doing?
+Bot: I'm sorry, I didn't understand that :(
+Human: yes
+Bot: I'm sorry, I didn't understand that :(
+Human: good morning
+Bot: I'm sorry, I didn't understand that :(
+Human: hi
+Bot: Hello there!
+Human: what?
+Bot: I'm sorry, I didn't understand that :(
