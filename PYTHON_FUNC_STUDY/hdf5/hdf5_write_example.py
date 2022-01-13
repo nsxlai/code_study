@@ -9,7 +9,7 @@ import numpy.random
 
 if __name__ == '__main__':
     # Create a HDF5 file
-    FileName = "hdf5_example.h5"
+    FileName = "hdf5_write_data_out.h5"
     File = h5py.File(FileName, "w")
 
     # Create a group under root
