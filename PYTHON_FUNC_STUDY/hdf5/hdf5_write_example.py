@@ -1,11 +1,16 @@
-# Example Python program that creates a hierarchy of groups
-# and datasets in a HDF5 file using h5py
-# Source1: https://pythontic.com/hdf5/h5py/create_group
-# Source2: https://docs.h5py.org/en/stable/quick.html
+"""
+Example Python program that creates a hierarchy of groups
+and datasets in a HDF5 file using h5py
+
+Source1: https://pythontic.com/hdf5/h5py/create_group
+Source2: https://docs.h5py.org/en/stable/quick.html
+
+Also installing vitables will help visutalizing the H5 file
+"""
 import h5py
 import random
 import numpy.random
-
+import pandas as pd
 
 if __name__ == '__main__':
     # Create a HDF5 file
@@ -68,8 +73,10 @@ if __name__ == '__main__':
     d2 = grp4.create_dataset("D2", datasetShape)
     For d2 (dataset variable), unable to find to correlation between D2 and d2
     grp4['D2'][()] or grp4['D2'].value (deprecated) will show the dataset, like d2[()]
-    
+
     grp4['D2'] does not have an attribute contains 'd2'
     '''
     for val in grp4:
         print(f'{val = }')
+
+    pd.read_hdf(File)

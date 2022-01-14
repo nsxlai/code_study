@@ -3,7 +3,7 @@ from pprint import pprint
 
 
 if __name__ == '__main__':
-    h5_filename = 'hdf5_read_example.h5'
+    h5_filename = 'hdf5_read_data_analysis.py.h5'
     h = h5py.File(h5_filename, 'r')
 
     print(f'{h.keys() = }')  # Only Fennec_20210310 key present; <KeysViewHDF5 ['fennec_20210310']>
