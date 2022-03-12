@@ -1,5 +1,4 @@
 from pytest import mark
-from . import student_grade
 from student_grade import Student
 
 

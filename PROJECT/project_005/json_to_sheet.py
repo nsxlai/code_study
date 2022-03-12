@@ -3,7 +3,6 @@ from pprint import pprint
 import pandas as pd
 import numpy as np
 import argparse
-from typing import Any
 from matplotlib import pyplot as plt
 
 
@@ -24,7 +23,6 @@ args = my_parser.parse_args()
 
 def workfiles() -> tuple:
     input_filename = args.filename
-    # input_filename = '2021-11-15_11-07-44_P010-0005511-001_S158_Fail.json'
     output_filename = f'{input_filename.split(".")[0]}.xlsx'
 
     print(f'{input_filename  = }')

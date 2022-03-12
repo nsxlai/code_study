@@ -39,7 +39,7 @@ if __name__ == '__main__':
     event_handler = LoggingEventHandler()
 
     observer = Observer()
-    observer.schedule(event_handler, directory, resursive=True)
+    observer.schedule(event_handler, directory, recursive=True)
     observer.start()
 
     try:

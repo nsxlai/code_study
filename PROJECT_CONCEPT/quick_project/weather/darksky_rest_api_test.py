@@ -27,6 +27,7 @@ def get_weather_report(city, latitude, longitude):
     """Fetch the weather information from Darksky.net"""
     api_url = 'https://api.darksky.net/forecast/{}/{},{}'.format(api_key, latitude, longitude)
     req_data = requests.get(api_url)
+    print(req_data.text)
     req_data = req_data.json()
 
     # Debug message

@@ -10,7 +10,7 @@ FROM python:3.8-slim
 WORKDIR /code
 
 # copy only the dependencies that are needed  for our application and the source files
-COPY --from=builder /root/.local /root/.local
+COPY --from=builder . /root/.local
 COPY ./src .
 
 # update PATH
