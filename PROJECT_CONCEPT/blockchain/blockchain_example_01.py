@@ -1,13 +1,9 @@
 # source: https://hackernoon.com/learn-blockchains-by-building-one-117428612f46
 import hashlib
 import json
-from textwrap import dedent
 from time import time
-from uuid import uuid4
-from flask import Flask, jsonify
-# import flask
-import requests
-import sys
+from typing import Optional
+from pprint import pprint
 
 
 class Blockchain:
@@ -16,16 +12,15 @@ class Blockchain:
         self.chain = []
 
         # Create the genesis block
-        self.new_block(previous_hash=1, proof=100)
+        self.new_block(proof=100, previous_hash=1)
 
-    def new_block(self, proof, previous_hash=None):
+    def new_block(self, proof: int, previous_hash: Optional[str] = None):
         """
         Create a new Block in the Blockchain
         :param proof: <int> The proof given by the Proof of Work ALGORITHM
         :param previous_hash: (Optional) <str> Hash of previous Block
         :return: <dict> New Block
         """
-
         block = {
             'index': len(self.chain) + 1,
             'timestamp': time(),
@@ -101,44 +96,49 @@ class Blockchain:
         return guess_hash[:4] == "0000"
 
 
-# Instantiate our Node
-app = Flask(__name__)
+def mine(blockchain: Blockchain) -> dict:
+    # We run the proof of work algorithm to get the next proof...
+    last_block = blockchain.last_block
+    last_proof = last_block['proof']
+    proof = blockchain.proof_of_work(last_proof)
 
-# Generate a globally unique address for this node
-node_identifier = str(uuid4()).replace('-', '')
+    # We must receive a reward for finding the proof.
+    # The sender is "0" to signify that this node has mined a new coin.
+    blockchain.new_transaction(
+        sender="0",
+        recipient='test@test.com',
+        amount=1,
+    )
 
-# Instantiate the Blockchain
-blockchain = Blockchain()
+    # Forge the new Block by adding it to the chain
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(proof, previous_hash)
 
-
-@app.route('/mine', methods=['GET'])
-def mine():
-    return "We'll mine a new Block"
-
-
-@app.route('/transactions/new', methods=['POST'])
-def new_transaction():
-    return "We'll add a new transaction"
-
-
-@app.route('/chain', methods=['GET'])
-def full_chain():
     response = {
-        'chain': blockchain.chain,
-        'length': len(blockchain.chain),
+        'message': "New Block Forged",
+        'index': block['index'],
+        'transactions': block['transactions'],
+        'proof': block['proof'],
+        'previous_hash': block['previous_hash'],
     }
-    return jsonify(response), 200
+    pprint(response)
+    return
 
 
-# if __name__ == '__main__':
-    # flask_ver = '1.1.2'
-    # requests_ver = '2.24.0'
-    #
-    # if flask.__version__ == flask_ver and requests.__version__ == requests_ver:
-    #     app.run(host='0.0.0.0', port=5000)
-    # else:
-    #     print('Required package is not installed. Exiting')
-    #     sys.exit(0)
-
+if __name__ == '__main__':
     # Instantiate the Blockchain
-    # blockchain = Blockchain()
+    blockchain = Blockchain()
+    print(blockchain)
+    t1 = blockchain.new_transaction('John', 'Mary', 10)
+    print(f'{t1 = }')
+    blockchain.new_block(proof=100, previous_hash=1)
+    # blockchain.last_block()
+    t2 = blockchain.new_transaction('Carrie', 'Linda', 50)
+    print(f'{t2 = }')
+    pprint(blockchain.current_transactions)
+    pprint(blockchain.chain)
+    blockchain.new_block(proof=100, previous_hash=1)
+    pprint(blockchain.current_transactions)
+    pprint(blockchain.chain)
+
+    mine(blockchain)
