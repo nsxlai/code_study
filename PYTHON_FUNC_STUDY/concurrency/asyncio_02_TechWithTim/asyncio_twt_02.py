@@ -18,7 +18,6 @@ async def print_numbers():
 async def main():
     task1 = asyncio.create_task(fetch_data())  # create task adds the function in the event loop, but not starting it.
     task2 = asyncio.create_task(print_numbers())
-
     value = await task1  # await start the function
     print(value)
     # without await task2, as soon task1 is done, the program will terminate. task 2 will missing print '9'
