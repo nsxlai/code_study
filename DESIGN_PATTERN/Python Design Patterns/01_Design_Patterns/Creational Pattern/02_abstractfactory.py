@@ -57,9 +57,12 @@ def get_factory():
     """Let's be dynamic!"""
     return random.choice([DogFactory, CatFactory])()
 
-# Show pets with various factories
-shop = PetShop()
-for i in range(3):
-    shop.pet_factory = get_factory()
-    shop.show_pet()
-    print "=" * 10
+
+if __name__ == '__main__':
+    # Show pets with various factories
+    shop = PetShop()
+
+    for i in range(3):
+        shop.pet_factory = get_factory()
+        shop.show_pet()
+        print("=" * 10)

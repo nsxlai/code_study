@@ -1,7 +1,7 @@
 """
 The "dayOfTheWeek" function is sourced from CODING_PLATFORM/leetcode/mock_interview/q03_find_date.py
 """
-from datetime import datetime, date
+from datetime import datetime
 
 
 def dayOfTheWeek(day: int, month: int, year: int) -> str:
@@ -40,5 +40,10 @@ if __name__ == '__main__':
     print(f'Today is {current:%m}/{current:%d}/{current:%y}')  # lower case %y will just show 2-digital year format
     print(f'Current time is {current:%H}:{current:%M}:{current:%S}')
 
-    # Example 4
+    # Example 4: use the time library to display time
+    print(f'{time.time() = }')
+    time.sleep(2)
+    print(f'{time.time() = }')
+
+    # Example 5
     print(f'{get_datetime_str() = }')

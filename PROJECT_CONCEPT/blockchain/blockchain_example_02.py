@@ -5,6 +5,13 @@ from flask import Flask, jsonify
 import requests
 import json
 import hashlib
+from textwrap import dedent
+from time import time
+from uuid import uuid4
+from flask import Flask, jsonify
+# import flask
+import requests
+import sys
 
 
 class Blockchain:
@@ -120,8 +127,46 @@ def full_chain():
     return response
 
 
+"""
+# Instantiate our Node
+app = Flask(__name__)
+
+# Generate a globally unique address for this node
+node_identifier = str(uuid4()).replace('-', '')
+
+# Instantiate the Blockchain
+blockchain = Blockchain()
+
+
+@app.route('/mine', methods=['GET'])
+def mine():
+    return "We'll mine a new Block"
+
+
+@app.route('/transactions/new', methods=['POST'])
+def new_transaction():
+    return "We'll add a new transaction"
+
+
+@app.route('/chain', methods=['GET'])
+def full_chain():
+    response = {
+        'chain': blockchain.chain,
+        'length': len(blockchain.chain),
+    }
+    return jsonify(response), 200
+"""
+
 # if __name__ == '__main__':
 #     # app.run(host='127.0.0.1', port=5000)
 #     node_identifier = str(uuid4()).replace('-', '')
 #     blockchain = Blockchain()
 #     print(full_chain())
+    # flask_ver = '1.1.2'
+    # requests_ver = '2.24.0'
+    #
+    # if flask.__version__ == flask_ver and requests.__version__ == requests_ver:
+    #     app.run(host='0.0.0.0', port=5000)
+    # else:
+    #     print('Required package is not installed. Exiting')
+    #     sys.exit(0)

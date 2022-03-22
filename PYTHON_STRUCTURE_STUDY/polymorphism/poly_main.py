@@ -8,7 +8,7 @@ Pros:
    3. you have Singleton pattern by default.
 
 Cons:
-   1. no inheritance for a modules, but it can be replaced with a composition in some cases.
+   1. no inheritance_with_test for a modules, but it can be replaced with a composition in some cases.
 """
 import abstract
 import classes
