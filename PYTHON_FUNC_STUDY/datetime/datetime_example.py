@@ -1,7 +1,8 @@
 """
 The "dayOfTheWeek" function is sourced from CODING_PLATFORM/leetcode/mock_interview/q03_find_date.py
 """
-from datetime import datetime
+from datetime import datetime, date
+import time
 
 
 def dayOfTheWeek(day: int, month: int, year: int) -> str:
