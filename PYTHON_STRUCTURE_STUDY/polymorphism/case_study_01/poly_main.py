@@ -10,9 +10,7 @@ Pros:
 Cons:
    1. no inheritance_with_test for a modules, but it can be replaced with a composition in some cases.
 """
-import abstract
-import classes
-import modules
+from PYTHON_STRUCTURE_STUDY.polymorphism import modules
 
 
 def use_storage(storage):
@@ -26,12 +24,12 @@ def use_storage(storage):
 if __name__ == "__main__":
     s_list = [
         # Abstract Class Case
-        abstract.storages.Memory(),
-        abstract.storages.Persistent(),
+        PYTHON_STRUCTURE_STUDY.polymorphism.case_study_01.abstract.storages.Memory(),
+        PYTHON_STRUCTURE_STUDY.polymorphism.case_study_01.abstract.storages.Persistent(),
 
         # Duck Typed Case
-        classes.storages.Memory(),
-        classes.storages.Persistent(),
+        PYTHON_STRUCTURE_STUDY.polymorphism.case_study_01.classes.storages.Memory(),
+        PYTHON_STRUCTURE_STUDY.polymorphism.case_study_01.classes.storages.Persistent(),
 
         # Modules Case
         modules.storages.memory,
