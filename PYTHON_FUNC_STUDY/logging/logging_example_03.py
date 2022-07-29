@@ -1,4 +1,4 @@
- """
+"""
 source: https://medium.com/pythoneers/master-logging-in-python-73cd2ff4a7cb
 
 The Five Levels of Logging
@@ -80,6 +80,7 @@ def logger_exp_04():
     """
     # create different types of logging handler to handle different type of logging output
     logger = logging.getLogger(__name__)
+    print(f'{type(logger) = }')
 
     # Create handlers
     c_handler = logging.StreamHandler()
@@ -164,13 +165,22 @@ def logger_exp_07():
 
     for i in range(20):
         logger.info(i)
-        time.sleep(2)
+        time.sleep(1)
+
+
+def user_example_input() -> int:
+    run_exp_num = input('Logging Example 1-7: ')
+    return int(run_exp_num)
 
 
 if __name__ == '__main__':
-    # logger_exp_01()
-    # logger_exp_02()
-    # logger_exp_03()
-    # logger_exp_04()
-    # logger_exp_05()
-    logger_exp_06()
+    possible_choices = '1 2 3 4 5 6 7'.split()
+    possible_choices = [int(i) for i in possible_choices]
+    func_dict = {1: logger_exp_01, 2: logger_exp_02, 3: logger_exp_03,
+                 4: logger_exp_04, 5: logger_exp_05, 6: logger_exp_06,
+                 7: logger_exp_07}
+
+    while (u := user_example_input()) in possible_choices:
+        func_dict[u]()
+        print()
+        time.sleep(0.5)
