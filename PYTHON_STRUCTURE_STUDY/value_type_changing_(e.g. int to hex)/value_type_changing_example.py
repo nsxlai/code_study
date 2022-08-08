@@ -44,12 +44,14 @@ def int_func_case_2():
 if __name__ == '__main__':
 
     # 1. Change from any number with different base to decimal (base=10)
+    print('Example 1')
     int_func_case_1()
     print('-' * 40)
     int_func_case_2()
     print('-' * 40)
 
     # 2. Convert to and from binary
+    print('Example 2')
     val = 79
     # Base 2(binary)
     bin_a = bin(val)
@@ -58,6 +60,7 @@ if __name__ == '__main__':
 
     # 3. Convert to and from octal
     print('-' * 40)
+    print('Example 3')
     val = 70
     oct_a = oct(val)
     print(oct_a)
@@ -65,6 +68,7 @@ if __name__ == '__main__':
 
     # 4. Convert to and from hexdecimal
     print('-' * 40)
+    print('Example 4')
     val = 256
     hex_a = hex(val)
     print(hex_a)
@@ -72,6 +76,7 @@ if __name__ == '__main__':
 
     # 5. Convert hex to ASCII
     print('-' * 40)
+    print('Example 5')
     hex_string = "0x42455441"[2:]  # Remove 0x header
     bytes_object = bytes.fromhex(hex_string)
     ascii_string = bytes_object.decode("ASCII")
@@ -79,6 +84,7 @@ if __name__ == '__main__':
 
     # 6. Convert hex to ASCII, different solution
     print('-' * 40)
+    print('Example 6')
     hex_str = '0x3131323130343542455441'[2:]
     binary_str = codecs.decode(hex_str, 'hex')
     ascii_str = str(binary_str, 'utf-8')

@@ -1,3 +1,6 @@
+import subprocess
+
+
 def extract_data_points(filename: str) -> Dict:
     data = []
     windows_os_slice = slice(8, 57)
