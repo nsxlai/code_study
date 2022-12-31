@@ -52,7 +52,7 @@ Jay         history
 Jay         psychology
 
 3. Find the name of the student whose
-HS size is < 1000, and
+HS SIZE is < 1000, and
 apply for CS major, and
 apply for Stanford
 
