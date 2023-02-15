@@ -24,7 +24,7 @@ def tqdm_bar() -> None:
 
 
 if __name__ == '__main__':
-    print('Tranditional progress bar')
+    print('Traditional progress bar')
     progress_bar()
 
     print('Newer style progress bar')

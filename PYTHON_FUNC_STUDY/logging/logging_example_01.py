@@ -5,9 +5,11 @@ github: https://gist.github.com/nguyenkims/e92df0f8bd49973f0c94bddf36ed7fd0
 import logging
 import sys
 from logging.handlers import TimedRotatingFileHandler
+from time import sleep
+
 
 FORMATTER = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-LOG_FILE = "my_app.log"
+LOG_FILE = "logging_example_01.log"
 
 
 def get_console_handler():
@@ -25,7 +27,7 @@ def get_file_handler():
 def get_logger(logger_name):
     logger = logging.getLogger(logger_name)
 
-    logger.setLevel(logging.DEBUG) # better to have too much log than not enough
+    logger.setLevel(logging.INFO) # better to have too much log than not enough
 
     logger.addHandler(get_console_handler())
     logger.addHandler(get_file_handler())
@@ -34,3 +36,14 @@ def get_logger(logger_name):
     logger.propagate = False
 
     return logger
+
+
+if __name__ == '__main__':
+    logger = get_logger('logging_example')
+    logger.info('Logging starting...')
+    sleep(2)
+    logger.info('Executing...')
+    sleep(2)
+    logger.info('Test 1 running...')
+    sleep(2)
+    logger.info('Test 1 completed...')

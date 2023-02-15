@@ -41,6 +41,11 @@ if __name__ == '__main__':
     print(f'Today is {current:%m}/{current:%d}/{current:%y}')  # lower case %y will just show 2-digital year format
     print(f'Current time is {current:%H}:{current:%M}:{current:%S}')
 
+    current_datetime = datetime.now().strftime('%D_%T')
+    print(f'Current time is ', current_datetime)
+    current_datetime = datetime.now().strftime('%m/%d/%y_%H:%M:%S')
+    print(f'Current time is ', current_datetime)
+
     # Example 4: use the time library to display time
     print(f'{time.time() = }')
     time.sleep(2)
