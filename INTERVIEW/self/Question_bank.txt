@@ -56,4 +56,21 @@ def boot_up():
 
 Question 5: How to read a file and display its content?
 
+
+Question 6: refactor the conditional statement below to not use if-else logic
+def decision(test_result: int):
+    if test_result < 10:
+        print('test_result is too small')
+    elif 10 <= test_result < 20:
+        print('test_result is just right')
+    elif test_result >= 20:
+        print('test_result is too big')
+    else:
+        print('no test_result')
+
+
+Question 7: How to remove all the "." from the following sentence and replace it with space? don't use string.replace method
+s = 'this.is.a.test.where.I.need.to.know.how.to.remove.the.dot?'
+
+
 """
