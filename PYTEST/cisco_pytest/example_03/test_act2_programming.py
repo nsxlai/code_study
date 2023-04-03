@@ -2,7 +2,7 @@ from mock import patch
 import mock
 from . import seq_steps as bs_seq_steps
 from . import menush
-from PYTEST import mark
+from pytest import mark
 
 
 @patch.object(bs_seq_steps.lib, 'apdicts')
