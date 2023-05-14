@@ -32,14 +32,13 @@ def setup_logging(stream_level=LOG_LEVEL, file_path=None):
 
     sh = logging.StreamHandler(sys.stdout)
     sh.setLevel(stream_level)
-    logformat = LOG_FORMAT
-    sh.setFormatter(logging.Formatter(logformat))
+    sh.setFormatter(logging.Formatter(LOG_FORMAT))
     logging.root.addHandler(sh)
 
     if file_path is not None:
         fh = logging.FileHandler(file_path)
         fh.setLevel(logging.DEBUG)
-        fh.setFormatter(logging.Formatter(logformat))
+        fh.setFormatter(logging.Formatter(LOG_FORMAT))
         logging.root.addHandler(fh)
 
 

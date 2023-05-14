@@ -54,10 +54,13 @@ def logger_exp_02():
 
 
 def logger_exp_03():
-    """ Intermediary logging example; also logging to a file """
+    """ Intermediary logging example; also logging to a file
+        If LOG_FILENAME is provided, the log will only output to file (not stream to console)
+    """
     logging.basicConfig(level=logging.DEBUG, filename=LOG_FILENAME, filemode='a',
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
     name = str(input("Enter Your Name: "))
+    logging.info('------------------------------------------')
     logging.info(f"{name} has logged in successfully !!")
     logging.debug('Just a debug message; no significant output...')
     logging.warning('Reactor core temperature is reaching critical...')
@@ -85,8 +88,8 @@ def logger_exp_04():
     # Create handlers
     c_handler = logging.StreamHandler()
     f_handler = logging.FileHandler(LOG_FILENAME)
-    c_handler.setLevel(logging.WARNING)  # Will log anything higher than WARNING to console (including WARNING level)
-    f_handler.setLevel(logging.WARNING)  # Will log anything higher than ERROR to file (including ERROR level)
+    c_handler.setLevel(logging.INFO)  # Will log anything higher than WARNING to console (including WARNING level)
+    f_handler.setLevel(logging.ERROR)  # Will log anything higher than ERROR to file (including ERROR level)
     # For some reason, the WARNING and above (WARNING, ERROR, and CRITICAL) will be logged. The INFO and DEBUG are not
     # logged in both handler
 
@@ -99,6 +102,8 @@ def logger_exp_04():
     # Add handlers to the logger
     logger.addHandler(c_handler)
     logger.addHandler(f_handler)
+    logger.setLevel(logging.INFO)  # The logger's level filters every message before it can reach its handlers
+                                   # and the default is WARNING and above
 
     logger.debug('1/10 - This is DEBUG')
     logger.info('2/10 - This is INFO')
@@ -126,12 +131,20 @@ def logger_exp_05():
     logger = logging.getLogger('simpleExample')
 
     # Log Messages
-    logging.debug('This is a debug message')
-    logging.info('This is an info message')
-    logging.warning('This is a warning message')
-    logging.error('This is an error message')
-    logging.critical('This is a critical message')
+    logger.debug('This is a debug message')
+    logger.info('This is an info message')
+    logger.warning('This is a warning message')
+    logger.error('This is an error message')
+    logger.critical('This is a critical message')
 
+    # Switch to 'root' logger at logging.INFO level
+    logger = logging.getLogger('root')
+    # Log Messages
+    logger.debug('This is a debug message')
+    logger.info('This is an info message')
+    logger.warning('This is a warning message')
+    logger.error('This is an error message')
+    logger.critical('This is a critical message')
 
 def logger_exp_06():
     """
@@ -180,7 +193,7 @@ if __name__ == '__main__':
                  4: logger_exp_04, 5: logger_exp_05, 6: logger_exp_06,
                  7: logger_exp_07}
 
-    while (u := user_example_input()) in possible_choices:
-        func_dict[u]()
-        print()
-        time.sleep(0.5)
+    u = user_example_input()
+    func_dict[u]()
+    print()
+    time.sleep(0.5)
