@@ -11,7 +11,7 @@ LOG_FORMAT = "[%(asctime)s]::%(name)s::%(lineno)d::%(levelname)s::%(message)s"
 LOG_FILE = 'logging_example_05.log'
 
 
-def create_logger(name, root_level=True):
+def create_logger(name: str, root_level: bool = True):
     """
     use logging handler to handle multiple logging destination (STDOUT and file)
 
@@ -31,7 +31,7 @@ def create_logger(name, root_level=True):
         name = "logging_example." + name
 
     Logger = logging.getLogger(name)
-    Logger.info('createing the logger...')
+    Logger.info('creating the logger...')
 
     file_handler = logging.FileHandler(LOG_FILE)
     stream_handler = logging.StreamHandler(sys.stdout)
