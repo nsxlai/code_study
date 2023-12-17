@@ -1,0 +1,44 @@
+start addr  field           type    length  value
+0x00        reserved        hex     3       0xff
+0x03        version         int     1       0x01
+0x04        not_version     int     1       0xfe
+0x05        reserved        hex     11      0xff (all fields)
+0x10        main_sn         ascii   16      example: 1123344SP2E01345
+0x20        main_pn         ascii   10      example: 7013230456
+0x2a        dls             ascii   1       "B"
+0x2b        pls             ascii   1       "A"
+0x2c        reserved        hex     4       0xff
+0x30        vpps            ascii   14      example: 3240400000000Z
+0x3e        reserved        hex     4       0xff
+0x40        duns            int     5       example: 429873453 = 0x0429873453
+0x45        reserved        hex     11      0xff
+0x50        tla_pn          int     4       example: 2024567 = 0x02024567
+0x54        reserved        hex     9       0xff
+0x5d        build           ascii   3       example: DV1, EV, PPV
+0x60        pcba_sn         ascii   7       example: P324519
+0x67        reserved        hex     1       0xff
+0x68        pcba_pn         ascii   7       example: CDF9343
+0x6f        reserved        hex     1       0xff
+0x70        eco             ascii   8       example: E1234567
+0x78        deviation       ascii   8       example: D1234567
+0x80        mfg_date        ascii   8       example: 20231015
+0x88        mfg_time        ascii   8       example: 15:34:35
+0x90        mac_address     hex     6       example: deadbeefcafd (de:ad:be:ef:ca:fd)
+0x9e        CRC-16          hex     2       Little Endian format
+0xa0        location        ascii   16      california (10 bytes) + 0xff * 6
+0xb0        cal_date        ascii   8       example: 20231015
+0xb8        cal_time        ascii   8       example: 15:34:35
+0xc0        data_00         int     2       int16 values
+0xc2        data_01         int     2       int16 values
+0xc4        data_02         int     2       int16 values
+0xc6        data_03         int     2       int16 values
+0xc8        data_04         int     2       int16 values
+0xca        data_05         int     2       int16 values
+0xcc        data_06         int     2       int16 values
+0xce        data_07         int     2       int16 values
+0xd0        data_08         int     2       int16 values
+0xd2        data_09         int     2       int16 values
+0xd4        data_10         int     2       int16 values
+0xd6        data_11         int     2       int16 values
+0xd8        reserved        hex     10      0xff
+0xde        CRC-16          hex     2       Little Endian format

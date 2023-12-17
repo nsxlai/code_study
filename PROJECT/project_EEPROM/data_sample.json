@@ -1,0 +1,42 @@
+{
+  "manufacturing": {
+    "version": 1,
+    "date": "12/14/2023",
+    "time": "15:34:35",
+    "eco": "",
+    "deviation": "",
+    "dls": "A",
+    "pls": "B",
+    "build": "DV1",
+    "mac_address": "deadbeef",
+    "pcba_sn": "P324519",
+    "pcba_pn": "CDF9343"
+  },
+  "calibration": {
+    "location": "california",
+    "date": "12/10/2023",
+    "time": "09:03:23",
+    "data": [
+      203,
+      534,
+      409,
+      1048,
+      783,
+      902,
+      301,
+      493,
+      1204,
+      1503,
+      540,
+      209,
+      664
+    ]
+  },
+  "traceability": {
+    "tla_pn": "2024567",
+    "main_pn": "7013230456",
+    "main_sn": "1123344SP2E01345",
+    "duns": "429873453",
+    "vpps": "3240400000000Z"
+  }
+}
