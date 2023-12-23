@@ -7,8 +7,8 @@
     "deviation": "",
     "dls": "A",
     "pls": "B",
-    "build": "DV1",
-    "mac_address": "deadbeef",
+    "build": "DV",
+    "mac_address": "de:ad:be:ef:ca:fd",
     "pcba_sn": "P324519",
     "pcba_pn": "CDF9343"
   },
@@ -28,8 +28,7 @@
       1204,
       1503,
       540,
-      209,
-      664
+      209
     ]
   },
   "traceability": {

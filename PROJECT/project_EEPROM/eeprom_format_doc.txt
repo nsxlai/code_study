@@ -1,7 +1,7 @@
 start addr  field           type    length  value
 0x00        reserved        hex     3       0xff
-0x03        version         int     1       0x01
-0x04        not_version     int     1       0xfe
+0x03        version         hex     1       0x01
+0x04        not_version     hex     1       0xfe
 0x05        reserved        hex     11      0xff (all fields)
 0x10        main_sn         ascii   16      example: 1123344SP2E01345
 0x20        main_pn         ascii   10      example: 7013230456
@@ -23,8 +23,9 @@ start addr  field           type    length  value
 0x78        deviation       ascii   8       example: D1234567
 0x80        mfg_date        ascii   8       example: 20231015
 0x88        mfg_time        ascii   8       example: 15:34:35
-0x90        mac_address     hex     6       example: deadbeefcafd (de:ad:be:ef:ca:fd)
-0x9e        CRC-16          hex     2       Little Endian format
+0x90        mac_address     hex     6       example: 0xdeadbeefcafd (de:ad:be:ef:ca:fd)
+0x96        reserved        hex     8       0xff
+0x9e        crc_01          hex     2       CRC-16 Little Endian format
 0xa0        location        ascii   16      california (10 bytes) + 0xff * 6
 0xb0        cal_date        ascii   8       example: 20231015
 0xb8        cal_time        ascii   8       example: 15:34:35
@@ -41,4 +42,4 @@ start addr  field           type    length  value
 0xd4        data_10         int     2       int16 values
 0xd6        data_11         int     2       int16 values
 0xd8        reserved        hex     10      0xff
-0xde        CRC-16          hex     2       Little Endian format
+0xde        crc_02          hex     2       CRC-16 Little Endian format
