@@ -92,6 +92,15 @@ if __name__ == '__main__':
 
     # 7. Use F-string
     print('-' * 40)
+    print('Example 7')
+    d_str = 'ABCD1234abc'
+    temp_list = [hex(ord(char))[2:] for char in d_str]
+    ascii_str = ''.join(temp_list)
+    print(ascii_str)
+
+    # 8. Use F-string
+    print('-' * 40)
+    print('Example 8')
     a = 0x0010
     print(f'{a = }')
     print(f'a:x = {a:x}')

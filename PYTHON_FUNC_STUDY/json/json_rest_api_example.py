@@ -28,6 +28,9 @@ def req_get():
 
 
 def _write_json_data_to_file(r):
+    """
+    This will take the input JSON object 'r' and save it to file
+    """
     with open(JSON_FILE, 'w') as jfile:
         json_data = json.loads(r.text)
         json.dump(json_data, jfile)

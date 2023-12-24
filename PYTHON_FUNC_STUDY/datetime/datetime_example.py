@@ -37,7 +37,7 @@ if __name__ == '__main__':
     print(f'{time_format = }')
 
     # Example 3
-    print(f'Today is {current:%B} {current:%d}, {current:%Y}')  # capital %Y will display to full 4-digial year format
+    print(f'Today is {current:%B} {current:%d}, {current:%Y}')  # capital %Y will display to full 4-digit year format
     print(f'Today is {current:%m}/{current:%d}/{current:%y}')  # lower case %y will just show 2-digital year format
     print(f'Current time is {current:%H}:{current:%M}:{current:%S}')
 
