@@ -28,7 +28,8 @@ def disable_diag():
 
 
 def get_datetime_str():  # Adding this here until Stoa is requirement
-    """Get the date time string : YYYYMMDDHHMMSS.
+    """
+    Get the date time string : YYYYMMDDHHMMSS.
     """
     date_object = date.today()
     current_date = str(date_object).replace('-', '')

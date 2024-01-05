@@ -40,12 +40,14 @@ if __name__ == '__main__':
     # raise an AttributeError
     try:
         obj1.__fun()
-    except AttributeError:
+    except AttributeError as e:
+        print(e)
         print('AttributeError for calling obj1.__fun()')
 
     # Uncommenting obj2.call_private()
     # will also raise an AttributeError
     try:
         obj2.call_private()
-    except AttributeError:
+    except AttributeError as e:
+        print(e)
         print('AttributeError for calling obj2.call_private()')

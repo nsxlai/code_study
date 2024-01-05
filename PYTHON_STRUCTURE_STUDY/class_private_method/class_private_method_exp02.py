@@ -31,16 +31,15 @@ class Employee:
 
 
 # Creating a class
-class A:
+class Store:
 
     # Declaring public method
     def fun(self):
-        print("Public method")
+        print(f"{__class__.__name__} Public method")
 
     # Declaring private method
     def __fun(self):
-        print("Private method")
-
+        print(f"{__class__.__name__} Private method")
 
 
 if __name__ == '__main__':
@@ -56,15 +55,19 @@ if __name__ == '__main__':
     e.display_balance()
     try:
         e.__pay_money()
-    except AttributeError:
+    except AttributeError as err:
+        print(err)
         print('AttributeError from accessing private method')
     e.display_balance()
     e.confirm_pass1('test')
     e.display_balance()
+
+    print('-' * 60)
     print('However, it is still possible to access the private method')
     e._Employee__pay_money()  # name mangling
     e.display_balance()
 
     # Driver's code
-    obj: A = A()
-    obj._A__fun()
+    print('-' * 60)
+    obj: Store = Store()
+    obj._Store__fun()

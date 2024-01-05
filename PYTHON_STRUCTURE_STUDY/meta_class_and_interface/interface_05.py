@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 
 class Operations(ABC):
     """Operations"""
+    @staticmethod
     @abstractmethod
     def operation(list_: list) -> None:
         pass

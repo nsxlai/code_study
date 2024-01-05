@@ -6,6 +6,8 @@ This is known colloquially as “interface pollution” because a class may beco
 it doesn’t need. interface pollution was primarily the result of “fat interfaces” — that is, interfaces with
 a large number of prescribed methods. Clients should not be forced to depend upon interfaces that they do not use.
 The original code was written in C#
+
+This code example split the features into 2 separate interfaces for different type of Calculator object.
 """
 from abc import ABC, abstractmethod
 import math
@@ -30,9 +32,11 @@ class IArithmetic(ABC):
 
 
 class IExponents(ABC):
+    @abstractmethod
     def power(self, num: int, power: int):
         pass
 
+    @abstractmethod
     def square_root(self, num: int):
         pass
 

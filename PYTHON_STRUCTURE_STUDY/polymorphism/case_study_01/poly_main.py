@@ -10,7 +10,7 @@ Pros:
 Cons:
    1. no inheritance_with_test for a modules, but it can be replaced with a composition in some cases.
 """
-from PYTHON_STRUCTURE_STUDY.polymorphism import modules
+from PYTHON_STRUCTURE_STUDY.polymorphism.case_study_01 import modules
 
 
 def use_storage(storage):
