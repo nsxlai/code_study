@@ -1,0 +1,82 @@
+
+With Z axis pointing up; 200 samples
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test>
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test> python .\fennec_imu_test.py
+gyro_st_off = [75.34, -120.57, 59.21]
+accel_st_off = [-7.02, -175.52, -16289.6]
+Enable self test; press ENTER to resume...
+gyro_st_on = [17139.275, 17413.1, 19067.07]
+accel_st_on = [7755.12, 6702.06, -9120.52]
+read_st_data = ['0xbd', '0xbf', '0xc8', '0x6f', '0x62', '0x6b']
+gyro_st_code = [189, 191, 200]
+accel_st_code = [111, 98, 107]
+    ST_meas_on  ST_meas_off    ST_diff  ST_DATA        ST_OTP  ST_ratio  ST_pass
+Gx   17139.275        75.34  17063.935      189  17010.597262  1.003136     True
+Gy   17413.100      -120.57  17533.670      191  17352.510266  1.010440     True
+Gz   19067.070        59.21  19007.860      200  18978.184923  1.001564     True
+Ax    7755.120        -7.02   7762.140      111   7828.028667  0.991583     True
+Ay    6702.060      -175.52   6877.580       98   6878.196016  0.999910     True
+Az   -9120.520    -16289.60   7169.080      107   7522.581685  0.953008     True
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test>
+
+
+With Z axis pointing up; 50 samples
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test> python .\fennec_imu_test.py
+gyro_st_off = [71.1, -120.74, 58.26]
+accel_st_off = [-31.76, -176.64, -16298.0]
+Enable self test; press ENTER to resume...
+gyro_st_on = [17131.28, 17401.84, 19063.14]
+accel_st_on = [7716.96, 6712.56, -9132.48]
+read_st_data = ['0xbd', '0xbf', '0xc8', '0x6f', '0x62', '0x6b']
+gyro_st_code = [189, 191, 200]
+accel_st_code = [111, 98, 107]
+    ST_meas_on  ST_meas_off   ST_diff  ST_DATA        ST_OTP  ST_ratio  ST_pass
+Gx    17131.28        71.10  17060.18      189  17010.597262  1.002915     True
+Gy    17401.84      -120.74  17522.58      191  17352.510266  1.009801     True
+Gz    19063.14        58.26  19004.88      200  18978.184923  1.001407     True
+Ax     7716.96       -31.76   7748.72      111   7828.028667  0.989869     True
+Ay     6712.56      -176.64   6889.20       98   6878.196016  1.001600     True
+Az    -9132.48    -16298.00   7165.52      107   7522.581685  0.952535     True
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test>
+
+
+With X axis pointing up; 200 samples
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test> python .\fennec_imu_test.py
+gyro_st_off = [77.485, -121.17, 57.695]
+accel_st_off = [16225.64, -629.68, -320.2]
+Enable self test; press ENTER to resume...
+gyro_st_on = [17144.285, 17405.84, 19061.69]
+accel_st_on = [24047.44, 6244.4, 7006.66]
+read_st_data = ['0xbd', '0xbf', '0xc8', '0x6f', '0x62', '0x6b']
+gyro_st_code = [189, 191, 200]
+accel_st_code = [111, 98, 107]
+    ST_meas_on  ST_meas_off    ST_diff  ST_DATA        ST_OTP  ST_ratio  ST_pass
+Gx   17144.285       77.485  17066.800      189  17010.597262  1.003304     True
+Gy   17405.840     -121.170  17527.010      191  17352.510266  1.010056     True
+Gz   19061.690       57.695  19003.995      200  18978.184923  1.001360     True
+Ax   24047.440    16225.640   7821.800      111   7828.028667  0.999204     True
+Ay    6244.400     -629.680   6874.080       98   6878.196016  0.999402     True
+Az    7006.660     -320.200   7326.860      107   7522.581685  0.973982     True
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test>
+
+
+
+
+Final output, with Z axis pointing up; 50 samples
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test> python .\fennec_imu_test.py
+Fennec chain initialized...
+imu_temperature =  24.61C
+Read GYRO and ACCEL data; self test is disabled
+Read GYRO and ACCEL data; self test is enabled
+-----------------------------------------------------------------------------
+    ST_meas_on  ST_meas_off   ST_diff  ST_DATA     ST_OTP  ST_ratio  ST_pass
+Gx    17088.86        75.36  17013.50      189  17010.597     1.000     True
+Gy    17346.30      -121.80  17468.10      191  17352.510     1.007     True
+Gz    19010.52        55.90  18954.62      200  18978.185     0.999     True
+Ax     7386.64      -399.84   7786.48      111   7828.029     0.995     True
+Ay     6722.64      -163.84   6886.48       98   6878.196     1.001     True
+Az    -9127.12    -16296.88   7169.76      107   7522.582     0.953     True
+PS C:\Users\hardware R&D\Documents\Fennec_IMU_test>
+
+
+
