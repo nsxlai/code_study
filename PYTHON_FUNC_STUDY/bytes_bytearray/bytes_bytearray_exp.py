@@ -18,6 +18,10 @@ if __name__ == '__main__':
     print(f'{byte_str2 = }')
     print(f'{type(byte_str2) = }')
 
+    byte_str2_1 = test_str.encode()  # 'utf-8' is default
+    print(f'{byte_str2_1 = }')
+    print(f'{type(byte_str2_1) = }')
+
     # byte string
     byte_str3 = b'\xC2\xA9\x20\xF0\x9D\x8C\x86\x20\xE2\x98\x83'
     print(f'{byte_str3 = }')
