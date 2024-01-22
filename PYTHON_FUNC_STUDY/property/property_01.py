@@ -19,10 +19,17 @@ class Celsius:
             raise ValueError("Temperature below -273 is not possible")
         self._temperature = value
 
+    @temperature.deleter
+    def temperature(self):
+        self._temperature = None
+
 
 if __name__ == '__main__':
     human = Celsius(37)
-    print(human.temperature)
-    print(human.to_fahrenheit())
+    print(f'{human.temperature = }')
+    print(f'{human.to_fahrenheit() = }')
     print(dir(human)[-3:])  # showing both temperature at property attribute and _temperature as private attribute
     coldest_thing = Celsius(-300)
+
+    del human.temperature
+    print(f'{human.temperature = }')
