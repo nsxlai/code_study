@@ -24,14 +24,15 @@ class TicTacToe:
 
     def play(self, starting_mark: Mark = Mark('X')) -> None:
         game_state = GameState(Grid(), starting_mark)
-        if game_state.game_over:
-            break
-        player = self.get_current_player(game_state)
-        try:
-            game_state = player.make_move(game_state)
-        except InvalidMove as ex:
-            if self.error_handler:
-                self.error_handler(ex)
+        while True:
+            if game_state.game_over:
+                break
+            player = self.get_current_player(game_state)
+            try:
+                game_state = player.make_move(game_state)
+            except InvalidMove as ex:
+                if self.error_handler:
+                    self.error_handler(ex)
 
     def get_current_player(self, game_state: GameState) -> Player:
         if game_state.current_mark is self.player1.mark:

@@ -1,6 +1,6 @@
 # frontends/play.py
 
-from tic_tac_toe.game_engine import TicTacToe
+from tic_tac_toe.game.engine import TicTacToe
 from tic_tac_toe.game.players import RandomComputerPlayer
 from tic_tac_toe.logic.models import Mark
 

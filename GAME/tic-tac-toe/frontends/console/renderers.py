@@ -12,7 +12,7 @@ class ConsoleRenderer(Renderer):
         clear_screen()
         if game_state.winner:
             print_blinking(game_state.grid.cells, game_state.winning_cells)
-            print(f'{game_state.winner} wins \N{party poppoer}')
+            print(f'{game_state.winner} wins \N{party popper}')
         else:
             print_solid(game_state.grid.cells)
             if game_state.tie:
