@@ -1,0 +1,139 @@
+(base) raylai@skynet-inspiron-15-3567:~/PycharmProjects/code_study/SQL/03_sqlite_db_example$ sqlite3
+SQLite version 3.30.0 2019-10-04 15:03:17
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> .show
+        echo: off
+         eqp: off
+     explain: auto
+     headers: off
+        mode: list
+   nullvalue: ""
+      output: stdout
+colseparator: "|"
+rowseparator: "\n"
+       stats: off
+       width:
+    filename: :memory:
+sqlite> .open sample.db
+sqlite> .headers on
+sqlite> .mode column
+sqlite> .show
+        echo: off
+         eqp: off
+     explain: auto
+     headers: on
+        mode: column
+   nullvalue: ""
+      output: stdout
+colseparator: "|"
+rowseparator: "\n"
+       stats: off
+       width:
+    filename: sample.db
+sqlite>
+sqlite> .table
+sqlite>
+sqlite> create table departments (id integer, name text);
+sqlite>
+sqlite> insert into departments values (1, 'Engineering');
+sqlite> insert into departments values (2, 'IT');
+sqlite> insert into departments values (3, 'Marketing');
+sqlite> insert into departments values (4, 'Sales');
+sqlite>
+sqlite> .table
+departments
+sqlite> .schema departments
+CREATE TABLE departments (id integer, name text);
+sqlite>
+sqlite>
+sqlite> create table employees (id integer, first text, last text, department_id integer, salary integer);
+sqlite> insert into employees values (1, 'John', 'Doe', 1, 80000);
+sqlite> insert into employees values (2, 'Jane', 'Doe', 2, 90000);
+sqlite> insert into employees values (3, 'John', 'Smith', 1, 85000);
+sqlite> insert into employees values (4, 'Mike', 'Malloy', 3, 82000);
+sqlite> insert into employees values (5, 'Aileen', 'Chen', 2, 100000);
+sqlite> insert into employees values (6, 'Violet', 'Minh', 1, 90000);
+sqlite> insert into employees values (7, 'Lucy', 'Anderson', 4, 78000);
+sqlite> insert into employees values (8, 'Lisa', 'Dinstill', 4, 80000);
+sqlite> insert into employees values (9, 'Katie', 'Sanero', 1, 82000);
+sqlite> insert into employees values (10, 'Sam', 'Teller', 2, 79000);
+sqlite>
+sqlite> .dump
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE departments (id integer, name text);
+INSERT INTO departments VALUES(1,'Engineering');
+INSERT INTO departments VALUES(2,'IT');
+INSERT INTO departments VALUES(3,'Marketing');
+INSERT INTO departments VALUES(4,'Sales');
+CREATE TABLE employees (id integer, first text, last text, department_id integer, salary integer);
+INSERT INTO employees VALUES(1,'John','Doe',1,80000);
+INSERT INTO employees VALUES(2,'Jane','Doe',2,90000);
+INSERT INTO employees VALUES(3,'John','Smith',1,85000);
+INSERT INTO employees VALUES(4,'Mike','Malloy',3,82000);
+INSERT INTO employees VALUES(5,'Aileen','Chen',2,100000);
+INSERT INTO employees VALUES(6,'Violet','Minh',1,90000);
+INSERT INTO employees VALUES(7,'Lucy','Anderson',4,78000);
+INSERT INTO employees VALUES(8,'Lisa','Dinstill',4,80000);
+INSERT INTO employees VALUES(9,'Katie','Sanero',1,82000);
+INSERT INTO employees VALUES(10,'Sam','Teller',2,79000);
+COMMIT;
+sqlite> .exit
+(base) raylai@skynet-inspiron-15-3567:~/PycharmProjects/code_study/SQL/03_sqlite_db_example$ ls
+department.db     employee.db     __init__.py  sample.db        sql_main.py  weather_db.py
+department_db.py  employee_db.py  __pycache__  sql_example.mwb  weather.db
+(base) raylai@skynet-inspiron-15-3567:~/PycharmProjects/code_study/SQL/03_sqlite_db_example$
+(base) raylai@skynet-inspiron-15-3567:~/PycharmProjects/code_study/SQL/03_sqlite_db_example$ sqlite3 sample.db
+SQLite version 3.30.0 2019-10-04 15:03:17
+Enter ".help" for usage hints.
+sqlite> .table
+departments  employees
+sqlite> .schema departments
+CREATE TABLE departments (id integer, name text);
+sqlite> .schema employees
+CREATE TABLE employees (id integer, first text, last text, department_id integer, salary integer);
+sqlite>
+sqlite> .headers on
+sqlite> .mode column
+sqlite>
+sqlite> select * from departments;
+id          name
+----------  -----------
+1           Engineering
+2           IT
+3           Marketing
+4           Sales
+sqlite>
+sqlite> select * from employees;
+id          first       last        department_id  salary
+----------  ----------  ----------  -------------  ----------
+1           John        Doe         1              80000
+2           Jane        Doe         2              90000
+3           John        Smith       1              85000
+4           Mike        Malloy      3              82000
+5           Aileen      Chen        2              100000
+6           Violet      Minh        1              90000
+7           Lucy        Anderson    4              78000
+8           Lisa        Dinstill    4              80000
+9           Katie       Sanero      1              82000
+10          Sam         Teller      2              79000
+sqlite>
+sqlite>
+sqlite> select e.id, e.first, e.last, d.name, e.salary
+   ...> from departments as d, employees as e
+   ...> where d.id = e.department_id;
+id          first       last        name         salary
+----------  ----------  ----------  -----------  ----------
+1           John        Doe         Engineering  80000
+3           John        Smith       Engineering  85000
+6           Violet      Minh        Engineering  90000
+9           Katie       Sanero      Engineering  82000
+2           Jane        Doe         IT           90000
+5           Aileen      Chen        IT           100000
+10          Sam         Teller      IT           79000
+4           Mike        Malloy      Marketing    82000
+7           Lucy        Anderson    Sales        78000
+8           Lisa        Dinstill    Sales        80000
+sqlite>

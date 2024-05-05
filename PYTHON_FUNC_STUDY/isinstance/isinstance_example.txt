@@ -1,0 +1,13 @@
+>>> s = 'test'
+>>> def is_str(s):
+        if type(s) == str:
+            return True
+        return False
+>>> is_str(s)
+True
+>>> is_str(23)
+False
+>>> isinstance(s, str)
+True
+>>> isinstance(23, str)
+False

@@ -1,0 +1,8 @@
+{
+  "header": {
+    "date": "08142023", "time": "15:35:26", "dut":  "excalibur", "sw_version": "3.4.2", "hw_version": "1.5"},
+  "product": {"memory":  "16GB", "ecc":  "enabled", "name_space":  "", "hdd": "128GB"}, 
+  "diag": {"sequence": "100", "poll_result": {"PMIC_BUCK1": "0", "PMIC_BUCK2": "3.0", "PMIC_BUCK3": "2.5", "current": [1.0, 2.0, 3.0]},
+  "fault": {"STS_ERR": [0, 0, 1], "STR_ERR":  [0, 1, 0], "STC_ERR": [0, 2, 1]}},
+  "result": "PASS"
+}

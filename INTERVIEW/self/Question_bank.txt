@@ -1,0 +1,76 @@
+"""
+Questions 1
+Design a banking class
+1. Keep track of the customer name, email, and account number
+2. Keep the account balance for the customer
+3. Create deposit and withdraw method
+
+Question 2
+Design code logic to determine which test sequence to execute at run time?
+
+    Pseudo-code:
+    if UUT needs to run 2C:
+        run sequence_1
+    else:
+        run sequence_2
+
+    sequence_1:
+        init()
+        boot()
+        run_bst()
+        run_2c()
+        reboot()
+        run sysft()
+        cleanup()
+
+    sequence_2
+        init()
+        boot()
+        run_bst()
+        run sysft()
+        cleanup()
+
+Question 3: Use the factory design pattern for the following code
+class carA:
+    def __init__(self, color, style=sedan)
+        self.color = color
+        self.style = style
+
+    def car_info(self):
+        print(f'This car is {self.color} with {style} body style')
+
+class carB:
+    def __init__(self, color, style=SUV)
+        self.color = color
+        self.style = style
+
+    def car_info(self):
+        print(f'This car is {self.color} with {style} body style')
+
+
+Question 4: Write a decorator to measure the time elapse for a function
+
+def boot_up():
+    sleep(4)
+    return 'UUT is booted'
+
+Question 5: How to read a file and display its content?
+
+
+Question 6: refactor the conditional statement below to not use if-else logic
+def decision(test_result: int):
+    if test_result < 10:
+        print('test_result is too small')
+    elif 10 <= test_result < 20:
+        print('test_result is just right')
+    elif test_result >= 20:
+        print('test_result is too big')
+    else:
+        print('no test_result')
+
+
+Question 7: How to remove all the "." from the following sentence and replace it with space? don't use string.replace method
+s = 'this.is.a.test.where.I.need.to.know.how.to.remove.the.dot?'
+
+
+"""
