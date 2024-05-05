@@ -1,4 +1,4 @@
-from PYTEST import fixture
+from pytest import fixture
 from config import Config
 
 
